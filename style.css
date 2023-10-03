@@ -8,8 +8,19 @@ html{
 }
 
 body{
-    height: 1024 px;
-    width: 1280 px;
+    height: 1024px;
     background: #F2F2F2;
     margin: auto;
 }
+
+header{
+    height: 80px;
+    background: #24365C;
+}
+
+aside{
+    height: 754px;
+    width: 110px;
+    background: #7C9EEF;
+}
+

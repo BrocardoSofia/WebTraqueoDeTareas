@@ -1,0 +1,23 @@
+.header{
+    background-color: #24365C;
+    margin: 0px 0px 0px 0px;
+    padding: 5px 7px 5px 7px;
+}
+
+#titulo{
+    color: #ECECFF;
+    font-size: 15pt;
+    font-weight: bold;
+    font-family: Helvetica, sans-serif;
+}
+
+.menuBox{
+    background-color: #7C9EEF;
+}
+
+.menu{
+    color: #ECECFF;
+    font-size: 12pt;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}

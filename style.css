@@ -1,3 +1,4 @@
+
 *{
     padding: 0px;
     margin: 0px;
@@ -18,9 +19,20 @@ header{
     background: #24365C;
 }
 
-aside{
-    height: 754px;
-    width: 110px;
+
+.sidebar{
+    height: 100%;
+    width: 100px;
+    box-sizing: border-box;
+    padding: 10px;
     background: #7C9EEF;
+    transition: ease-in-out 0.3s;
+    overflow: hidden;
 }
+
+.sidebar:hover{
+    width: 270px;
+}
+
+
 

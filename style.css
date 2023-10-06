@@ -8,6 +8,13 @@ html{
     background: #4D4D4D;
 }
 
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
 body{
     height: 1024px;
     background: #F2F2F2;
@@ -16,29 +23,45 @@ body{
 
 header{
     height: 80px;
+    grid-column: 1 / 4;
+    grid-row: 1;
     background: #24365C;
+    /*
+    position: fixed;*/
 }
 
+#hora{
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    grid-column: 3;
+    grid-row: 2 / 3;
+    background: #384666;
+}
 
 .sidebar{
-    height: 100%;
     width: 100px;
+    grid-column: 1;
+    grid-row: 2 / 5;
     box-sizing: border-box;
     padding: 10px;
     background: #7C9EEF;
+    /*
     transition: ease-in-out 0.3s;
     overflow: hidden;
+    position: fixed;*/
 }
 
+/*
 .sidebar:hover{
     width: 270px;
 }
 
-/*
-.sidebar:hover >.item >.item{
+
+.sidebar:hover .item .text{
     opacity: 1;
 }
-*/
+
 
 hr {
     height: 1px;
@@ -67,3 +90,4 @@ hr {
     white-space: nowrap;
 }
 
+*/

@@ -2,6 +2,7 @@
 *{
     padding: 0px;
     margin: 0px;
+    font-family: "Poppins", sans-serif;
 }
 
 html{
@@ -11,13 +12,12 @@ html{
 .wrapper {
     display: grid;
     grid-template-areas: 
-       "topbar topbar topbar"
-       "sidebar infoapp infoapp"
-       "sidebar weather pet"
-       "footer footer footer";
+       "infoapp infoapp"
+       "weather pet"
+       "footer footer";
 
-    grid-template-rows: 80px 331px 425px 190px;
-    grid-template-columns: 1fr 2fr 3fr;
+    grid-template-rows: 411px 425px 190px;
+    grid-template-columns: 2fr 3fr;
 }
 
 body{
@@ -27,21 +27,21 @@ body{
 }
 
 header{
-    
-    grid-area: topbar;
-    background: #24365C;
-    /*
     height: 80px;
-    position: fixed;*/
+    width: 100%;
+    position: fixed;
+    background: #24365C;
 }
 
 #hora{
+    margin-top: 80px;
     grid-area: infoapp;
     padding: 10px;
     background: #66384b;
 }
 
 #weather{
+    display: flex;
     grid-area: weather;
     padding: 10px;
     background: #4c3866;
@@ -51,6 +51,7 @@ header{
 }
 
 #pet{
+    display: flex;
     grid-area: pet;
     padding: 10px;
     background: #553866;
@@ -63,57 +64,3 @@ footer{
     grid-area: footer;
     background: #ce5c27;
 }
-
-.sidebar{
-    
-    grid-area:sidebar;
-    
-    box-sizing: border-box;
-    padding: 10px;
-    background: #7C9EEF;
-    /*
-    width: 100px;
-    transition: ease-in-out 0.3s;
-    overflow: hidden;
-    position: fixed;*/
-}
-
-/*
-.sidebar:hover{
-    width: 270px;
-}
-
-
-.sidebar:hover .item .text{
-    opacity: 1;
-}
-
-
-hr {
-    height: 1px;
-    color: #919191;
-    margin: 15px 0;
-}
-
-.item{
-    display: flex;
-    align-items: center;
-    margin: 20px 0;
-}
-
-.item .icon{
-    width: 40px;
-    height: 35px;
-    flex-shrink: 0;
-    fill: #424242;
-}
-
-.item .text{
-    opacity: 0;
-    transition: ease-in-out 0.3s;
-    transition-delay: .2s;
-    margin-left: 15px;
-    white-space: nowrap;
-}
-
-*/

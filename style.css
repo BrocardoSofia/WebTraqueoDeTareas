@@ -37,30 +37,24 @@ header{
     margin-top: 80px;
     grid-area: infoapp;
     padding: 10px;
-    background: #66384b;
+    background: #B4CBFF;
 }
 
 #weather{
     display: flex;
     grid-area: weather;
     padding: 10px;
-    background: #4c3866;
-    /*
-    width: 100px;
-    height: 100px;*/
+    background: #B4CBFF;
 }
 
 #pet{
     display: flex;
     grid-area: pet;
     padding: 10px;
-    background: #553866;
-    /*
-    width: 100px;
-    height: 100px;*/
+    background: #B4CBFF;
 }
 
 footer{
     grid-area: footer;
-    background: #ce5c27;
+    background: #3D5C9C;
 }

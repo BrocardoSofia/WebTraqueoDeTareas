@@ -39,9 +39,6 @@ header{
     grid-area: infoapp;
     padding: 10px;
     background: #66384b;
-    /*
-    width: 100px;
-    height: 100px;*/
 }
 
 #weather{

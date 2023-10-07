@@ -10,9 +10,14 @@ html{
 
 .wrapper {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
+    grid-template-areas: 
+       "topbar topbar topbar"
+       "sidebar infoapp infoapp"
+       "sidebar weather pet"
+       "footer footer footer";
+
+    grid-template-rows: 80px 331px 425px 190px;
+    grid-template-columns: 1fr 2fr 3fr;
 }
 
 body{
@@ -22,31 +27,55 @@ body{
 }
 
 header{
-    height: 80px;
-    grid-column: 1 / 4;
-    grid-row: 1;
+    
+    grid-area: topbar;
     background: #24365C;
     /*
+    height: 80px;
     position: fixed;*/
 }
 
 #hora{
-    width: 100px;
-    height: 100px;
+    grid-area: infoapp;
     padding: 10px;
-    grid-column: 3;
-    grid-row: 2 / 3;
-    background: #384666;
+    background: #66384b;
+    /*
+    width: 100px;
+    height: 100px;*/
+}
+
+#weather{
+    grid-area: weather;
+    padding: 10px;
+    background: #4c3866;
+    /*
+    width: 100px;
+    height: 100px;*/
+}
+
+#pet{
+    grid-area: pet;
+    padding: 10px;
+    background: #553866;
+    /*
+    width: 100px;
+    height: 100px;*/
+}
+
+footer{
+    grid-area: footer;
+    background: #ce5c27;
 }
 
 .sidebar{
-    width: 100px;
-    grid-column: 1;
-    grid-row: 2 / 5;
+    
+    grid-area:sidebar;
+    
     box-sizing: border-box;
     padding: 10px;
     background: #7C9EEF;
     /*
+    width: 100px;
     transition: ease-in-out 0.3s;
     overflow: hidden;
     position: fixed;*/

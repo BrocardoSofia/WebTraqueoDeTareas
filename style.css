@@ -1,6 +1,5 @@
 
 *{
-    padding: 0px;
     margin: 0px;
     font-family: "Poppins", sans-serif;
 }
@@ -27,10 +26,22 @@ body{
 }
 
 header{
-    height: 80px;
-    width: 100%;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;  
+    align-items: center;  
+
+    height: 50px;
+    width: 98%;
     position: fixed;
     background: #24365C;
+}
+
+#userImage{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;  
 }
 
 #hora{

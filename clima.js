@@ -11,7 +11,6 @@ class Weather{
 }
 
 async function getWeather(){
-    const url = ("https://api.openweathermap.org/data/2.5/weather?q=London&appid="+"a39bf665486281158ba6fa28b34147ce")
-    const options= {GET}
+    
 
 }

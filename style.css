@@ -35,7 +35,8 @@ header{
     height: 50px;
     width: 98%;
     position: fixed;
-    background: #24365C;
+    background: #151E59;
+    color: #ECECFF;
 }
 
 #userImage{
@@ -44,11 +45,39 @@ header{
     height: 50px;  
 }
 
-#hora{
+#info_app{
+    padding: 15px;
     margin-top: 80px;
     grid-area: infoapp;
     padding: 10px;
-    background: #B4CBFF;
+    background: #F2F2F2;
+
+    display: grid;
+    grid-template-areas: 
+       "info"
+       "hi_user";
+
+    grid-template-rows: 290px auto;
+}
+
+#info{
+    grid-area: info;
+    align-items: center;
+    background: #ACF1FF;
+    width: 100%;
+    border-radius: 20px;
+}
+
+#hello_user{
+    padding: 3px;
+    grid-area: hi_user;
+    color: #4D4D4D;
+}
+
+#tasky_img{
+    padding: 20px;
+    width: 250px;
+    height: 250px;
 }
 
 #weather{

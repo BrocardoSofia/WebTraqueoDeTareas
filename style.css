@@ -11,9 +11,8 @@ html{
 .wrapper {
     display: grid;
     grid-template-areas: 
-       "infoapp infoapp"
-       "weather pet"
-       "footer footer";
+       "infoapp"
+       "weather";
 
     grid-template-rows: 411px 425px 190px;
     grid-template-columns: 2fr 3fr;
@@ -99,14 +98,7 @@ header{
     display: flex;
     grid-area: weather;
     padding: 10px;
-    background: #B4CBFF;
-}
-
-#pet{
-    display: flex;
-    grid-area: pet;
-    padding: 10px;
-    background: #B4CBFF;
+    background: a#B4CBFF;
 }
 
 footer{

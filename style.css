@@ -13,7 +13,6 @@ html{
     grid-template-areas: 
        "infoapp"
        "weather";
-
     grid-template-rows: 411px 425px 190px;
     grid-template-columns: 2fr 3fr;
 }

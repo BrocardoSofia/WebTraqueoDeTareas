@@ -49,11 +49,11 @@ export class RegisterComponent {
     this.authService.registerUser(postData as User).subscribe(
       response => {
         console.log(response);
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Register successfully' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registro exitoso' });
         this.router.navigate(['login'])
       },
       error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Algo salió mal' });
       }
     )
   }

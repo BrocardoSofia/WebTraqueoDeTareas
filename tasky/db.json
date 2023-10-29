@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "fullName": "Sofia Brocardo",
+      "email": "sofia.brocardo@hotmail.com",
+      "password": "159",
+      "id": 1
+    },
+    {
+      "fullName": "Santiago Mancino",
+      "email": "santiagomancino34@gmail.com",
+      "password": "123",
+      "id": 2
+    }
+  ]
+}

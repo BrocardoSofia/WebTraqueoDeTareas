@@ -1,6 +1,8 @@
 <section id="fondo" class="flex justify-content-space-around align-items-center h-full">
+
   <img id="taskyImg" src="./assets/tasky.png" alt="">
-  <form [formGroup]="registerForm">
+
+  <form [formGroup]="registerForm" (ngSubmit)="submitDetails()">
     <p-card id="cardRegister" header="Register" [style]="{ width: '360px'}">
       <section class="field">
         <label for="fullName">Nombre Completo</label>
@@ -76,7 +78,8 @@
       <p-button
         label="Registrarme"
         styleClass="w-full"
-        [disabled]="registerForm.invalid">
+        [disabled]="registerForm.invalid"
+        type="submit">
       </p-button>
 
       <section class="mt-2">

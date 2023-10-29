@@ -13,8 +13,14 @@ export class LoginComponent {
   })
 
   constructor(private fb: FormBuilder)
-  {
+  {}
 
+  get email(){
+    return this.loginForm.controls['email'];
+  }
+
+  get password(){
+    return this.loginForm.controls['password'];
   }
 
 }

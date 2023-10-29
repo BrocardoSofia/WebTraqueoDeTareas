@@ -1,0 +1,10 @@
+#fondo{
+  background-color: #ACF1FF;
+}
+
+#taskyImg{
+  display: flex;
+  justify-content: flex-start;
+  width: 30%;
+  margin: 10em;
+}

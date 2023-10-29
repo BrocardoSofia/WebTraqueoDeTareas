@@ -1,1 +1,88 @@
-<p>register works!</p>
+<section id="fondo" class="flex justify-content-space-around align-items-center h-full">
+  <img id="taskyImg" src="./assets/tasky.png" alt="">
+  <form [formGroup]="registerForm">
+    <p-card id="cardRegister" header="Register" [style]="{ width: '360px'}">
+      <section class="field">
+        <label for="fullName">Nombre Completo</label>
+        <input
+          type="text"
+          pInputText
+          formControlName="fullName"
+          class="w-full"
+          name="fullName"
+          placeholder="Ingresa tu nombre"
+        />
+        <small *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)" class="block p-error">
+          <section *ngIf="fullName.errors?.['required']">Debe ingresar un nombre</section>
+          <section *ngIf="fullName.errors?.['pattern']">Nombre invalido</section>
+        </small>
+      </section>
+
+      <section class="field">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          pInputText
+          formControlName="email"
+          class="w-full"
+          name="email"
+          placeholder="ejemplo@email.com"
+        />
+        <small *ngIf="email.invalid && (email.dirty || email.touched)" class="block p-error">
+          <section *ngIf="email.errors?.['required']">Debe ingresar un email</section>
+          <section *ngIf="email.errors?.['email']">Email invalido</section>
+        </small>
+      </section>
+
+      <section class="field">
+        <label for="password">Contraseña</label>
+        <input
+          type="password"
+          pInputText
+          formControlName="password"
+          class="w-full"
+          name="password"
+          placeholder="*********"
+        />
+        <small *ngIf="password.invalid && (password.dirty || password.touched)"
+        class="block p-error">
+          <section *ngIf="password.errors?.['required']">Debe ingresar una contraseña</section>
+        </small>
+      </section>
+
+      <section class="field">
+        <label for="confirmPassword">Confirme su contraseña</label>
+        <input
+          type="password"
+          pInputText
+          formControlName="confirmPassword"
+          class="w-full"
+          name="confirmPassword"
+          placeholder="*********"
+        />
+        <small *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
+        class="block p-error">
+          <section *ngIf="confirmPassword.errors?.['required']">Debe volver a ingresar contraseña</section>
+        </small>
+        <small
+          class="block p-error"
+          *ngIf="registerForm.errors?.['passwordMismatch'] && confirmPassword.valid && password.valid"
+        >
+            Las contraseñas deben coincidir
+
+        </small>
+      </section>
+
+      <p-button
+        label="Registrarme"
+        styleClass="w-full"
+        [disabled]="registerForm.invalid">
+      </p-button>
+
+      <section class="mt-2">
+        ¿Ya tienes una cuenta? <a routerLink="/login">Iniciar sesión</a>
+      </section>
+
+    </p-card>
+  </form>
+</section>

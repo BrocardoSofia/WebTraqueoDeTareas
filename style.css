@@ -1,0 +1,106 @@
+
+*{
+    margin: 0px;
+    font-family: "Poppins", sans-serif;
+}
+
+html{
+    background: #4D4D4D;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-areas: 
+       "infoapp"
+       "weather";
+    grid-template-rows: 411px 425px 190px;
+    grid-template-columns: 2fr 3fr;
+}
+
+body{
+    height: 1024px;
+    background: #F2F2F2;
+    margin: auto;
+}
+
+header{
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;  
+    align-items: center;  
+
+    height: 50px;
+    width: 98%;
+    position: fixed;
+    background: #151E59;
+    color: #ECECFF;
+}
+
+#logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#nameTasky{
+    padding: 15px;
+}
+
+#imgLogo{
+    width: 50px;
+    height: 50px;
+}
+
+#userImage{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;  
+}
+
+#info_app{
+    padding: 15px;
+    margin-top: 80px;
+    grid-area: infoapp;
+    padding: 10px;
+    background: #F2F2F2;
+
+    display: grid;
+    grid-template-areas: 
+       "info"
+       "hi_user";
+
+    grid-template-rows: 290px auto;
+}
+
+#info{
+    grid-area: info;
+    align-items: center;
+    background: #ACF1FF;
+    width: 100%;
+    border-radius: 20px;
+}
+
+#hello_user{
+    padding: 3px;
+    grid-area: hi_user;
+    color: #4D4D4D;
+}
+
+#tasky_img{
+    padding: 20px;
+    width: 250px;
+    height: 250px;
+}
+
+#weather{
+    display: flex;
+    grid-area: weather;
+    padding: 10px;
+    background: a#B4CBFF;
+}
+
+footer{
+    grid-area: footer;
+    background: #3D5C9C;
+}

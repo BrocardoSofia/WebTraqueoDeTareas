@@ -1,1 +1,34 @@
-<p>login works!</p>
+<form [formGroup]="loginForm">
+  <p-card header="LOGIN" [style]="{ width: '360px'}">
+    <section class="field">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        pInputText
+        formControlName="email"
+        class="w-full"
+        name="email"
+        placeholder="ejemplo@email.com"
+      />
+    </section>
+    <section class="field">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        pInputText
+        formControlName="password"
+        class="w-full"
+        name="password"
+        placeholder="*********"
+      />
+    </section>
+
+
+    <p-button label="Iniciar sesión" styleClass="w-full"></p-button>
+
+    <section class="mt-2">
+      ¿No tienes una cuenta? <a routerLink="/register">Registrarme</a>
+    </section>
+
+  </p-card>
+</form>

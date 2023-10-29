@@ -13,25 +13,25 @@ export class RegisterComponent {
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     confirmPassword: ['', Validators.required]
-  },{
-    Validators: passwordMatchValidator
+  }, {
+    validators: passwordMatchValidator
   })
 
-  constructor(private fb:FormBuilder){}
+  constructor(private fb: FormBuilder) { }
 
-  get fullName(){
+  get fullName() {
     return this.registerForm.controls['fullName'];
   }
 
-  get email(){
+  get email() {
     return this.registerForm.controls['email'];
   }
 
-  get password(){
+  get password() {
     return this.registerForm.controls['password'];
   }
 
-  get confirmPassword(){
+  get confirmPassword() {
     return this.registerForm.controls['confirmPassword'];
   }
 }

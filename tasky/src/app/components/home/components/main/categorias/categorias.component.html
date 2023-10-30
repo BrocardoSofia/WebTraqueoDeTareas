@@ -4,13 +4,32 @@
   <!-- INGRESO DE NUEVAS CATEGORIAS -->
   <div class="input-group mb-3">
     <input type="text" class="form-control" placeholder="nueva categoria" name="categoria" [(ngModel)]="newCat">
-    <button class="btn btn-outline-secondary" type="button" (click)="agregarCat()">agregar</button>
+    <button class="btn btn-outline-secondary" type="button" (click)="agregarCategoria()">agregar</button>
   </div>
 
   <!-- LISTA DE CATEGORIAS -->
   <div class="input-group" *ngFor="let cat of catArr">
     <div>{{cat.nombre}}</div>
-    <button class="btn btn-outline-secondary" type="button">editar</button>
+    <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal"
+      data-bs-target="#exampleModal" (click)="call(cat)">editar</button>
     <button class="btn btn-outline-secondary" type="button" (click)="borrarCategoria(cat)">borrar</button>
   </div>
+
+  <!-- EDITAR UNA CATEGORIA -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Editar categoria</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" placeholder="nueva categoria" name="categoria" [(ngModel)]="editar">
+          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal" (click)="editarCategoria()">modificar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </div>

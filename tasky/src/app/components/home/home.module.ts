@@ -7,6 +7,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AsideComponent } from './components/aside/aside.component';
 import { ButtonModule } from 'primeng/button';
 import { InicioComponent } from './components/main/inicio/inicio.component';
+import { CategoriasComponent } from './components/main/categorias/categorias.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { InicioComponent } from './components/main/inicio/inicio.component';
     FooterComponent,
     AsideComponent,
     InicioComponent,
+    CategoriasComponent
   ],
   imports: [
     CommonModule,

@@ -9,6 +9,9 @@ import { ButtonModule } from 'primeng/button';
 import { InicioComponent } from './components/main/inicio/inicio.component';
 import { CategoriasComponent } from './components/main/categorias/categorias.component';
 
+import { InputTextModule } from 'primeng/inputtext';
+
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -21,7 +24,8 @@ import { CategoriasComponent } from './components/main/categorias/categorias.com
   imports: [
     CommonModule,
     HomeRoutingModule,
-    ButtonModule
+    ButtonModule,
+    InputTextModule
   ]
 })
 export class HomeModule { }

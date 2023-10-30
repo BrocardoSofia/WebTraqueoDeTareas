@@ -1,9 +1,5 @@
 export class Categoria{
-  private nombre: string
+  id : number = 0;
+  nombre : string = ""
 
-  constructor(nombre:string){
-    this.nombre = nombre;
-  }
-
-  getNombre(){return this.nombre}
 }

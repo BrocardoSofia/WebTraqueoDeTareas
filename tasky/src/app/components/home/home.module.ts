@@ -11,6 +11,9 @@ import { CategoriasComponent } from './components/main/categorias/categorias.com
 
 import { InputTextModule } from 'primeng/inputtext';
 
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { InputTextModule } from 'primeng/inputtext';
     CommonModule,
     HomeRoutingModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    HttpClientModule,
+    FormsModule
   ]
 })
 export class HomeModule { }

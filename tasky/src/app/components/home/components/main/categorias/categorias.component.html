@@ -1,1 +1,16 @@
-<h1>Mis categorias</h1>
+<div>
+  <h1>Mis categorias</h1>
+
+  <!-- INGRESO DE NUEVAS CATEGORIAS -->
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="nueva categoria" name="categoria" [(ngModel)]="newCat">
+    <button class="btn btn-outline-secondary" type="button" (click)="agregarCat()">agregar</button>
+  </div>
+
+  <!-- LISTA DE CATEGORIAS -->
+  <div class="input-group" *ngFor="let cat of catArr">
+    <div>{{cat.nombre}}</div>
+    <button class="btn btn-outline-secondary" type="button">editar</button>
+    <button class="btn btn-outline-secondary" type="button" (click)="borrarCategoria(cat)">borrar</button>
+  </div>
+</div>

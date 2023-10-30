@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 
+
 const routes: Routes = [
   {
     path: 'login',
@@ -14,8 +15,10 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
+    //ACLARO LA RUTA Y EL MODULO A CARGAR
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    loadChildren : () => import('./components/home/home.module').then(m => m.HomeModule)
   },
   {
     path: '', redirectTo: 'login', pathMatch: 'full'

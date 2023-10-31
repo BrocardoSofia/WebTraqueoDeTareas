@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Categoria } from './Categoria';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { FormGroup,FormControl,Validators } from '@angular/forms';
-import { CustomValidators } from './customValidators';
 
 @Component({
   selector: 'app-categorias',
@@ -13,15 +12,12 @@ export class CategoriasComponent {
 
   //VALIDACION AL AGREGAR UNA NUEVA CATEGORIA
   nuevaCategoriaForm = new FormGroup({
-    nombre : new FormControl('',[Validators.maxLength(20)],)
-
-    //[ CustomValidators.emailExists(this.studentAsyncService)]
+    nombre : new FormControl('',[Validators.maxLength(20)])
   })
 
   get nombre(){
     return this.nuevaCategoriaForm.get('nombre')
   }
-
 
   //CRUD CATEGORIAS
   catObj : Categoria = new Categoria();

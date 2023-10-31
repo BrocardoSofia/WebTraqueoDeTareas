@@ -1,0 +1,46 @@
+
+*{
+  margin: 0px;
+  font-family: "Poppins", sans-serif;
+}
+
+header{
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 60px;
+  width: 100%;
+  /*position: fixed;*/
+  background: #151E59;
+  color: #ECECFF;
+}
+
+#logo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#nameTasky{
+  padding: 15px;
+}
+
+#imgLogo{
+  width: 50px;
+  height: 50px;
+}
+
+#userImage{
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+#tasky_img{
+  padding: 20px;
+  width: 250px;
+  height: 250px;
+}

@@ -6,7 +6,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AsideComponent } from './components/aside/aside.component';
 import { ButtonModule } from 'primeng/button';
-import { MainComponent } from './components/main/main.component';
 import { InicioComponent } from './components/main/inicio/inicio.component';
 import { CategoriasComponent } from './components/main/categorias/categorias.component';
 import { TareasComponent } from './components/main/tareas/tareas.component';
@@ -22,7 +21,6 @@ import { EstadisticasComponent } from './components/main/estadisticas/estadistic
     HeaderComponent,
     FooterComponent,
     AsideComponent,
-    MainComponent,
     InicioComponent,
     CategoriasComponent,
     TareasComponent,

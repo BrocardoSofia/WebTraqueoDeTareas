@@ -11,6 +11,12 @@
       "email": "santiagomancino34@gmail.com",
       "password": "123",
       "id": 2
+    },
+    {
+      "fullName": "Hola mundo",
+      "email": "sofiabrocardo.dev@gmail.com",
+      "password": "123456",
+      "id": 3
     }
   ]
 }

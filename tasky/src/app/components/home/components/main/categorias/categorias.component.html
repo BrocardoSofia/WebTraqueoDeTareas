@@ -2,23 +2,32 @@
   <h1>Mis categorias</h1>
 
   <!-- INGRESO DE NUEVAS CATEGORIAS -->
-  <form [formGroup]="nuevaCategoriaForm" >
+  <form [formGroup]="nuevaCategoriaForm">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="nueva categoria" formControlName="nombre" name="categoria" [(ngModel)]="newCat">
-      <button [disabled]="nuevaCategoriaForm.invalid" class="btn btn-outline-secondary" type="button" (click)="agregarCategoria()">agregar</button>
+      <input autocomplete="off" type="text" class="form-control" placeholder="nueva categoria" formControlName="nombre"
+        name="categoria" [(ngModel)]="newCat">
+      <button [disabled]="nuevaCategoriaForm.invalid" class="btn btn-outline-secondary" type="button"
+        (click)="agregarCategoria()">agregar</button>
     </div>
-    <span style="color: red;" *ngIf="nombre && nombre.invalid">Maximo de caracteres alcanzado</span>
+    <!-- VALIDACION REACTIVA -->
+    <span style="color: red;" *ngIf="nombre && nombre.invalid">Maximo de caracteres alcanzados</span>
+
   </form>
 
+  <!-- ALERTS -->
+  <div *ngIf="advertir" class="card">
+    <p-messages [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [(value)]="advertencia"
+      [enableService]="false" [closable]="false"></p-messages>
+  </div>
+
+  <br><br><br>
 
   <!-- LISTA DE CATEGORIAS -->
   <div class="input-group" *ngFor="let cat of catArr">
     <div></div>
-    <div class="card">
-      <div class="card-body">{{cat.nombre}}</div>
-    </div>
-    <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal"
-      data-bs-target="#exampleModal" (click)="call(cat)">editar</button>
+    <li type="text" class="form-control">{{cat.nombre}}</li>
+    <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+      (click)="call(cat)">editar</button>
     <button class="btn btn-outline-secondary" type="button" (click)="borrarCategoria(cat)">borrar</button>
   </div>
 
@@ -31,12 +40,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input type="text" class="form-control" placeholder="nueva categoria" name="categoria" [(ngModel)]="editar">
-          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal" (click)="editarCategoria()">modificar</button>
+          <input autocomplete="off" type="text" class="form-control" name="categoria" [(ngModel)]="editar">
+          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal"
+            (click)="editarCategoria()">modificar</button>
         </div>
-
       </div>
     </div>
   </div>
-
 </div>

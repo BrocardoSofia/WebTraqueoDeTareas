@@ -1,9 +1,3 @@
 {
-  "categorias": [
-    {
-      "id": 1,
-      "nombre": "a",
-      "email": ""
-    }
-  ]
+  "categorias": []
 }

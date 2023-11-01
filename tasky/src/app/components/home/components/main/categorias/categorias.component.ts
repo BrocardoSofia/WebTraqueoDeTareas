@@ -10,7 +10,6 @@ import {
 import { AbstractControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { OnInit, Input } from '@angular/core';
-import { email } from '../../../../login/login.component';
 import { LoginComponent } from 'src/app/components/login/login.component';
 
 @Component({
@@ -33,8 +32,6 @@ export class CategoriasComponent {
   catArr: Categoria[] = [];
   newCat: string = '';
   editar: string = '';
-  @Input()
-  email : string = '';
 
   constructor(private categoriasService: CategoriasService, private authService: AuthService) {}
 

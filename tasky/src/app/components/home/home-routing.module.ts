@@ -7,6 +7,7 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 import { ConfAguaComponent } from './components/conf-agua/conf-agua.component';
 import { ConfEjercicioComponent } from './components/conf-ejercicio/conf-ejercicio.component';
 import { ConfPomodoroComponent } from './components/conf-pomodoro/conf-pomodoro.component';
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'inicio', pathMatch: 'full'},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'usuario', component: UsuarioComponent},
   {path: 'conf-agua', component: ConfAguaComponent},
   {path: 'conf-ejercicio', component: ConfEjercicioComponent},
-  {path: 'conf-pomodoro', component: ConfPomodoroComponent}
+  {path: 'conf-pomodoro', component: ConfPomodoroComponent},
+  {path: 'estadisticas', component: EstadisticasComponent},
 ];
 
 @NgModule({

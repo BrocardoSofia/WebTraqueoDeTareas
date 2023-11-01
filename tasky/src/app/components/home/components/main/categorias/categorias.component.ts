@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Categoria } from './Categoria';
 import { CategoriasService } from 'src/app/services/categorias.service';
-import { FormGroup,FormControl,Validators } from '@angular/forms';
+import { FormGroup,FormControl,Validators, ValidatorFn } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-categorias',
@@ -44,13 +45,29 @@ export class CategoriasComponent {
   }
 
   agregarCategoria(){
-    this.catObj.nombre = this.newCat;
-    this.categoriasService.agregarCategoria(this.catObj).subscribe(res =>{
-      this.ngOnInit();
-      this.newCat = '';
-    },e => {
-      alert(e);
-    })
+
+    let flag = 0;
+
+    //VALIDACION DE QUE NO EXISTA LA CATEGORIA
+    //habria que validar si esta vacio?
+    this.catArr.forEach( c => {
+      if(c.nombre.toUpperCase() == this.newCat.toUpperCase()){
+          flag = 1;
+      }
+    } )
+
+    if(!flag){
+      this.catObj.nombre = this.newCat;
+
+      this.categoriasService.agregarCategoria(this.catObj).subscribe(res =>{
+        this.ngOnInit();
+        this.newCat = '';
+      },e => {
+        alert(e);
+      })
+    }else {
+      alert('Esa categoria ya existe');
+    }
   }
 
   editarCategoria(){

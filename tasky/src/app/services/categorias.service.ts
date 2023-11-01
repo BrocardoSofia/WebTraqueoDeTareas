@@ -11,7 +11,7 @@ export class CategoriasService {
   serviceURL : string;
 
   constructor(private http : HttpClient) {
-    this.serviceURL = "http://localhost:3000/categorias"
+    this.serviceURL = "http://localhost:4000/categorias"
   }
 
   agregarCategoria(categoria : Categoria) : Observable<Categoria>{
@@ -28,5 +28,9 @@ export class CategoriasService {
 
   editarCategoria(categoria : Categoria) : Observable<Categoria>{
     return this.http.put<Categoria>(this.serviceURL+'/'+categoria.id,categoria)
+  }
+
+  existeCategoria(categoria : Categoria){
+    //retorno un booleano
   }
 }

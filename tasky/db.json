@@ -17,6 +17,24 @@
       "email": "sofiabrocardo.dev@gmail.com",
       "password": "123456",
       "id": 3
+    },
+    {
+      "fullName": "pepe argento",
+      "email": "argento@gmail.com",
+      "password": "123",
+      "id": 4
+    },
+    {
+      "fullName": "vani pintos",
+      "email": "vani@gmail.com",
+      "password": "123",
+      "id": 5
+    },
+    {
+      "fullName": "vani pintos",
+      "email": "vani@gmail.com",
+      "password": "123",
+      "id": 6
     }
   ]
 }

@@ -7,15 +7,5 @@
 #landingPage{
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-areas: 'header','main';
 }
 
-#header{
-  grid-area: header;
-}
-
-#main{
-  margin-top: 60px;
-  grid-area: main;
-}

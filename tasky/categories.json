@@ -1,8 +1,12 @@
 {
   "categorias": [
     {
-      "id": 1,
-      "nombre": "cate 1"
+      "id": 6,
+      "nombre": "categoria"
+    },
+    {
+      "id": 7,
+      "nombre": "categoria"
     }
   ]
 }

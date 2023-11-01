@@ -8,6 +8,10 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { OnInit, Input } from '@angular/core';
+import { email } from '../../../../login/login.component';
+import { LoginComponent } from 'src/app/components/login/login.component';
 
 @Component({
   selector: 'app-categorias',
@@ -29,8 +33,10 @@ export class CategoriasComponent {
   catArr: Categoria[] = [];
   newCat: string = '';
   editar: string = '';
+  @Input()
+  email : string = '';
 
-  constructor(private categoriasService: CategoriasService) {}
+  constructor(private categoriasService: CategoriasService, private authService: AuthService) {}
 
   ngOnInit(): void {
     (this.editar = ''), (this.newCat = ''), (this.catObj = new Categoria());
@@ -39,6 +45,7 @@ export class CategoriasComponent {
   }
 
   getCategorias() {
+
     this.categoriasService.getCategorias().subscribe(
       (res) => {
         this.catArr = res;

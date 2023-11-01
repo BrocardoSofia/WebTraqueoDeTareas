@@ -45,7 +45,6 @@ export class LoginComponent {
       error => {
         this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Algo salió mal' });
       }
-
     )
   }
 

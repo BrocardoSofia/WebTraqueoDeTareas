@@ -1,5 +1,5 @@
 export class Categoria{
   id : number = 0;
   nombre : string = ""
-
+  email : string = ''
 }

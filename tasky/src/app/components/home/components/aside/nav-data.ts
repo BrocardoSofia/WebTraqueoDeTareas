@@ -15,19 +15,9 @@ export const navbarData = [
     label: 'Estadisticas'
   },
   {
-    routeLink: 'conf-pomodoro',
-    icon: 'pi pi-hourglass',
-    label: 'Temporizador de descanso'
-  },
-  {
-    routeLink: 'conf-ejercicio',
-    icon: 'pi pi-heart',
-    label: 'Temporizador de ejercicio'
-  },
-  {
-    routeLink: 'conf-agua',
+    routeLink: 'configuracion',
     icon: 'pi pi-cog',
-    label: 'Temporizador de agua'
+    label: 'Configuracion'
   },
   {
     routeLink: 'usuario',

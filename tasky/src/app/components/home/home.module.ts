@@ -9,12 +9,10 @@ import { ButtonModule } from 'primeng/button';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { TareasComponent } from './components/tareas/tareas.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
-import { ConfAguaComponent } from './components/conf-agua/conf-agua.component';
-import { ConfEjercicioComponent } from './components/conf-ejercicio/conf-ejercicio.component';
-import { ConfPomodoroComponent } from './components/conf-pomodoro/conf-pomodoro.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 import { BodyComponent } from './components/body/body.component';
+import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +23,10 @@ import { BodyComponent } from './components/body/body.component';
     InicioComponent,
     CategoriasComponent,
     TareasComponent,
-    ConfAguaComponent,
-    ConfEjercicioComponent,
-    ConfPomodoroComponent,
     UsuarioComponent,
     EstadisticasComponent,
-    BodyComponent
+    BodyComponent,
+    ConfiguracionComponent
   ],
   imports: [
     CommonModule,

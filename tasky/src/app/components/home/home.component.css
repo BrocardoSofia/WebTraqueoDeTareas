@@ -5,7 +5,17 @@
 }
 
 #landingPage{
-  margin: 0;
-  padding: 0;
+  display: grid;
+  grid-template-areas:
+    'header',
+    'body';
+}
+
+#header{
+  grid-area: header;
+}
+
+#body{
+  grid-area: body;
 }
 

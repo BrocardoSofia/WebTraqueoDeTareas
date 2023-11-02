@@ -3,6 +3,7 @@ import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/
 import { ButtonModule } from 'primeng/button';
 import { navbarData } from './nav-data';
 
+
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
@@ -68,4 +69,6 @@ export class AsideComponent  implements OnInit {
     this.collapsed = false;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
   }
+
+
 }

@@ -3,19 +3,3 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
-
-#landingPage{
-  display: grid;
-  grid-template-areas:
-    'header',
-    'body';
-}
-
-#header{
-  grid-area: header;
-}
-
-#body{
-  grid-area: body;
-}
-

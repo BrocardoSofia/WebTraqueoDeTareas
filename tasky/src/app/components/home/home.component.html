@@ -1,21 +1,6 @@
-<section id="landingPage">
+<app-aside (onToggleSideNav)="onToggleSideNav($event)"></app-aside>
 
-  <section id="header">
-   <!--<app-header></app-header>-->
-  </section>
-
-
-  <section id="aside">
-    <app-aside></app-aside>
-  </section>
-
-  <section id="main">
-    <app-categorias></app-categorias>
-  </section>
-
-  <section id="footer">
-    <app-footer></app-footer>
-  </section>
-
-
-</section>
+<app-body
+    [collapsed]="isSideNavCollapsed"
+    [screenWidth]="screenWidth"
+></app-body>

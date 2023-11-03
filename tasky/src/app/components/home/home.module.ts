@@ -42,7 +42,7 @@ import { MessagesModule } from 'primeng/messages';
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
-    
+    MessagesModule
   ]
 })
 export class HomeModule { }

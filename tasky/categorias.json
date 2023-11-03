@@ -1,3 +1,14 @@
 {
-  "categorias": []
+  "categorias": [
+    {
+      "id": 1,
+      "nombre": "1",
+      "email": ""
+    },
+    {
+      "id": 2,
+      "nombre": "2",
+      "email": ""
+    }
+  ]
 }

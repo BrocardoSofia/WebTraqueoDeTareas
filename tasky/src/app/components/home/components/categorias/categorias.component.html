@@ -1,2 +1,42 @@
-<p>categorias works!</p>
+<div>
+  <h1>Mis categorias</h1>
 
+  <!-- INGRESO DE NUEVAS CATEGORIAS -->
+  <form [formGroup]="nuevaCategoriaForm" >
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="nueva categoria" formControlName="nombre" name="categoria" [(ngModel)]="newCat">
+      <button [disabled]="nuevaCategoriaForm.invalid" class="btn btn-outline-secondary" type="button" (click)="agregarCategoria()">agregar</button>
+    </div>
+    <span style="color: red;" *ngIf="nombre && nombre.invalid">Maximo de caracteres alcanzado</span>
+  </form>
+
+
+  <!-- LISTA DE CATEGORIAS -->
+  <div class="input-group" *ngFor="let cat of catArr">
+    <div></div>
+    <div class="card">
+      <div class="card-body">{{cat.nombre}}</div>
+    </div>
+    <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal"
+      data-bs-target="#exampleModal" (click)="call(cat)">editar</button>
+    <button class="btn btn-outline-secondary" type="button" (click)="borrarCategoria(cat)">borrar</button>
+  </div>
+
+  <!-- EDITAR UNA CATEGORIA -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Editar categoria</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" placeholder="nueva categoria" name="categoria" [(ngModel)]="editar">
+          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal" (click)="editarCategoria()">modificar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

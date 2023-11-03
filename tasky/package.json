@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "server-categorias" : "json-server --watch categorias.json --port 4000",
+    "server-usuarios" : "json-server --watch db.json --port 3000"
   },
   "private": true,
   "dependencies": {

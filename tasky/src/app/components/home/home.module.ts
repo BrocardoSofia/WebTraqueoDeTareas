@@ -14,6 +14,12 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
 import { BodyComponent } from './components/body/body.component';
 import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessagesModule } from 'primeng/messages';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -31,7 +37,12 @@ import { ConfiguracionComponent } from './components/configuracion/configuracion
   imports: [
     CommonModule,
     HomeRoutingModule,
-    ButtonModule
+    ButtonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    MessagesModule
   ]
 })
 export class HomeModule { }

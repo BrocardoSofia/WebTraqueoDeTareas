@@ -6,7 +6,9 @@
 
 header{
   padding: 15px;
+  position: fixed;
   display: flex;
+  z-index: 2;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;

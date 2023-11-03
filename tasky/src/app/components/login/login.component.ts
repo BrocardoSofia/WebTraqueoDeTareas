@@ -7,45 +7,53 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  emailRecibido: string = '';
+
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
-  })
+    password: ['', Validators.required],
+  });
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private msgService: MessageService
-  )
-  {}
+  ) {}
 
-  get email(){
+  get email() {
     return this.loginForm.controls['email'];
   }
 
-  get password(){
+  get password() {
     return this.loginForm.controls['password'];
   }
 
   loginUser() {
     const { email, password } = this.loginForm.value;
     this.authService.getUserByEmail(email as string).subscribe(
-      response => {
+      (response) => {
         if (response.length > 0 && response[0].password === password) {
           sessionStorage.setItem('email', email as string);
           this.router.navigate(['/home']);
         } else {
-          this.msgService.add({ severity: 'error', summary: 'Error', detail: 'email y/o password incorrectos' });
+          this.msgService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'email y/o password incorrectos',
+          });
         }
       },
-      error => {
-        this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Algo salió mal' });
+      (error) => {
+        this.msgService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Algo salió mal',
+        });
       }
-    )
+    );
   }
-
 }

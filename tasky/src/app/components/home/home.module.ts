@@ -10,10 +10,12 @@ import { InicioComponent } from './components/main/inicio/inicio.component';
 import { CategoriasComponent } from './components/main/categorias/categorias.component';
 
 import { InputTextModule } from 'primeng/inputtext';
+import { MessagesModule } from 'primeng/messages';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TareasComponent } from './components/main/tareas/tareas.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     AsideComponent,
     InicioComponent,
-    CategoriasComponent
+    CategoriasComponent,
+    TareasComponent,
+
   ],
   imports: [
     CommonModule,
@@ -32,7 +36,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     InputTextModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MessagesModule
   ]
 })
 export class HomeModule { }

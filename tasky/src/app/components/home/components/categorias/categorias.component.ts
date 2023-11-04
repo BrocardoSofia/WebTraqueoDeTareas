@@ -57,10 +57,10 @@ export class CategoriasComponent {
       this.updateMensajeAdvertencia('Nombre de categoria no valido')
       this.advertir = true;
     } else {
-      this.advertir = false;
       this.catObj.nombre = this.newCat;
       this.categoriasService.agregarCategoria(this.catObj).subscribe(
         (res) => {
+          this.advertir = false;
           this.ngOnInit();
           this.newCat = '';
         },
@@ -82,6 +82,7 @@ export class CategoriasComponent {
       this.catObj.nombre = this.editar;
       this.categoriasService.editarCategoria(this.catObj).subscribe(
         (res) => {
+          this.advertir = false;
           this.ngOnInit();
         },
         (e) => {
@@ -95,6 +96,7 @@ export class CategoriasComponent {
   borrarCategoria(c: Categoria) {
     this.categoriasService.borrarCategoria(c).subscribe(
       (res) => {
+        this.advertir = false;
         this.ngOnInit();
       },
       (e) => {

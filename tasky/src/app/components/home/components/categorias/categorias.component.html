@@ -16,10 +16,9 @@
 
   <!-- ALERTS -->
   <div *ngIf="advertir" class="contenedor-error">
-    <p-messages [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [(value)]="advertencia"
-      [enableService]="false" [closable]="false"></p-messages>
+    <p-messages [showTransitionOptions]="'500ms'" [(value)]="advertencia"
+      [enableService]="false" [closable]="true"></p-messages>
   </div>
-
 
   <!-- LISTA DE CATEGORIAS -->
   <div class="lista-de-categorias">

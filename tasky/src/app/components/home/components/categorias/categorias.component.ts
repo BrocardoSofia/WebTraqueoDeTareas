@@ -35,9 +35,9 @@ export class CategoriasComponent {
   mensaje: string = '';
   advertir: boolean = false;
 
-  showModal:boolean = false;
+  showModal: boolean = false;
 
-  constructor(private categoriasService: CategoriasService) {}
+  constructor(private categoriasService: CategoriasService) { }
 
   getCategorias() {
     this.categoriasService.getCategorias().subscribe(
@@ -55,7 +55,7 @@ export class CategoriasComponent {
     if (this.existe(this.newCat)) {
       this.updateMensajeAdvertencia('Esa categoria ya existe')
       this.advertir = true;
-    }else if(this.vacio(this.newCat) || this.newCat.length == 0){
+    } else if (this.vacio(this.newCat) || this.newCat.length == 0) {
       this.updateMensajeAdvertencia('Nombre de categoria no valido')
       this.advertir = true;
     } else {
@@ -79,7 +79,7 @@ export class CategoriasComponent {
     if (this.existe(this.editar)) {
       this.updateMensajeAdvertencia('Esa categoria ya existe')
       this.advertir = true;
-    }else if(this.vacio(this.editar) || this.editar.length == 0){
+    } else if (this.vacio(this.editar) || this.editar.length == 0) {
       this.updateMensajeAdvertencia('Nombre de categoria no valido')
       this.advertir = true;
     } else {
@@ -130,7 +130,7 @@ export class CategoriasComponent {
   }
 
   //VALIDACION DE ESPACIOS EN BLANCO
-  vacio(nombreCat: string): boolean{
+  vacio(nombreCat: string): boolean {
 
     const regex = /^(\s+\S+\s*)*(?!\s).*$/;
 
@@ -152,7 +152,7 @@ export class CategoriasComponent {
   }
 
   //UPDATE DEL MENSAJE DE ALERT
-  updateMensajeAdvertencia(m : string){
+  updateMensajeAdvertencia(m: string) {
     this.advertencia = [
       {
         severity: 'error',

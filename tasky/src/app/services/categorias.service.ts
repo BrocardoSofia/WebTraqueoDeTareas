@@ -29,8 +29,4 @@ export class CategoriasService {
   editarCategoria(categoria : Categoria) : Observable<Categoria>{
     return this.http.put<Categoria>(this.serviceURL+'/'+categoria.id,categoria)
   }
-
-  existeCategoria(categoria : Categoria){
-    //retorno un booleano
-  }
 }

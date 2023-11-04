@@ -86,6 +86,10 @@ h1 {
   border: none;
 }
 
+.input-group:hover{
+  cursor: pointer;
+}
+
 .input-group button{
   background-color: white;
   border: none;

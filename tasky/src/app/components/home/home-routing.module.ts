@@ -6,11 +6,13 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
+import { TareasComponent } from './components/tareas/tareas.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'inicio', pathMatch: 'full'},
   {path: 'inicio', component: InicioComponent},
   {path: 'categorias', component: CategoriasComponent},
+  {path: 'categorias/tareas', component: TareasComponent},
   {path: 'usuario', component: UsuarioComponent},
   {path: 'configuracion', component: ConfiguracionComponent},
   {path: 'estadisticas', component: EstadisticasComponent},

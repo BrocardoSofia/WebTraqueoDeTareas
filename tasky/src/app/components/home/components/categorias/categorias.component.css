@@ -1,0 +1,94 @@
+.contenedor-principal {
+  background-color: #ACF1FF;
+  border-radius: .4rem;
+  margin: 0;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* ESTILOS DEL FORM DE NUEVA CATEGORIA */
+h1 {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 3rem;
+  border-radius: 0.4rem;
+  margin-bottom: 2rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 3rem;
+  color: #151E59;
+  text-align: center;
+}
+
+.ingreso-nueva-categoria {
+  display: flex;
+  justify-content: end;
+}
+
+.ingreso-nueva-categoria input {
+  width: 20rem;
+  border-radius: .4rem;
+  margin-right: 1rem;
+  padding: .7rem;
+  background-color: white;
+  font-family: 'Poppins', sans-serif;
+  color: gray;
+}
+
+.ingreso-nueva-categoria button {
+  border-radius: .4rem;
+  background-color: white;
+  border: none;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  color: #151E59;
+}
+
+.form-nuevas-categorias {
+  margin-bottom: 2rem;
+}
+
+.form-nuevas-categorias p {
+  display: flex;
+  justify-content: end;
+  margin: 0;
+  margin-right: 8.5rem;
+}
+
+/* ESTILOS DE LA ALERTA DE ERROR */
+.contenedor-error {
+  border: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+/*  ESTILOS DE LA LISTA DE LAS CATEGORIAS */
+.lista-de-categorias {
+  margin: 0;
+  padding: 0;
+}
+
+.input-group{
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.input-group li{
+  background-color: white;
+  padding: .8rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem;
+  color: #151E59;
+  border-radius: .4rem;
+  border: none;
+}
+
+.input-group button{
+  background-color: white;
+  border: none;
+  color: #151E59;
+  padding: .5rem .8rem;
+  border-radius: .4rem;
+}
+
+

@@ -1,25 +1,35 @@
-<div>
+<div class="contenedor-principal">
   <h1>Mis categorias</h1>
 
   <!-- INGRESO DE NUEVAS CATEGORIAS -->
-  <form [formGroup]="nuevaCategoriaForm" >
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="nueva categoria" formControlName="nombre" name="categoria" [(ngModel)]="newCat">
-      <button [disabled]="nuevaCategoriaForm.invalid" class="btn btn-outline-secondary" type="button" (click)="agregarCategoria()">agregar</button>
+  <form [formGroup]="nuevaCategoriaForm" class="form-nuevas-categorias">
+    <div class="ingreso-nueva-categoria">
+      <input autocomplete="off" type="text" class="form-control" placeholder="nueva categoria" formControlName="nombre"
+        name="categoria" [(ngModel)]="newCat">
+      <button [disabled]="nuevaCategoriaForm.invalid" class="btn btn-outline-secondary" type="button"
+        (click)="agregarCategoria()" style="background-color: none;"><i class=" pi pi-plus"
+          style="font-size: 1.6rem"></i></button>
     </div>
-    <span style="color: red;" *ngIf="nombre && nombre.invalid">Maximo de caracteres alcanzado</span>
+    <!-- VALIDACION REACTIVA -->
+    <p style="color: red;" *ngIf="nombre && nombre.invalid">Maximo de caracteres alcanzados</p>
   </form>
+
+  <!-- ALERTS -->
+  <div *ngIf="advertir" class="contenedor-error">
+    <p-messages [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [(value)]="advertencia"
+      [enableService]="false" [closable]="false"></p-messages>
+  </div>
 
 
   <!-- LISTA DE CATEGORIAS -->
-  <div class="input-group" *ngFor="let cat of catArr">
-    <div></div>
-    <div class="card">
-      <div class="card-body">{{cat.nombre}}</div>
+  <div class="lista-de-categorias">
+    <div class="input-group" *ngFor="let cat of catArr">
+      <li type="text" class="form-control">{{cat.nombre}}</li>
+      <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        (click)="call(cat)"> <i class=" pi pi-pencil" style="font-size: 1.5rem"></i> </button>
+      <button type="button" (click)="borrarCategoria(cat)"><i class=" pi pi-trash"
+          style="font-size: 1.5rem"></i></button>
     </div>
-    <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal"
-      data-bs-target="#exampleModal" (click)="call(cat)">editar</button>
-    <button class="btn btn-outline-secondary" type="button" (click)="borrarCategoria(cat)">borrar</button>
   </div>
 
   <!-- EDITAR UNA CATEGORIA -->
@@ -31,12 +41,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input type="text" class="form-control" placeholder="nueva categoria" name="categoria" [(ngModel)]="editar">
-          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal" (click)="editarCategoria()">modificar</button>
+          <input autocomplete="off" type="text" class="form-control" name="categoria" [(ngModel)]="editar">
+          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal"
+            (click)="editarCategoria()">modificar</button>
         </div>
-
       </div>
     </div>
   </div>
-
 </div>

@@ -4,13 +4,9 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 import {
   FormGroup,
   FormControl,
-  Validators,
-  ValidatorFn,
+  Validators
 } from '@angular/forms';
-import { AbstractControl } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { OnInit, Input } from '@angular/core';
-import { LoginComponent } from 'src/app/components/login/login.component';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-categorias',
@@ -18,6 +14,7 @@ import { LoginComponent } from 'src/app/components/login/login.component';
   styleUrls: ['./categorias.component.css'],
 })
 export class CategoriasComponent {
+
   //VALIDACION REACTIVA AL AGREGAR UNA NUEVA CATEGORIA
   nuevaCategoriaForm = new FormGroup({
     nombre: new FormControl('', [Validators.maxLength(20)]),
@@ -33,30 +30,34 @@ export class CategoriasComponent {
   newCat: string = '';
   editar: string = '';
 
-  constructor(private categoriasService: CategoriasService, private authService: AuthService) {}
+  //mensaje de advertencia
+  advertencia: Message[] = [];
+  mensaje: string = '';
+  advertir: boolean = false;
 
-  ngOnInit(): void {
-    (this.editar = ''), (this.newCat = ''), (this.catObj = new Categoria());
-    this.catArr = [];
-    this.getCategorias();
-  }
+  constructor(private categoriasService: CategoriasService) {}
 
   getCategorias() {
-
     this.categoriasService.getCategorias().subscribe(
       (res) => {
         this.catArr = res;
       },
       (e) => {
-        alert('No es posible cargar las categorias');
+        this.updateMensajeAdvertencia('No es posible cargar las categorias')
+        this.advertir = true;
       }
     );
   }
 
   agregarCategoria() {
     if (this.existe(this.newCat)) {
-      alert('Esa categoria ya existe');
+      this.updateMensajeAdvertencia('Esa categoria ya existe')
+      this.advertir = true;
+    }else if(this.vacio(this.newCat) || this.newCat.length == 0){
+      this.updateMensajeAdvertencia('Nombre de categoria no valido')
+      this.advertir = true;
     } else {
+      this.advertir = false;
       this.catObj.nombre = this.newCat;
       this.categoriasService.agregarCategoria(this.catObj).subscribe(
         (res) => {
@@ -72,7 +73,11 @@ export class CategoriasComponent {
 
   editarCategoria() {
     if (this.existe(this.editar)) {
-      alert('Esa catgoria ya existe');
+      this.updateMensajeAdvertencia('Esa categoria ya existe')
+      this.advertir = true;
+    }else if(this.vacio(this.newCat) || this.newCat.length == 0){
+      this.updateMensajeAdvertencia('Nombre de categoria no valido')
+      this.advertir = true;
     } else {
       this.catObj.nombre = this.editar;
       this.categoriasService.editarCategoria(this.catObj).subscribe(
@@ -80,7 +85,8 @@ export class CategoriasComponent {
           this.ngOnInit();
         },
         (e) => {
-          alert('Ha ocurrido un error al intentar editar la categoria');
+          this.updateMensajeAdvertencia('Ha ocurrido un error al intentar editar la categoria')
+          this.advertir = true;
         }
       );
     }
@@ -92,7 +98,8 @@ export class CategoriasComponent {
         this.ngOnInit();
       },
       (e) => {
-        alert('Ha ocurrido un error al intentar borrar la categoria');
+        this.updateMensajeAdvertencia('Ha ocurrido un error al intentar borrar la categoria')
+        this.advertir = true;
       }
     );
   }
@@ -104,7 +111,7 @@ export class CategoriasComponent {
 
   //VALIDACION DE QUE NO EXISTA LA CATEGORIA
   existe(nombreCat: string): boolean {
-    let flag: boolean = false;
+    let flag = false;
 
     this.catArr.forEach((c) => {
       if (c.nombre.toUpperCase() == nombreCat.toUpperCase()) {
@@ -113,5 +120,38 @@ export class CategoriasComponent {
     });
 
     return flag;
+  }
+
+  //VALIDACION DE ESPACIOS EN BLANCO
+  vacio(nombreCat: string): boolean{
+
+    const regex = /^(\s+\S+\s*)*(?!\s).*$/;
+
+    return (regex.test(nombreCat)) ? false : true;
+  }
+
+  ngOnInit(): void {
+    (this.editar = ''), (this.newCat = ''), (this.catObj = new Categoria());
+    this.catArr = [];
+    this.getCategorias();
+
+    this.advertencia = [
+      {
+        severity: 'error',
+        summary: 'Error',
+        detail: this.mensaje,
+      },
+    ];
+  }
+
+  //UPDATE DEL MENSAJE DE ALERT
+  updateMensajeAdvertencia(m : string){
+    this.advertencia = [
+      {
+        severity: 'error',
+        summary: 'Error',
+        detail: m,
+      },
+    ];
   }
 }

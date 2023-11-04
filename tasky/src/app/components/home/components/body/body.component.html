@@ -1,3 +1,9 @@
-<div class="body" [ngClass]="getBodyClass()">
-  <router-outlet></router-outlet>
-</div>
+<section class="body" [ngClass]="getBodyClass()">
+  <section class="page">
+    <router-outlet></router-outlet>
+  </section>
+
+  <section class="footer">
+    <app-footer></app-footer>
+  </section>
+</section>

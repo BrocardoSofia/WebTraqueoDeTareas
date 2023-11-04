@@ -121,7 +121,7 @@ export class CategoriasComponent {
     let flag = false;
 
     this.catArr.forEach((c) => {
-      if (c.nombre.toUpperCase() == nombreCat.toUpperCase()) {
+      if (c.nombre.toUpperCase() == nombreCat.toUpperCase() && c.id != this.catObj.id) {
         flag = true;
       }
     });

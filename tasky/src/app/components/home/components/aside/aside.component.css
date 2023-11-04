@@ -3,10 +3,10 @@
   transition: all .5s ease;
   position: fixed;
   z-index: 1;
-  top: 60px;
+  top: 45px;
   width: 5rem;
   height: 100vh;
-  box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
+  box-shadow: 0.063rem 0 0.50rem 0 #3c414b;
 
   .logo-container {
       display: flex;

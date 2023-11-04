@@ -22,21 +22,12 @@ interface SideNavToggle {
       ]),
       transition(':leave', [
         style({opacity: 1}),
-        animate('350ms',
+        animate('250ms',
           style({opacity: 0})
         )
       ])
-    ]),
-    trigger('rotate', [
-      transition(':enter', [
-        animate('1000ms',
-          keyframes([
-            style({transform: 'rotate(0deg)', offset: '0'}),
-            style({transform: 'rotate(2turn)', offset: '1'})
-          ])
-        )
-      ])
     ])
+
   ]
 })
 

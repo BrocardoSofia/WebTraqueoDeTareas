@@ -1,8 +1,51 @@
-#info{
+#footer{
   margin: 0;
-  padding: 0;
+  padding-top: 35px;
   display: flex;
   align-content: flex-end;
   background-color: #3D5C9C;
   height: 150px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
 }
+
+.info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#logoTasky{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #F2F2F2;
+}
+
+#tasky{
+  font-family: "Poppins", sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.titleInfo{
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: #F2F2F2;
+}
+
+#copyright{
+  font-size: 10px;
+  font-weight: 100;
+}
+
+.buttonLink{
+  font-size: 12px;
+  border: none;
+  color: #ACF1FF;
+  background-color: #3D5C9C;
+}
+

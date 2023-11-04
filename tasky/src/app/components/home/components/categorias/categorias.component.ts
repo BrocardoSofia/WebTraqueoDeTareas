@@ -35,6 +35,8 @@ export class CategoriasComponent {
   mensaje: string = '';
   advertir: boolean = false;
 
+  showModal:boolean = false;
+
   constructor(private categoriasService: CategoriasService) {}
 
   getCategorias() {
@@ -72,10 +74,12 @@ export class CategoriasComponent {
   }
 
   editarCategoria() {
+    this.showModal = false;
+
     if (this.existe(this.editar)) {
       this.updateMensajeAdvertencia('Esa categoria ya existe')
       this.advertir = true;
-    }else if(this.vacio(this.newCat) || this.newCat.length == 0){
+    }else if(this.vacio(this.editar) || this.editar.length == 0){
       this.updateMensajeAdvertencia('Nombre de categoria no valido')
       this.advertir = true;
     } else {
@@ -109,6 +113,7 @@ export class CategoriasComponent {
   call(c: Categoria) {
     this.catObj = c;
     this.editar = c.nombre;
+    this.showModal = true;
   }
 
   //VALIDACION DE QUE NO EXISTA LA CATEGORIA

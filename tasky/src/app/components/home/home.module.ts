@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MessagesModule } from 'primeng/messages';
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
-    MessagesModule
+    MessagesModule,
+    DialogModule
   ]
 })
 export class HomeModule { }

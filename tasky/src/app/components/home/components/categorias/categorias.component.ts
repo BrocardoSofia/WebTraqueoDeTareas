@@ -35,6 +35,8 @@ export class CategoriasComponent {
   mensaje: string = '';
   advertir: boolean = false;
 
+  showModal:boolean = false;
+
   constructor(private categoriasService: CategoriasService) {}
 
   getCategorias() {
@@ -57,10 +59,10 @@ export class CategoriasComponent {
       this.updateMensajeAdvertencia('Nombre de categoria no valido')
       this.advertir = true;
     } else {
-      this.advertir = false;
       this.catObj.nombre = this.newCat;
       this.categoriasService.agregarCategoria(this.catObj).subscribe(
         (res) => {
+          this.advertir = false;
           this.ngOnInit();
           this.newCat = '';
         },
@@ -72,16 +74,19 @@ export class CategoriasComponent {
   }
 
   editarCategoria() {
+    this.showModal = false;
+
     if (this.existe(this.editar)) {
       this.updateMensajeAdvertencia('Esa categoria ya existe')
       this.advertir = true;
-    }else if(this.vacio(this.newCat) || this.newCat.length == 0){
+    }else if(this.vacio(this.editar) || this.editar.length == 0){
       this.updateMensajeAdvertencia('Nombre de categoria no valido')
       this.advertir = true;
     } else {
       this.catObj.nombre = this.editar;
       this.categoriasService.editarCategoria(this.catObj).subscribe(
         (res) => {
+          this.advertir = false;
           this.ngOnInit();
         },
         (e) => {
@@ -95,6 +100,7 @@ export class CategoriasComponent {
   borrarCategoria(c: Categoria) {
     this.categoriasService.borrarCategoria(c).subscribe(
       (res) => {
+        this.advertir = false;
         this.ngOnInit();
       },
       (e) => {
@@ -107,6 +113,7 @@ export class CategoriasComponent {
   call(c: Categoria) {
     this.catObj = c;
     this.editar = c.nombre;
+    this.showModal = true;
   }
 
   //VALIDACION DE QUE NO EXISTA LA CATEGORIA
@@ -114,7 +121,7 @@ export class CategoriasComponent {
     let flag = false;
 
     this.catArr.forEach((c) => {
-      if (c.nombre.toUpperCase() == nombreCat.toUpperCase()) {
+      if (c.nombre.toUpperCase() == nombreCat.toUpperCase() && c.id != this.catObj.id) {
         flag = true;
       }
     });

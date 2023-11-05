@@ -3,13 +3,13 @@
   <h1>Categoria 1</h1>
 
   <div>
-    <input type="text" placeholder="nueva tarea">
-    <button>agregar</button>
+    <input [(ngModel)]="nuevaTarea" type="text" placeholder="nueva tarea">
+    <button (click)="agregarTarea()" >agregar</button>
   </div>
 
   <div>
-    <!-- <p-dropdown [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item"
-    [virtualScroll]="true" [virtualScrollItemSize]="38"></p-dropdown> -->
+    <p-dropdown [options]="arrTareas" placeholder="Selecciona una tarea"
+    [virtualScroll]="true" [virtualScrollItemSize]="20"></p-dropdown>
   </div>
 
   <div>

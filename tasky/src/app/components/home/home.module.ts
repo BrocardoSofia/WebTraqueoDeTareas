@@ -20,8 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { DialogModule } from 'primeng/dialog';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -47,8 +47,8 @@ import { TableModule } from 'primeng/table';
     InputTextModule,
     MessagesModule,
     DialogModule,
-    CascadeSelectModule,
-    TableModule
+    TableModule,
+    DropdownModule
   ]
 })
 export class HomeModule { }

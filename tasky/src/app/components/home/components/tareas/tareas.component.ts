@@ -12,6 +12,7 @@ export class TareasComponent {
   arrTareas : Tarea[] = []
   nuevaTarea : string = ""
   tareaObj : Tarea = new Tarea()
+  arrNombres : string[] = []
 
   constructor(private tareasService:TareasService){}
 
@@ -39,12 +40,16 @@ export class TareasComponent {
     )
   }
 
+  listarNombres(){
+
+  }
+
   ngOnInit() :void{
 
     this.arrTareas = []
     this.nuevaTarea = ""
     this.tareaObj = new Tarea()
 
+    this.getTareas()
   }
-
 }

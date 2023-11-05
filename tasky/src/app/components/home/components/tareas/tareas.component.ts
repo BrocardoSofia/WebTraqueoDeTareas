@@ -9,25 +9,24 @@ import { TareasService } from 'src/app/services/tareas.service';
 })
 export class TareasComponent {
 
-  arrTareas : Tarea[] = []
-  nuevaTarea : string = ""
-  tareaObj : Tarea = new Tarea()
-  arrNombres : string[] = []
+  arrTareas: Tarea[] = []
+  nuevaTarea: string = ""
+  tareaObj: Tarea = new Tarea()
 
-  constructor(private tareasService:TareasService){}
+  constructor(private tareasService: TareasService) { }
 
-  getTareas(){
+  getTareas() {
     this.tareasService.getTareas().subscribe(
       (res) => {
         this.arrTareas = res;
       },
       (e) => {
-        alert('error al cargar las tareas')
+        alert('error al cargar las tareas');
       }
     )
   }
 
-  agregarTarea(){
+  agregarTarea() {
     this.tareaObj.nombre = this.nuevaTarea;
     this.tareasService.agregarTarea(this.tareaObj).subscribe(
       (res) => {
@@ -35,21 +34,17 @@ export class TareasComponent {
         this.nuevaTarea = '';
       },
       (e) => {
-        alert('error al intentar agregar una tarea')
+        alert('error al intentar agregar una tarea');
       }
     )
   }
 
-  listarNombres(){
+  ngOnInit(): void {
 
-  }
+    this.arrTareas = [];
+    this.nuevaTarea = "";
+    this.tareaObj = new Tarea();
 
-  ngOnInit() :void{
-
-    this.arrTareas = []
-    this.nuevaTarea = ""
-    this.tareaObj = new Tarea()
-
-    this.getTareas()
+    this.getTareas();
   }
 }

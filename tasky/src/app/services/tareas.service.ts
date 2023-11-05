@@ -11,7 +11,7 @@ export class TareasService {
   serviceURL : string;
 
   constructor(private http : HttpClient) {
-    this.serviceURL = "http://localhost:4000/categorias"
+    this.serviceURL = "http://localhost:5000/tareas"
   }
 
   agregarTarea(tarea : Tarea) : Observable<Tarea>{

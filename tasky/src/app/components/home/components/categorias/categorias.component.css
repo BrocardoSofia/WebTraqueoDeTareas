@@ -25,6 +25,7 @@ h1 {
 
 .ingreso-nueva-categoria input {
   width: 20rem;
+  border: none;
   border-radius: .4rem;
   margin-right: 1rem;
   padding: .7rem;
@@ -60,6 +61,8 @@ h1 {
   margin: 0;
   padding: 0;
   margin-bottom: 2rem;
+  display: flex;
+  justify-content: end;
 }
 
 /*  ESTILOS DE LA LISTA DE LAS CATEGORIAS */
@@ -91,4 +94,45 @@ h1 {
   border-radius: .4rem;
 }
 
+.close {
+  font-size: 45px;
+  font-weight: 600;
+}
+
+/* MODAL */
+.contenedor-modal h2{
+  color: #151E59;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.7rem;
+  margin-bottom: 2rem;
+}
+
+.contenedor-modal input{
+  color: #151E59;
+  font-family: 'Poppins', sans-serif;
+}
+
+.contenedor-modal-botones{
+  display: flex;
+  justify-content: end;
+}
+
+.contenedor-modal-botones button{
+  background-color: #ACF1FF;
+  border: #ACF1FF 2px solid;
+  border-radius: .4rem;
+  margin-top: 2rem;
+  margin-left: 1rem;
+  padding: .5rem;
+  font-family: 'Poppins', sans-serif;
+  color: #151E59;
+}
+
+#modal-boton-cancelar:hover{
+  border-color: #E74C3C;
+}
+
+#modal-boton-modificar:hover{
+  border-color: #229954;
+}
 

@@ -16,36 +16,30 @@
 
   <!-- ALERTS -->
   <div *ngIf="advertir" class="contenedor-error">
-    <p-messages [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [(value)]="advertencia"
-      [enableService]="false" [closable]="false"></p-messages>
+    <p-messages [showTransitionOptions]="'500ms'" [(value)]="advertencia" [enableService]="false"
+      [closable]="true"></p-messages>
   </div>
-
 
   <!-- LISTA DE CATEGORIAS -->
   <div class="lista-de-categorias">
     <div class="input-group" *ngFor="let cat of catArr">
       <li type="text" class="form-control">{{cat.nombre}}</li>
-      <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-        (click)="call(cat)"> <i class=" pi pi-pencil" style="font-size: 1.5rem"></i> </button>
+      <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="call(cat)"> <i
+          class=" pi pi-pencil" style="font-size: 1.5rem"></i> </button>
       <button type="button" (click)="borrarCategoria(cat)"><i class=" pi pi-trash"
           style="font-size: 1.5rem"></i></button>
     </div>
   </div>
 
-  <!-- EDITAR UNA CATEGORIA -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Editar categoria</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <input autocomplete="off" type="text" class="form-control" name="categoria" [(ngModel)]="editar">
-          <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal"
-            (click)="editarCategoria()">modificar</button>
-        </div>
-      </div>
+  <!-- VENTANA MODAL DE EDITAR CATEGORIA -->
+  <p-dialog class="contenedor-modal" *ngIf="showModal" [visible]="true"
+    [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false"
+    [closable]="false" [modal]="true">
+    <h2>Editar categoria</h2>
+    <input autocomplete="off" type="text" class="form-control" name="categoria" [(ngModel)]="editar">
+    <div class="contenedor-modal-botones">
+      <button type="button" (click)="showModal=false" id="modal-boton-cancelar">cancelar</button>
+      <button type="button" (click)="editarCategoria()" id="modal-boton-modificar">modificar</button>
     </div>
-  </div>
+  </p-dialog>
 </div>

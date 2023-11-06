@@ -2,17 +2,7 @@
   "categorias": [
     {
       "id": 1,
-      "nombre": "1",
-      "email": ""
-    },
-    {
-      "id": 2,
-      "nombre": "2",
-      "email": ""
-    },
-    {
-      "id": 3,
-      "nombre": "3",
+      "nombre": "categoria 1",
       "email": ""
     }
   ]

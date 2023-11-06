@@ -24,7 +24,7 @@
   <div class="lista-de-categorias">
     <div class="input-group" *ngFor="let cat of catArr">
       <li type="text" class="form-control" routerLink="/home/categorias/tareas">{{cat.nombre}}</li>
-      <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="call(cat)"> <i
+      <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="callEditarCategoria(cat)"> <i
           class=" pi pi-pencil" style="font-size: 1.5rem"></i> </button>
 
       <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="callBorrarCategoria(cat)"> <i

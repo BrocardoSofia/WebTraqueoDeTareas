@@ -1,0 +1,66 @@
+.contenedor-principal{
+  background-color: #ACF1FF;
+  border-radius: .4rem;
+  margin: 0;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* ESTILOS DE INGRESO DE NUEVA TAREA */
+h1{
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 3rem;
+  border-radius: 0.4rem;
+  margin-bottom: 2rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 3rem;
+  color: #151E59;
+  text-align: center;
+}
+
+.ingreso-nueva-tarea{
+  display: flex;
+  justify-content: end;
+}
+
+.ingreso-nueva-tarea input{
+  width: 20rem;
+  border: none;
+  border-radius: .4rem;
+  margin-right: 1rem;
+  padding: .7rem;
+  background-color: white;
+  font-family: 'Poppins', sans-serif;
+  color: gray;
+}
+
+.ingreso-nueva-tarea button{
+  border-radius: .4rem;
+  background-color: white;
+  border: none;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  color: #151E59;
+}
+
+/* ESTILOS DE ALERTA */
+.contenedor-error {
+  border: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: end;
+}
+
+.contenedor-seleccion{
+  background-color: #151E59;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.iu-dropdown{
+  max-width: 100%;
+}

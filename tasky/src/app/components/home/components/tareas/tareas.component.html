@@ -1,32 +1,50 @@
-<div>
+<div class="contenedor-principal">
 
   <h1>Categoria 1</h1>
 
   <!-- INGRESO DE NUEVA TAREA -->
-  <div>
+  <div class="ingreso-nueva-tarea">
     <input [(ngModel)]="nuevaTarea" type="text" placeholder="nueva tarea">
-    <button type="button" (click)="agregarTarea()">agregar</button>
+    <button type="button" (click)="agregarTarea()">
+      <i class=" pi pi-plus" style="font-size: 1.6rem"></i>
+    </button>
   </div>
+
+  <!-- ALERTA -->
+  <div *ngIf="advertir" class="contenedor-error">
+    <p-messages [(value)]="advertencia" [showTransitionOptions]="'500ms'" [enableService]="false"
+      [closable]="true"></p-messages>
+  </div>
+
+  <br>
 
   <!-- SELECCION DE TAREA A REALIZAR -->
-  <div style="width: 100%;">
-    <p-dropdown [options]="arrTareas" optionLabel="nombre" placeholder="Seleccionar una tarea" [filter]="true"></p-dropdown>
+  <div class="ui-grid iu-grid-responsive iu-fluid">
+    <div class="ui-grid-row">
+      <p-dropdown autoWidth="false" [style]="{'width': '100%'}" [options]="arrTareas" optionLabel="nombre"
+        placeholder="Seleccionar una tarea" [filter]="true" [virtualScroll]="true"
+        [virtualScrollItemSize]="20"></p-dropdown>
+    </div>
   </div>
 
-  <!-- <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-      <ng-template pTemplate="header" let-columns>
-        <tr>
-          <th *ngFor="let col of columns">
-            {{ col.header }}
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr>
-          <td *ngFor="let col of columns">
-            {{ rowData[col.field] }}
-          </td>
-        </tr>
-      </ng-template>
-    </p-table> -->
+  <!-- HISTORIAL DE TAREAS -->
+
+  <br>
+
+  <p-table [value]="arrTareas" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Tiempo</th>
+        <th>Fecha</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product id="tabla-tareas">
+      <tr *ngFor="let t of arrTareas">
+        <td>{{ t.nombre }}</td>
+        <td>{{ t.tiempo }}</td>
+        <td>{{ t.fecha }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

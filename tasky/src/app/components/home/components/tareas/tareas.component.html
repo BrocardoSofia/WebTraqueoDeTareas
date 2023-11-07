@@ -2,36 +2,62 @@
 
   <h1>Categoria 1</h1>
 
-  <!-- INGRESO DE NUEVA TAREA -->
-  <div class="ingreso-nueva-tarea">
-    <input [(ngModel)]="nuevaTarea" type="text" placeholder="nueva tarea">
-    <button type="button" (click)="agregarTarea()">
-      <i class=" pi pi-plus" style="font-size: 1.6rem"></i>
-    </button>
-  </div>
-
-  <!-- ALERTA -->
-  <div *ngIf="advertir" class="contenedor-error">
-    <p-messages [(value)]="advertencia" [showTransitionOptions]="'500ms'" [enableService]="false"
-      [closable]="true"></p-messages>
-  </div>
-
-  <br>
-
   <!-- SELECCION DE TAREA A REALIZAR -->
-  <div class="ui-grid iu-grid-responsive iu-fluid">
-    <div class="ui-grid-row">
-      <p-dropdown autoWidth="false" [style]="{'width': '100%'}" [options]="arrTareas" optionLabel="nombre"
-        placeholder="Seleccionar una tarea" [filter]="true" [virtualScroll]="true"
-        [virtualScrollItemSize]="20"></p-dropdown>
+  <div *ngIf="!corriendo" class="contenedor-seleccion">
+    <div class="contenedor-dropdown">
+      <p-dropdown [(ngModel)]="tareaSeleccionada" [editable]="true" autoWidth="false" [style]="{'width': '100%'}"
+        [options]="arrNombres" placeholder="Ingrese una nueva tarea o seleccione una ya existente" [filter]="true"
+        [virtualScroll]="true" [virtualScrollItemSize]="20"></p-dropdown>
+    </div>
+    <button (click)="start()" [disabled]="tareaSeleccionada == ''">comenzar</button>
+  </div>
+
+  <!-- CRONOMETRAR TAREA -->
+  <div *ngIf="corriendo" class="contenedor-cronometrar">
+    <div class="contenedor-cronometrar-tarea">
+      <p>{{tareaSeleccionada}}</p>
+      <div class="cronometro">
+        <span>{{hr}} : {{min}} : {{seg}} : {{ms}}</span>
+      </div>
+    </div>
+    <div class="contenedor-cronometrar-botones">
+      <button (click)="reanudar()"><svg xmlns="http://www.w3.org/2000/svg" height="2em"
+          viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+          <style>
+            svg {
+              fill: #151e59
+            }
+          </style>
+          <path
+            d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
+        </svg></button>
+      <button (click)="pause()"><svg xmlns="http://www.w3.org/2000/svg" height="2em"
+          viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+          <style>
+            svg {
+              fill: #151e59
+            }
+          </style>
+          <path
+            d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z" />
+        </svg></button>
+      <button (click)="stop()"><svg xmlns="http://www.w3.org/2000/svg" height="2em"
+          viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+          <style>
+            svg {
+              fill: #151e59
+            }
+          </style>
+          <path
+            d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z" />
+        </svg></button>
     </div>
   </div>
 
-  <!-- HISTORIAL DE TAREAS -->
-
   <br>
 
-  <p-table [value]="arrTareas" [tableStyle]="{ 'min-width': '50rem' }">
+  <!-- HISTORIAL DE TAREAS -->
+  <p-table [value]="arrTareas" [tableStyle]="{ 'min-width': '50rem' }" id="tabla">
     <ng-template pTemplate="header">
       <tr>
         <th>Nombre</th>
@@ -39,12 +65,12 @@
         <th>Fecha</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product id="tabla-tareas">
+    <!-- <ng-template pTemplate="body" let-product>
       <tr *ngFor="let t of arrTareas">
         <td>{{ t.nombre }}</td>
         <td>{{ t.tiempo }}</td>
         <td>{{ t.fecha }}</td>
       </tr>
-    </ng-template>
+    </ng-template> -->
   </p-table>
 </div>

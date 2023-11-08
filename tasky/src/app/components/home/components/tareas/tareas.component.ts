@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Tarea } from './Tarea';
 import { TareasService } from 'src/app/services/tareas.service';
 import { Message } from 'primeng/api';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tareas',
@@ -9,12 +10,14 @@ import { Message } from 'primeng/api';
   styleUrls: ['./tareas.component.css']
 })
 export class TareasComponent {
+  constructor(private tareasService: TareasService) {}
 
   arrTareas: Tarea[] = [];
   arrNombres: string[] = [];
-  nuevaTarea: string = "";
   tareaObj: Tarea = new Tarea();
   tareaSeleccionada: string = ''
+
+  suscription : Subscription = new Subscription();
 
   startTimer: any;
   corriendo: boolean = false;
@@ -30,7 +33,6 @@ export class TareasComponent {
   mensaje: string = 'ha ocurrido un error inesperado'
 
 
-  constructor(private tareasService: TareasService) { }
 
   getTareas() {
     this.tareasService.getTareas().subscribe(
@@ -53,28 +55,17 @@ export class TareasComponent {
     })
   }
 
-  // agregarTarea() {
-
-  //   if (this.existe(this.nuevaTarea)) {
-  //     this.updateMensaje('Esa tarea ya existe');
-  //     this.advertir = true;
-  //   } else if (this.vacio(this.nuevaTarea) || this.nuevaTarea.length == 0) {
-  //     this.updateMensaje('Nombre de tarea invalida');
-  //     this.advertir = true;
-  //   } else {
-  //     this.tareaObj.nombre = this.nuevaTarea;
-  //     this.tareasService.agregarTarea(this.tareaObj).subscribe(
-  //       (res) => {
-  //         // this.borrar()
-  //         this.ngOnInit();
-  //         this.nuevaTarea = '';
-  //       },
-  //       (e) => {
-  //         alert('error al intentar agregar una tarea');
-  //       }
-  //     )
-  //   }
-  // }
+  agregarTarea() {
+    this.tareaObj.nombre = this.tareaSeleccionada;
+    this.tareasService.agregarTarea(this.tareaObj).subscribe(
+      (res) => {
+        this.ngOnInit();
+      },
+      (e) => {
+        alert('error al intentar agregar una tarea');
+      }
+    )
+  }
 
   existe(nombreTarea: string): boolean {
     let flag = false;
@@ -150,7 +141,7 @@ export class TareasComponent {
   stop() {
     clearInterval(this.startTimer)
     this.corriendo = false;
-    this.ngOnInit()
+    this.agregarTarea();
   }
 
   ngOnInit(): void {
@@ -158,7 +149,7 @@ export class TareasComponent {
     this.arrTareas = [];
     this.arrNombres = [];
     this.tareaObj = new Tarea();
-    this.nuevaTarea = "";
+    this.tareaSeleccionada = "";
     this.advertir = false;
     this.corriendo = false;
 
@@ -169,5 +160,9 @@ export class TareasComponent {
 
     this.getTareas();
     this.cargarMensaje();
+
+    this.suscription = this.tareasService.refresh$.subscribe( () => {
+      this.getTareas()
+    })
   }
 }

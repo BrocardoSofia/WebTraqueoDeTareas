@@ -1,4 +1,16 @@
 {
   "tareas": [
+    {
+      "id": 1,
+      "nombre": "estudiar",
+      "tiempo": "0",
+      "fecha": "2023-11-08T13:41:29.694Z"
+    },
+    {
+      "id": 2,
+      "nombre": "estudiar",
+      "tiempo": "0",
+      "fecha": "2023-11-08T14:12:48.085Z"
+    }
   ]
 }

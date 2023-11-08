@@ -10,14 +10,15 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./tareas.component.css']
 })
 export class TareasComponent {
-  constructor(private tareasService: TareasService) {}
+  constructor(private tareasService: TareasService) { }
 
   arrTareas: Tarea[] = [];
+  arrTareasInverso: Tarea[] = [];
   arrNombres: string[] = [];
   tareaObj: Tarea = new Tarea();
   tareaSeleccionada: string = ''
 
-  suscription : Subscription = new Subscription();
+  suscription: Subscription = new Subscription();
 
   startTimer: any;
   corriendo: boolean = false;
@@ -26,18 +27,16 @@ export class TareasComponent {
   hr: any = '0' + 0;
   min: any = '0' + 0;
   seg: any = '0' + 0;
-  ms: any = '0' + 0;
 
   advertencia: Message[] = [];
   advertir: boolean = false;
   mensaje: string = 'ha ocurrido un error inesperado'
 
-
-
   getTareas() {
     this.tareasService.getTareas().subscribe(
       (res) => {
         this.arrTareas = res;
+        this.arrTareasInverso  = this.arrTareas.reverse() //para mostra r en la tabla
         res.forEach(r => {
           this.arrNombres.push(r.nombre)
         })
@@ -55,8 +54,17 @@ export class TareasComponent {
     })
   }
 
+  validarTarea(){
+    const regex = /^(\s+\S+\s*)*(?!\s).*$/;
+    return (this.tareaSeleccionada.length == 0 || !regex.test(this.tareaSeleccionada)) ? true : false
+  }
+
   agregarTarea() {
+
+    // let fecha = new Date();
+    // this.tareaObj.fecha = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
     this.tareaObj.nombre = this.tareaSeleccionada;
+    this.tareaObj.tiempo = `${this.hr} : ${this.min} : ${this.seg}`
     this.tareasService.agregarTarea(this.tareaObj).subscribe(
       (res) => {
         this.ngOnInit();
@@ -105,14 +113,8 @@ export class TareasComponent {
       this.startTimer = setInterval(() => {
 
         if (!this.pausado) {
-          this.ms++;
-          this.ms = this.ms < 10 ? '0' + this.ms : this.ms;
-
-          if (this.ms === 100) {
-            this.seg++;
-            this.seg = this.seg < 10 ? '0' + this.seg : this.seg;
-            this.ms = '0' + 0;
-          }
+          this.seg++;
+          this.seg = this.seg < 10 ? '0' + this.seg : this.seg;
 
           if (this.seg === 60) {
             this.min++;
@@ -126,7 +128,7 @@ export class TareasComponent {
             this.min = '0' + 0;
           }
         }
-      }, 10)
+      }, 1000)
     }
   }
 
@@ -156,13 +158,10 @@ export class TareasComponent {
     this.hr = '0' + 0;
     this.min = '0' + 0;
     this.seg = '0' + 0;
-    this.ms = '0' + 0;
 
     this.getTareas();
     this.cargarMensaje();
 
-    this.suscription = this.tareasService.refresh$.subscribe( () => {
-      this.getTareas()
-    })
+
   }
 }

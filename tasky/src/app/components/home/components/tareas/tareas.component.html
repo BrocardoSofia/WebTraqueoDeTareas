@@ -6,10 +6,10 @@
   <div *ngIf="!corriendo" class="contenedor-seleccion">
     <div class="contenedor-dropdown">
       <p-dropdown [(ngModel)]="tareaSeleccionada" [editable]="true" autoWidth="false" [style]="{'width': '100%'}"
-        [options]="arrNombres" placeholder="Ingrese una nueva tarea o seleccione una ya existente" [filter]="true"
+        [options]="arrNombres" placeholder="Ingrese una nueva tarea o seleccione una" [filter]="true"
         [virtualScroll]="true" [virtualScrollItemSize]="20"></p-dropdown>
     </div>
-    <button (click)="start()" [disabled]="tareaSeleccionada == ''">comenzar</button>
+    <button (click)="start()" [disabled]="validarTarea()">comenzar</button>
   </div>
 
   <!-- CRONOMETRAR TAREA -->
@@ -17,7 +17,7 @@
     <div class="contenedor-cronometrar-tarea">
       <p>{{tareaSeleccionada}}</p>
       <div class="cronometro">
-        <span>{{hr}} : {{min}} : {{seg}} : {{ms}}</span>
+        <span>{{hr}} : {{min}} : {{seg}}</span>
       </div>
     </div>
     <div class="contenedor-cronometrar-botones">
@@ -55,22 +55,26 @@
   </div>
 
   <br>
+  <br>
+  <br>
 
-  <!-- HISTORIAL DE TAREAS -->
-  <p-table [value]="arrTareas" [tableStyle]="{ 'min-width': '50rem' }" id="tabla">
-    <ng-template pTemplate="header">
+  <!-- TABLA DE HISTORIAL -->
+  <table class="tabla">
+    <thead>
       <tr>
-        <th>Nombre</th>
+        <th>Tarea</th>
         <th>Tiempo</th>
         <th>Fecha</th>
       </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product>
-      <tr *ngFor="let t of arrTareas">
-        <td>{{ t.nombre }}</td>
-        <td>{{ t.tiempo }}</td>
-        <td>{{ t.fecha }}</td>
+    </thead>
+    <br>
+    <tbody>
+      <tr *ngFor="let t of arrTareasInverso">
+        <td>{{t.nombre}}</td>
+        <td>{{t.tiempo}}</td>
+        <td>{{t.fecha}}</td>
       </tr>
-    </ng-template>
-  </p-table>
+    </tbody>
+  </table>
+
 </div>

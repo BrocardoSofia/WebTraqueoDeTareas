@@ -6,7 +6,10 @@
 }
 
 #info{
-  align-items: center;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
   background: #ACF1FF;
   width: 100%;
   height: 15em;
@@ -30,4 +33,24 @@
   width: 100%;
   height: 20em;
   border-radius: 20px;
+}
+
+#horaFechaSection{
+  margin: 2em;
+}
+
+#hora{
+  margin: 1px;
+  text-align: right;
+  font-family:"Poppins", sans-serif;
+  font-weight: bold;
+  color: #151E59;
+  font-size: 60px;
+}
+
+#fecha{
+  margin: 1px;
+  text-align: right;
+  font-family:"Poppins", sans-serif;
+  color: #151E59;
 }

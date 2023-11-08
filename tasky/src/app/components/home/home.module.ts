@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
@@ -21,6 +21,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { DialogModule } from 'primeng/dialog';
 
+
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeEs, 'es');
 @NgModule({
   declarations: [
     HomeComponent,
@@ -45,6 +49,7 @@ import { DialogModule } from 'primeng/dialog';
     InputTextModule,
     MessagesModule,
     DialogModule
-  ]
+  ],
+  providers: [{ provide: LOCALE_ID, useValue: 'es'}]
 })
 export class HomeModule { }

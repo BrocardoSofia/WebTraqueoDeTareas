@@ -1,12 +1,16 @@
 <section id="info_app">
   <article id="info">
       <img id="tasky_img" src="./assets/tasky.png" alt="imagen de tasky">
+
+      <section id="horaFechaSection">
+        <p id="hora">{{hora | date : 'H:mm'}}</p>
+        <p id="fecha">{{fecha | date : 'fullDate'}}</p>
+      </section>
+
   </article>
 
   <br><br>
 
   <article id="weather">
-
   </article>
 </section>
-

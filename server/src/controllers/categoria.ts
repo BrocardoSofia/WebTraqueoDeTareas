@@ -22,3 +22,21 @@ export const deleteCategoria = (req : Request, res: Response) => {
     })
 }
 
+export const postCategoria = (req : Request, res: Response) => {
+    const {body} = req;
+    res.json({
+        msg : 'post categoria',
+        body
+    })
+}
+
+export const updateCategoria = (req : Request, res: Response) => {
+    const {body} = req;
+    const {id} = req.params;
+    res.json({
+        msg : 'update categoria',
+        id,
+        body
+    })
+}
+

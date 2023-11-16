@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCategoria = exports.getCategoria = exports.getCategorias = void 0;
+exports.updateCategoria = exports.postCategoria = exports.deleteCategoria = exports.getCategoria = exports.getCategorias = void 0;
 const getCategorias = (req, res) => {
     res.json({
         msg: 'get categorias'
@@ -23,3 +23,21 @@ const deleteCategoria = (req, res) => {
     });
 };
 exports.deleteCategoria = deleteCategoria;
+const postCategoria = (req, res) => {
+    const { body } = req;
+    res.json({
+        msg: 'post categoria',
+        body
+    });
+};
+exports.postCategoria = postCategoria;
+const updateCategoria = (req, res) => {
+    const { body } = req;
+    const { id } = req.params;
+    res.json({
+        msg: 'update categoria',
+        id,
+        body
+    });
+};
+exports.updateCategoria = updateCategoria;

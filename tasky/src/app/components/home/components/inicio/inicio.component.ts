@@ -43,7 +43,7 @@ function pedirAPI() {
 
     let lat: string = '-38.0033';
     let lon: string = '-57.5528';
-    let API_key: string = 'a39bf665486281158ba6fa28b34147ce';
+    let API_key: string = '';
 
     xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid='+API_key+'&lang=es');
     xhr.responseType = 'json';

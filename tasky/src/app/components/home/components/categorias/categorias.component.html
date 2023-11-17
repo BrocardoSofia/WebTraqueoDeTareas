@@ -1,59 +1,11 @@
 <div class="contenedor-principal">
   <h1>Mis categorias</h1>
 
-  <!-- INGRESO DE NUEVAS CATEGORIAS -->
-  <form [formGroup]="nuevaCategoriaForm" class="form-nuevas-categorias">
-    <div class="ingreso-nueva-categoria">
-      <input autocomplete="off" type="text" class="form-control" placeholder="nueva categoria" formControlName="nombre"
-        name="categoria" [(ngModel)]="newCat">
-      <button [disabled]="nuevaCategoriaForm.invalid" class="btn btn-outline-secondary" type="button"
-        (click)="agregarCategoria()" style="background-color: none;"><i class=" pi pi-plus"
-          style="font-size: 1.6rem"></i></button>
-    </div>
-    <!-- VALIDACION REACTIVA -->
-    <p style="color: red;" *ngIf="nombre && nombre.invalid">Maximo de caracteres alcanzados</p>
-  </form>
-
-  <!-- ALERTS -->
-  <div *ngIf="advertir" class="contenedor-error">
-    <p-messages [showTransitionOptions]="'500ms'" [(value)]="advertencia" [enableService]="false"
-      [closable]="true"></p-messages>
-  </div>
-
   <!-- LISTA DE CATEGORIAS -->
   <div class="lista-de-categorias">
-    <div class="input-group" *ngFor="let cat of listCategorias">
-      <li type="text" class="form-control" routerLink="/home/categorias/tareas">{{cat.nombre}}</li>
-      <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="callEditarCategoria(cat)"> <i
-          class=" pi pi-pencil" style="font-size: 1.5rem"></i> </button>
-
-      <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="callBorrarCategoria(cat)"> <i
-          class="pi pi-trash" style="font-size: 1.5rem"></i> </button>
-
-      <!-- <button type="button" (click)="borrarCategoria(cat)"><i class=" pi pi-trash"
-          style="font-size: 1.5rem"></i></button> -->
+    <div class="input-group" *ngFor="let categoria of listCategorias">
+      <li type="text" class="form-control" routerLink="/home/categorias/tareas">{{categoria.nombre}}</li>
     </div>
   </div>
 
-  <!-- VENTANA MODAL DE EDITAR CATEGORIA -->
-  <p-dialog class="contenedor-modal" *ngIf="showModalEditar" [visible]="true" [breakpoints]="{ '960px': '75vw' }"
-    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" [closable]="false" [modal]="true">
-    <h2>Editar categoria</h2>
-    <input autocomplete="off" type="text" class="form-control" name="categoria" [(ngModel)]="editar">
-    <div class="contenedor-modal-botones">
-      <button type="button" (click)="showModalEditar=false" id="modal-boton-cancelar">cancelar</button>
-      <button type="button" (click)="editarCategoria()" id="modal-boton-modificar">modificar</button>
-    </div>
-  </p-dialog>
-
-  <!-- VENTANA MODAL DE BORRAR CATEGORIA -->
-  <p-dialog class="contenedor-modal" *ngIf="showModalBorrar" [visible]="true" [breakpoints]="{ '960px': '75vw' }"
-    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" [closable]="false" [modal]="true">
-    <h2>Confirmar eliminacion</h2>
-    <p style="font-family: 'Poppins', sans-serif">¿Esta seguro de querer eliminar la categoria " {{objCategoria.nombre}} " ?</p>
-    <div class="contenedor-modal-botones">
-      <button type="button" (click)="showModalBorrar=false" id="modal-boton-cancelar">cancelar</button>
-      <button type="button" (click)="borrarCategoria()" id="modal-boton-modificar"> confirmar</button>
-    </div>
-  </p-dialog>
 </div>

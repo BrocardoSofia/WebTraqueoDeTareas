@@ -1,6 +1,8 @@
 import express, {Application, Request,Response} from 'express'; 
+import cors from 'cors';
 import routesCategoria from '../routes/categoria';
 import db from '../db/connection';
+
 
 class Server{
 
@@ -35,6 +37,9 @@ class Server{
     midleWares(){
         //parseamos el body
         this.app.use(express.json())
+
+        //cors
+        this.app.use(cors())
     }
 
     async dbConnect(){

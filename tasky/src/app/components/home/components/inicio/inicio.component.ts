@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Weather } from 'src/app/interfaces/auth';
 
 @Component({
   selector: 'app-inicio',
@@ -30,12 +31,11 @@ export class InicioComponent implements OnInit {
   }
 
   mostrarClima(){
-
+    llamadaAPI();
   }
 }
 
-let jsonData;
-
+let jsonData: Weather;
 
 function pedirAPI() {
   return new Promise((resolve, reject) => {
@@ -43,9 +43,9 @@ function pedirAPI() {
 
     let lat: string = '-38.0033';
     let lon: string = '-57.5528';
-    let API_key: string = '';
+    let API_key: string = 'a39bf665486281158ba6fa28b34147ce';
 
-    xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid='+API_key);
+    xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid='+API_key+'&lang=es');
     xhr.responseType = 'json';
 
     xhr.onload = function () {
@@ -62,60 +62,19 @@ function pedirAPI() {
   })
 }
 
-// async function llamadaAPI() {
-//   try {
-//     let respuesta = await pedirAPI();
-//     console.log(respuesta.results);
-//     cargarTablaPelis(respuesta.results);
-//   }
-//   catch(error)
-//   {
-//     console.log(error);
-//   }
+async function llamadaAPI() {
+  try {
+    await pedirAPI();
+    cargarClima();
+  }
+  catch(error)
+  {
+    console.log(error);
+  }
 
-// }
+}
 
-// function cargarTablaPelis(data) {
-//   const tabla = document.getElementById("tablaPelis");
-//   console.log("entro");
-
-//   for (let i=0; i<data.length; i++) {
-//     console.log("entro");
-
-//     let movie = data[i];
-
-//     let titulo = document.createTextNode(movie.originalTitleText.text);
-//     let dia = movie.releaseDate.day;
-//     let mes = movie.releaseDate.month;
-//     let anio = movie.releaseDate.year;
-//     let fecha = document.createTextNode(dia+"/"+mes+"/"+anio);
-//     let poster = document.createElement("img");
-
-//     if(movie.primaryImage != null)
-//     {
-//       poster.src = movie.primaryImage.url;
-//       poster.width = 100;
-//     }
-//     poster.alt = "sin imagen";
-
-//     let row = document.createElement("tr");
-
-//     let cell = document.createElement("td");
-//     cell.appendChild(titulo);
-//     row.appendChild(cell);
-
-//     cell = document.createElement("td");
-//     cell.appendChild(fecha);
-//     row.appendChild(cell);
-
-//     cell = document.createElement("td");
-//     cell.appendChild(poster);
-//     row.appendChild(cell);
-
-//     tabla.appendChild(row);
-
-//   }
-
-// }
-
-// llamadaAPI();
+function cargarClima() {
+  console.log(jsonData);
+  console.log('clima: '+jsonData.name);
+}

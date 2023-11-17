@@ -2,31 +2,38 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Categoria } from '../components/home/components/categorias/Categoria';
 import { Observable } from 'rxjs';
+import { enviroment } from '../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriasService {
 
-  serviceURL : string;
+  private myAppUrl : string;
+  private myApiUrl : string;
 
   constructor(private http : HttpClient) {
-    this.serviceURL = "http://localhost:4000/categorias"
-  }
-
-  agregarCategoria(categoria : Categoria) : Observable<Categoria>{
-    return this.http.post<Categoria>(this.serviceURL,categoria)
+    this.myAppUrl = enviroment.endpoint;
+    this.myApiUrl = 'api/categorias/';
   }
 
   getCategorias() : Observable<Categoria[]>{
-    return this.http.get<Categoria[]>(this.serviceURL)
+    return this.http.get<Categoria[]>(`${this.myAppUrl}${this.myApiUrl}`)
   }
 
-  borrarCategoria(categoria : Categoria) : Observable<Categoria>{
-    return this.http.delete<Categoria>(this.serviceURL+'/'+categoria.id)
+  borrarCategoria(id : number) : Observable<void>{
+    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}${id}`)
   }
 
-  editarCategoria(categoria : Categoria) : Observable<Categoria>{
-    return this.http.put<Categoria>(this.serviceURL+'/'+categoria.id,categoria)
+  agregarCategoria(categoria : Categoria) : Observable<void>{
+    return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}`, categoria)
+  }
+
+  getCategoria(id : number) : Observable<Categoria>{
+    return this.http.get<Categoria>(`${this.myAppUrl}${this.myApiUrl}${id}`)
+  }
+
+  editarCategoria(id:number, categoria : Categoria) : Observable<void>{
+    return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}${id}`,categoria)
   }
 }

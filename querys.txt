@@ -18,3 +18,80 @@ existeEmail(p_email)
     }
 
 }
+
+-----------------------------------------------------------------
+
+registrarUsuario(p_email, p_nombre, p_password) -> true o false
+INSERT INTO Usuarios(email, nombre, clave)
+VALUES(p_email, p_nombre, p_password)
+
+-----------------------------------------------------------------
+
+login(p_email, p_password) 
+
+SELECT 1 
+FROM Usuarios AS u
+WHERE u.email = p_email
+
+SELECT 1
+FROM Usuarios AS u
+WHERE u.email = p_email AND u.clave = p_password
+
+si no existe mail devolver json rta= id o -1
+                                msg= si el email no existe o la contraseña es incorrecta
+--------------------------------------------------------------------
+
+obtenerUsuario(p_id)
+
+const user = await User.sequelize.query(
+       SELECT u.email, u.nombre, u.localizacion, t.tarea, t.descanso, t.agua, t.ejercicio
+       FROM Usuarios AS u
+       INNER JOIN Temporizadores AS t
+       ON u.id = t.id_usuario
+       WHERE p_id = u.id; 
+       );
+
+res.json({user})
+
+Ver orden de llamado a query igual a orden de parametros User
+
+----------------------------------------------------------------------
+
+agregarCategoria(p_id_usuario, p_categoria)
+
+
+INSERT INTO Categorias(id_usuario, nombre)
+VALUES(p_id_usuario, p_categoria);
+
+----------------------------------------------------------------------
+modificarCategoria(p_id_categoria,p_nuevoNombre) 
+
+UPDATE Categorias AS c
+SET c.nombre = p_nuevoNombre
+WHERE c.id_categoria = p_id_categoria;
+
+----------------------------------------------------------------------
+
+obtenerCategorias(id_usuario) -> arreglo de categorias
+
+SELECT c.id_categoria, c.nombre
+FROM Categorias AS c
+INNER JOIN Usuarios as u
+ON c.id_usuario = u.id
+
+----------------------------------------------------------------------
+
+eliminarCategoria(id_categoria)
+
+
+
+
+
+
+
+
+
+
+
+
+

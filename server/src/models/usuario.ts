@@ -1,27 +1,28 @@
 import db from '../db/connection';
 import { DataTypes } from 'sequelize';
 
-const Categoria = db.define('Categorias',{
-    id_categoria: {
+const Usuario = db.define('Usuarios',{
+    id : {
         type : DataTypes.INTEGER,
         primaryKey : true,
         autoIncrement: true
     },
-    id_usuario: {
-        type : DataTypes.INTEGER, //FK
+    email : {
+        type : DataTypes.STRING,
         allowNull: false,
-        references: {
-            model: 'Usuarios',
-            key: 'id'
-        }
+        unique: true
     },
-    nombre: {
+    nombre : {
         type : DataTypes.STRING,
         allowNull: false
     },
+    clave : {
+        type : DataTypes.STRING,
+        allowNull: false,
+    }
 },{
     createdAt : false,
     updatedAt : false
 });
 
-export default Categoria;
+export default Usuario;

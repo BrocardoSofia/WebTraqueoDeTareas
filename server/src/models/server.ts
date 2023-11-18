@@ -31,7 +31,7 @@ class Server{
                 msg : 'API Working'
             })
         })
-        this.app.use('/api/categorias',routesCategoria)
+        this.app.use('/api/categorias',routesCategoria) //aca importa las routes de la categoria
     }
 
     midleWares(){

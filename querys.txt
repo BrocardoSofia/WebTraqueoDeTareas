@@ -81,7 +81,12 @@ ON c.id_usuario = u.id
 
 ----------------------------------------------------------------------
 
-eliminarCategoria(p_id_categoria)
+eliminarCategoria(p_id_usuario, p_id_categoria, p_password_verificar)
+
+//query que nos diga si la contraseña es correcta
+SELECT 1
+FROM Usuarios AS u
+WHERE u.id = p_id_usuario AND u.clave = p_password_verificar;
 
 //primero eliminar todos las tareas de la categoria
 DELETE FROM Tareas
@@ -90,6 +95,9 @@ WHERE id_categoria = p_id_categoria;
 //despues eliminar categoria
 DELETE FROM Categorias
 WHERE id_categoria = p_id_categoria;
+
+si la contraseña no coincide devolver json rta= true o false
+                                           msg= la contraseña es incorrecta
 
 ----------------------------------------------------------------------
 
@@ -101,18 +109,114 @@ WHERE t.id_categoria = p_id_categoria;
 
 ----------------------------------------------------------------------
 
+agregarTarea(p_id_categoria, p_tarea, p_tiempo)
+
+INSERT INTO Tareas(id_categoria, nombre, tiempo, fecha)
+VALUES(p_id_categoria, p_tarea, p_tiempo, Date())
+
+----------------------------------------------------------------------
+
+modificarContraseña(p_id_usuario,p_password_verificar,p_nuevo_password)
+
+//query que nos diga si la contraseña es correcta
+SELECT 1
+FROM Usuarios AS u
+WHERE u.id = p_id_usuario AND u.clave = p_password_verificar;
+
+//query que cambie la contraseña 
+UPDATE Usuarios
+SET clave = p_nuevo_password
+WHERE id = p_id_usuario;
+
+si la contraseña no coincide devolver json rta= true o false
+                                           msg= la contraseña anterior es incorrecta
 
 
+----------------------------------------------------------------------
+
+modificarEmail(p_id_usuario,p_password_verificar, p_nuevo_email)
+
+//query que nos diga si la contraseña es correcta
+SELECT 1
+FROM Usuarios AS u
+WHERE u.id = p_id_usuario AND u.clave = p_password_verificar;
+
+//query que cambie el email
+UPDATE Usuarios
+SET email = p_nuevo_email
+WHERE id = p_id_usuario;
+
+si la contraseña no coincide devolver json rta= true o false
+                                           msg= la contraseña es incorrecta
 
 
+----------------------------------------------------------------------
 
+modificarNombre(p_id_usuario,p_password_verificar, p_nuevo_nombre)
 
+//query que nos diga si la contraseña es correcta
+SELECT 1
+FROM Usuarios AS u
+WHERE u.id = p_id_usuario AND u.clave = p_password_verificar;
 
+//query que cambie el nombre
+UPDATE Usuarios
+SET nombre = p_nuevo_nombre
+WHERE id = p_id_usuario;
 
+si la contraseña no coincide devolver json rta= true o false
+                                           msg= la contraseña es incorrecta
 
+----------------------------------------------------------------------
 
+modificarLocalizacion(p_id_usuario, p_lat, p_long)
 
+UPDATE Localizacion
+SET latitud = p_lat, longitud = p_long
+WHERE id_usuario = p_id_usuario;
 
+----------------------------------------------------------------------
+
+modificacionTemporizador(p_id_usuario, p_agua, p_tarea, p_descanso, p_ejercicio)
+
+UPDATE Temporizadores
+SET minutos_tarea = p_tarea, 
+    minutos_descanso = p_descanso, 
+    minutos_agua = p_agua, 
+    ejercicio = p_ejercicio
+WHERE id_usuario = p_id_usuario;
+
+----------------------------------------------------------------------
+
+obtenerTemporizador(p_id_Usuario) 
+
+SELECT t.minutos_tarea, t.minutos_descanso, t.minutos_agua, t.ejercicio
+FROM Temporizadores
+WHERE id_usuario = p_id_usuario;
+
+----------------------------------------------------------------------
+
+contarTiempoTotarDeCategoria(p_id_categoria) ->tiempo total acumulp_ado de tareas en esa categoria
+
+SELECT SUM(DATEDIFF(MINUTE, '0:00:00', tiempo) AS tiempo_acumulado
+FROM Tareas
+WHERE id_categoria = p_id_categoria;
+
+----------------------------------------------------------------------
+
+obtenerNombresTareasCargados(p_id_categoria)
+
+SELECT DISTINCT t.nombre
+FROM Tareas AS t
+WHERE t.id_categoria = p_id_categoria;
+
+----------------------------------------------------------------------
+
+contarTiempoDeTarea(p_id_categoria, p_nombre_tarea)
+
+SELECT SUM(DATEDIFF(MINUTE, '0:00:00', tiempo) AS tiempo_acumulado
+FROM Tareas
+WHERE id_categoria = p_id_categoria AND nombre = p_nombre_tarea
 
 
 

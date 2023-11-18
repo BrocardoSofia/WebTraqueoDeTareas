@@ -81,7 +81,29 @@ ON c.id_usuario = u.id
 
 ----------------------------------------------------------------------
 
-eliminarCategoria(id_categoria)
+eliminarCategoria(p_id_categoria)
+
+//primero eliminar todos las tareas de la categoria
+DELETE FROM Tareas
+WHERE id_categoria = p_id_categoria;
+
+//despues eliminar categoria
+DELETE FROM Categorias
+WHERE id_categoria = p_id_categoria;
+
+----------------------------------------------------------------------
+
+obtenerTareas(p_id_categoria) -> arreglo de tareas
+
+SELECT t.id_tarea, t.nombre, t.tiempo, t.fecha
+FROM Tareas AS t
+WHERE t.id_categoria = p_id_categoria;
+
+----------------------------------------------------------------------
+
+
+
+
 
 
 

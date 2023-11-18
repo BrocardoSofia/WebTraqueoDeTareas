@@ -1,0 +1,110 @@
+.contenedor-principal {
+  background-color: #ACF1FF;
+  border-radius: .4rem;
+  margin: 0;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+h1 {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 3rem;
+  border-radius: 0.4rem;
+  margin-bottom: 2rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 3rem;
+  color: #151E59;
+  text-align: center;
+}
+
+/* ESTILOS DE ALERTA */
+.contenedor-error {
+  border: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: end;
+}
+
+/* ESTILOS DE SELECCION DE TAREA */
+.iu-dropdown {
+  max-width: 100%;
+}
+
+.contenedor-seleccion {
+  display: flex;
+}
+
+.contenedor-dropdown {
+  width: 100%;
+  margin-right: 1rem;
+}
+
+.contenedor-seleccion button {
+  background-color: white;
+  border: none;
+  border-radius: .4rem;
+  color: #151E59;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ESTILOS CUANDO SE COMIENZA LA TAREA */
+.contenedor-cronometrar {
+  display: flex;
+  background-color: white;
+  border-radius: .4rem;
+  padding: 1.5rem;
+}
+
+.contenedor-cronometrar-tarea {
+  width: 70%;
+  color: #151E59;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 3rem;
+}
+
+.contenedor-cronometrar-tarea p{
+  margin: 0;
+  padding: 0;
+}
+
+.cronometro{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+
+.contenedor-cronometrar-botones {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.contenedor-cronometrar-botones button{
+  background-color: white;
+  border: none;
+  color: #151E59;
+  margin: 0;
+  padding: 0;
+}
+
+/* ESTILOS DE LA TABLA HISTORIAL */
+.tabla{
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  color: #151E59;
+}
+
+.tabla th{
+  border-bottom: #151E59 1px solid;
+}
+
+.tabla th,td{
+  text-align: justify;
+  width: 10em;
+}

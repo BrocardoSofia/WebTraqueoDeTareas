@@ -17,6 +17,12 @@
       "email": "sofiabrocardo.dev@gmail.com",
       "password": "123456",
       "id": 3
+    },
+    {
+      "fullName": "vani pin",
+      "email": "vani@gmail.com",
+      "password": "123",
+      "id": 4
     }
   ]
 }

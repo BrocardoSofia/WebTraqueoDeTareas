@@ -20,6 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { DialogModule } from 'primeng/dialog';
+import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 import localeEs from '@angular/common/locales/es';
@@ -48,7 +50,9 @@ registerLocaleData(localeEs, 'es');
     ReactiveFormsModule,
     InputTextModule,
     MessagesModule,
-    DialogModule
+    DialogModule,
+    TableModule,
+    DropdownModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es'}]
 })

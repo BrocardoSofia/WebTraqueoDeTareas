@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { MessageService } from 'primeng/api';
     HttpClientModule,
     ToastModule,
     BrowserAnimationsModule,
-
+    ToastrModule.forRoot(),
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

@@ -43,7 +43,7 @@ function pedirAPI() {
 
     let lat: string = '-38.0033';
     let lon: string = '-57.5528';
-    let API_key: string = '';
+    let API_key: string = '2a7876f7f99fb96e7881f93abba20a8f';
 
     xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid='+API_key+'&lang=es');
     xhr.responseType = 'json';
@@ -77,4 +77,12 @@ async function llamadaAPI() {
 function cargarClima() {
   console.log(jsonData);
   console.log('clima: '+jsonData.name);
+  let weather = document.getElementById("weather");
+  if(jsonData.weather)
+  {
+    let imagen = document.createElement("img");
+    imagen.src = "./assets/weather/"+jsonData.weather[0].icon+".png";
+    imagen.width = 200;
+    weather?.appendChild(imagen)
+  }
 }

@@ -20,15 +20,15 @@ const Temporizador = connection_1.default.define('Temporizadores', {
         }
     },
     minutos_tarea: {
-        type: sequelize_1.DataTypes.FLOAT,
+        type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
     },
     minutos_descanso: {
-        type: sequelize_1.DataTypes.FLOAT,
+        type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
     },
     minutos_agua: {
-        type: sequelize_1.DataTypes.FLOAT,
+        type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
     },
     ejercicio: {

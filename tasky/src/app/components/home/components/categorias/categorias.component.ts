@@ -151,6 +151,7 @@ export class CategoriasComponent {
   }
 
   eliminarCategoria() {
+    //llamar a verificar clave
     this.categoriaService.eliminarCategoria(this.objCategoria.id_categoria).subscribe(
       (res) => {
         this.showModalBorrar = false;

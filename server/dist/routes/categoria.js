@@ -7,5 +7,5 @@ router.get('/existe-categoria', categoria_1.existeCategoria); //recibe query
 router.post('/agregar-categoria', categoria_1.agregarCategoria); //recibe body
 router.put('/modificar-categoria/:id_categoria', categoria_1.modificarCategoria); //recibe params y body 
 router.get('/', categoria_1.obtenerCategorias); //recibe query
-router.delete('/:id', categoria_1.eliminarCategoria); //recibe params
+router.delete('/', categoria_1.eliminarCategoria); //recibe query
 exports.default = router;

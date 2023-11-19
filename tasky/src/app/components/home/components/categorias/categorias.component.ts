@@ -19,8 +19,17 @@ export class CategoriasComponent {
   //CRUD CATEGORIAS
   listaCategorias: Categoria[] = []
   objCategoria: Categoria = new Categoria()
-  objCategoriaModificada: Categoria = new Categoria()
-  nuevoNombre: string = ''
+  nuevo: string = ''
+  editado: string = ''
+
+  //ADVERTENCIA
+  advertencia: Message[] = [];
+  mensaje: string = '';
+  advertir: boolean = false;
+
+  //MODALES
+  showModalEditar: boolean = false;
+  showModalBorrar: boolean = false;
 
   obtenerCategorias() {
     this.categoriaService.obtenerCategorias(1).subscribe( //ID INCRUSTADO
@@ -39,18 +48,10 @@ export class CategoriasComponent {
     );
   }
 
-  limpiarEspacios(cadena: string): string {
-    // Elimina espacios en blanco al principio y final de la cadena
-    let cadenaLimpia = cadena.trim();
-    // Reduce múltiples espacios en blanco entre palabras a solo uno
-    cadenaLimpia = cadenaLimpia.replace(/\s+/g, ' ');
-    return cadenaLimpia;
-  }
-
   agregarCategoria() {
 
     //si es un nombre invalido
-    if (this.vacio(this.objCategoria.nombre)) {
+    if (this.vacio(this.nuevo)) {
       this.updateMensajeAdvertencia('Nombre de categoria no valido')
       this.advertir = true;
 
@@ -60,7 +61,7 @@ export class CategoriasComponent {
 
       //asignacion de id y limpieza de nombre
       this.objCategoria.id_usuario = 1;//ID HARCODEADO
-      this.objCategoria.nombre = this.limpiarEspacios(this.objCategoria.nombre)
+      this.objCategoria.nombre = this.limpiarEspacios(this.nuevo).toLowerCase()
 
       this.categoriaService.existeCategoria(this.objCategoria).subscribe(
         (res) => {
@@ -97,25 +98,23 @@ export class CategoriasComponent {
     }
   }
 
-  callEditarCategoria(categoria: number) {
-    // this.objCategoriaModificada = categoria;
-    // this.nuevoNombre = categoria.nombre;
-    // this.showModalEditar = true;
-
-    alert(categoria)
+  callEditarCategoria(c: Categoria) {
+    this.objCategoria = c;
+    this.editado = c.nombre;
+    this.showModalEditar = true;
   }
 
   modificarCategoria() {
 
     //si el nombre es invalido o no hubo modificaciones
-    if (this.vacio(this.nuevoNombre) || this.nuevoNombre.length == 0 || this.nuevoNombre == this.objCategoriaModificada.nombre) {
+    if (this.vacio(this.editado) || this.editado.length == 0 || this.editado == this.objCategoria.nombre) {
       this.showModalEditar = false;
 
       //si el nombre es valido
     } else {
 
       //asignacion y limpieza de nombre
-      this.objCategoria.nombre = this.limpiarEspacios(this.nuevoNombre);
+      this.objCategoria.nombre = this.limpiarEspacios(this.editado).toLowerCase();
 
       this.categoriaService.existeCategoria(this.objCategoria).subscribe(
         (res) => {
@@ -125,7 +124,7 @@ export class CategoriasComponent {
             //se realiza la modificacion
             this.categoriaService.modificarCategoria(this.objCategoria).subscribe(
               (res) => {
-                this.ngOnInit();
+                this.showModalEditar = false;
               },
               (e) => {
                 this.updateMensajeAdvertencia('Error al modificar la categoria')
@@ -146,19 +145,46 @@ export class CategoriasComponent {
     }
   }
 
-  //CRUD CATEGORIAS
-  catObj: Categoria = new Categoria();
-  catArr: Categoria[] = [];
-  newCat: string = '';
-  editar: string = '';
+  callBorrarCategoria(c: Categoria) {
+    this.objCategoria = c;
+    this.showModalBorrar = true;
+  }
 
-  //mensaje de advertencia
-  advertencia: Message[] = [];
-  mensaje: string = '';
-  advertir: boolean = false;
+  eliminarCategoria() {
+    this.categoriaService.eliminarCategoria(this.objCategoria.id_categoria).subscribe(
+      (res) => {
+        this.showModalBorrar = false;
+        this.ngOnInit();
+      },
+      (e) => {
+        this.updateMensajeAdvertencia('Ha ocurrido un error al intentar borrar la categoria')
+        this.advertir = true;
+      }
+    );
+  }
 
-  showModalEditar: boolean = false;
-  showModalBorrar: boolean = false;
+  vacio(c: string): boolean {
+    const regex = /^\s*$/;
+    return (regex.test(c)) ? true : false;
+  }
+
+  limpiarEspacios(cadena: string): string {
+    // Elimina espacios en blanco al principio y final de la cadena
+    let cadenaLimpia = cadena.trim();
+    // Reduce múltiples espacios en blanco entre palabras a solo uno
+    cadenaLimpia = cadenaLimpia.replace(/\s+/g, ' ');
+    return cadenaLimpia;
+  }
+
+  updateMensajeAdvertencia(m: string) {
+    this.advertencia = [
+      {
+        severity: 'error',
+        summary: 'Error',
+        detail: m,
+      },
+    ];
+  }
 
   //VALIDACION REACTIVA AL AGREGAR UNA NUEVA CATEGORIA
   nuevaCategoriaForm = new FormGroup({
@@ -169,130 +195,16 @@ export class CategoriasComponent {
     return this.nuevaCategoriaForm.get('nombre');
   }
 
-  constructor(private categoriasService: CategoriasService, private categoriaService: CategoriaService) { }
-
-  // getCategorias() {
-  //   this.categoriasService.getCategorias().subscribe(
-  //     (res) => {
-  //       this.catArr = res;
-  //     },
-  //     (e) => {
-  //       this.updateMensajeAdvertencia('No es posible cargar las categorias')
-  //       this.advertir = true;
-  //     }
-  //   );
-  // }
-
-  // agregarCategoria() {
-  //   if (this.existe(this.newCat)) {
-  //     this.updateMensajeAdvertencia('Esa categoria ya existe')
-  //     this.advertir = true;
-  //   } else if (this.vacio(this.newCat) || this.newCat.length == 0) {
-  //     this.updateMensajeAdvertencia('Nombre de categoria no valido')
-  //     this.advertir = true;
-  //   } else {
-  //     this.catObj.nombre = this.newCat;
-  //     this.categoriasService.agregarCategoria(this.catObj).subscribe(
-  //       (res) => {
-  //         this.advertir = false;
-  //         this.ngOnInit();
-  //         this.newCat = '';
-  //       },
-  //       (e) => {
-  //         this.updateMensajeAdvertencia('Ha ocurrido un error al intentar agregar la categoria')
-  //         this.advertir = true;
-  //       }
-  //     );
-  //   }
-  // }
-
-  // editarCategoria() {
-  //   this.showModalEditar = false;
-
-  //   if (this.existe(this.editar)) {
-  //     this.updateMensajeAdvertencia('Esa categoria ya existe')
-  //     this.advertir = true;
-  //   } else if (this.vacio(this.editar) || this.editar.length == 0) {
-  //     this.updateMensajeAdvertencia('Nombre de categoria no valido')
-  //     this.advertir = true;
-  //   } else {
-  //     this.catObj.nombre = this.editar;
-  //     this.categoriasService.editarCategoria(this.catObj).subscribe(
-  //       (res) => {
-  //         this.advertir = false;
-  //         this.ngOnInit();
-  //       },
-  //       (e) => {
-  //         this.updateMensajeAdvertencia('Ha ocurrido un error al intentar editar la categoria')
-  //         this.advertir = true;
-  //       }
-  //     );
-  //   }
-  // }
-
-  borrarCategoria() {
-    this.categoriasService.borrarCategoria(this.catObj).subscribe(
-      (res) => {
-        this.advertir = false;
-        this.ngOnInit();
-      },
-      (e) => {
-        this.updateMensajeAdvertencia('Ha ocurrido un error al intentar borrar la categoria')
-        this.advertir = true;
-      }
-    );
-  }
-
-  callBorrarCategoria(c: Categoria) {
-    this.catObj = c;
-    this.showModalBorrar = true;
-  }
-
-  //VALIDACION DE ESPACIOS EN BLANCO
-  vacio(c: string): boolean {
-    const regex = /^\s*$/;
-    return (regex.test(c)) ? true : false;
-  }
+  constructor(private categoriaService: CategoriaService) { }
 
   ngOnInit(): void {
-    // this.editar = '';
-    // this.newCat = '';
-    // this.catObj = new Categoria();
-    // this.catArr = [];
-    // this.getCategorias();
-    // this.showModalBorrar = false;
-    // this.showModalEditar = false;
-
-
-    // this.advertencia = [
-    //   {
-    //     severity: 'error',
-    //     summary: 'Error',
-    //     detail: this.mensaje,
-    //   },
-    // ];
-
     //vacio variables
     this.listaCategorias = []
     this.objCategoria = new Categoria()
-    this.objCategoriaModificada = new Categoria()
-    this.nuevoNombre = ''
-
-    //reseteo booleanos
-    this.showModalEditar = false;
+    this.nuevo = ''
+    this.editado = ''
 
     //cargo las categorias
     this.obtenerCategorias();
-  }
-
-  //UPDATE DEL MENSAJE DE ALERT
-  updateMensajeAdvertencia(m: string) {
-    this.advertencia = [
-      {
-        severity: 'error',
-        summary: 'Error',
-        detail: m,
-      },
-    ];
   }
 }

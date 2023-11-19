@@ -1,5 +1,5 @@
 export class Categoria{
-  id : number = 0;
+  id_categoria : number = 0;
   nombre : string = ""
   id_usuario : number = 0
 }

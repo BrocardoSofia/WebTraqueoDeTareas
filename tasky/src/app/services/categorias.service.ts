@@ -23,10 +23,10 @@ export class CategoriasService {
   }
 
   borrarCategoria(categoria : Categoria) : Observable<Categoria>{
-    return this.http.delete<Categoria>(this.serviceURL+'/'+categoria.id)
+    return this.http.delete<Categoria>(this.serviceURL+'/'+categoria.id_categoria)
   }
 
   editarCategoria(categoria : Categoria) : Observable<Categoria>{
-    return this.http.put<Categoria>(this.serviceURL+'/'+categoria.id,categoria)
+    return this.http.put<Categoria>(this.serviceURL+'/'+categoria.id_categoria,categoria)
   }
 }

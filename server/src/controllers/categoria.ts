@@ -95,27 +95,27 @@ export const eliminarCategoria = async (req: Request, res: Response) => {
 
     //usar verificar contrasenia de usuario antes de llamar 
     try {
-        const { id } = req.params;
+        const { id_categoria } = req.query;
 
         const consulta =
             `DELETE FROM Tareas
-            WHERE id_categoria = :id`;
+            WHERE id_categoria = :id_categoria`;
 
         const result = await sequelize.query(consulta, {
-            replacements: { id },
+            replacements: { id_categoria },
             type: QueryTypes.DELETE,
         });
 
         const consulta2 =
             `DELETE FROM Categorias
-            WHERE id_categoria = :id`;
+            WHERE id_categoria = :id_categoria`;
 
         const result2 = await sequelize.query(consulta2, {
-            replacements: { id },
+            replacements: { id_categoria },
             type: QueryTypes.DELETE,
         });
 
-        res.json({msg : 'Se ha elimando la categoria exitosamente'})
+        res.json({msg : 'Categoria eliminada correctamente'})
 
     } catch (error) {
         res.status(500).json({ error: 'Error al eliminar la categoria' });

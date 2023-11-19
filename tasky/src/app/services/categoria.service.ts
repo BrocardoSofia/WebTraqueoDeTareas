@@ -27,15 +27,15 @@ export class CategoriaService {
 
   modificarCategoria(categoria: Categoria): Observable<any> {
     //usar existe cateogria antes de llamar
-    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-categoria/${categoria.id}`, categoria)
+    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-categoria/${categoria.id_categoria}`, categoria)
   }
 
   obtenerCategorias(id_usuario: number): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(`${this.myAppUrl}${this.myApiUrl}?id_usuario=${id_usuario}`)
   }
 
-  eliminarCategoria(id: number): Observable<any> {
+  eliminarCategoria(id_categoria: number) : Observable<any>{
     //usar verificar contrasenia de usuario antes de llamar
-    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/${id}`)
+    return this.http.delete<any>(`${this.myAppUrl}${this.myApiUrl}?id_categoria=${id_categoria}`)
   }
 }

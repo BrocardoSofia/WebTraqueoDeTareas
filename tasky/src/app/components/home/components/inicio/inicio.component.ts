@@ -72,11 +72,11 @@ async function llamadaAPI() {
     let loc = false;
     if (!loc)
     {
-      let weather = document.getElementById("weather");
-      let imagen = document.createElement("img");
-      imagen.src = "./assets/weather/clima.png";
-      imagen.width = 250;
-      weather?.appendChild(imagen);
+      //let weather = document.getElementById("weather");
+      //let imagen = document.createElement("img");
+      //imagen.src = "./assets/weather/clima.png";
+      //imagen.width = 250;
+      //weather?.appendChild(imagen);
     }
   }
 

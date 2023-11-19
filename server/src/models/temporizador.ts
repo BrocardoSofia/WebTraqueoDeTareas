@@ -16,19 +16,19 @@ const Temporizador = db.define('Temporizadores',{
         }
     },
     minutos_tarea : {
-        type : DataTypes.TIME,
+        type : DataTypes.FLOAT,
         allowNull: false,
     },
     minutos_descanso : {
-        type : DataTypes.TIME,
+        type : DataTypes.FLOAT,
         allowNull: false,
     },
     minutos_agua : {
-        type : DataTypes.TIME,
+        type : DataTypes.FLOAT,
         allowNull: false,
     },
     ejercicio : {
-        type : DataTypes.BOOLEAN,
+        type : DataTypes.TINYINT,
         allowNull: false
     }
 },{

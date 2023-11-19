@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
-const Categoria = connection_1.default.define('Categorias', {
-    id_categoria: {
+const Temporizador = connection_1.default.define('Temporizadores', {
+    id_temporizador: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -19,12 +19,24 @@ const Categoria = connection_1.default.define('Categorias', {
             key: 'id'
         }
     },
-    nombre: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false
+    minutos_tarea: {
+        type: sequelize_1.DataTypes.FLOAT,
+        allowNull: false,
     },
+    minutos_descanso: {
+        type: sequelize_1.DataTypes.FLOAT,
+        allowNull: false,
+    },
+    minutos_agua: {
+        type: sequelize_1.DataTypes.FLOAT,
+        allowNull: false,
+    },
+    ejercicio: {
+        type: sequelize_1.DataTypes.TINYINT,
+        allowNull: false
+    }
 }, {
     createdAt: false,
     updatedAt: false
 });
-exports.default = Categoria;
+exports.default = Temporizador;

@@ -22,6 +22,7 @@ exports.getCategorias = getCategorias;
 const getCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const categoria = yield categoria_1.default.findByPk(id);
+    res.json(categoria);
     if (categoria) {
         res.json(categoria);
     }

@@ -8,7 +8,10 @@ export const getCategorias = async (req: Request, res: Response) => {
 
 export const getCategoria = async (req: Request, res: Response) => {
     const { id } = req.params;
+
     const categoria = await Categoria.findByPk(id)
+
+    res.json(categoria)
 
     if (categoria) {
         res.json(categoria)

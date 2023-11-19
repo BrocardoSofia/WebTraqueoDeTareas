@@ -1,8 +1,8 @@
 import express, {Application, Request,Response} from 'express'; 
 import cors from 'cors';
 import routesCategoria from '../routes/categoria';
+import routesUsuario from '../routes/usuario';
 import db from '../db/connection';
-
 
 class Server{
 
@@ -31,7 +31,8 @@ class Server{
                 msg : 'API Working'
             })
         })
-        this.app.use('/api/categorias',routesCategoria) //aca importa las routes de la categoria
+        this.app.use('/api/categorias',routesCategoria) 
+        this.app.use('/api/usuarios',routesUsuario) 
     }
 
     midleWares(){

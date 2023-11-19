@@ -17,7 +17,7 @@ const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
 const existeEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email } = req.body;
+        const { email } = req.query;
         const consulta = 'SELECT 1 FROM Usuarios WHERE email = :email';
         const result = yield connection_1.default.query(consulta, {
             replacements: { email },
@@ -44,8 +44,7 @@ const registrarUsuario = (req, res) => __awaiter(void 0, void 0, void 0, functio
             type: sequelize_1.QueryTypes.INSERT,
         });
         if (result[1] > 0) {
-            const idUsuario = result[0];
-            res.json({ respuesta: idUsuario, msg: 'El usuario fue registrado con exito' });
+            res.json({ msg: 'El usuario fue registrado con exito' });
         }
     }
     catch (error) {
@@ -55,7 +54,7 @@ const registrarUsuario = (req, res) => __awaiter(void 0, void 0, void 0, functio
 exports.registrarUsuario = registrarUsuario;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email, clave } = req.body;
+        const { email, clave } = req.query;
         const existe = exports.existeEmail;
         if (existe.length != 0) {
             const consulta = 'SELECT id FROM Usuarios WHERE email = :email AND clave = :clave';
@@ -72,7 +71,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             }
         }
         else {
-            res.json({ msg: 'Email no registrado' });
+            res.json({ respuesta: false, msg: 'Email no registrado' });
         }
     }
     catch (error) {
@@ -102,7 +101,7 @@ const obtenerUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
     }
     catch (error) {
-        res.status(500).json({ error: 'Error obtener el usuario' });
+        res.status(500).json({ respuesta: false, error: 'Error obtener el usuario' });
     }
 });
 exports.obtenerUsuario = obtenerUsuario;

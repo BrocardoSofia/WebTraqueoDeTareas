@@ -4,7 +4,7 @@ import { QueryTypes } from 'sequelize';
 
 export const existeEmail = async (req: Request, res: Response) => {
     try {
-        const { email } = req.body;
+        const { email } = req.query;
 
         const consulta =
             'SELECT 1 FROM Usuarios WHERE email = :email';
@@ -37,8 +37,7 @@ export const registrarUsuario = async (req: Request, res: Response) => {
         });
 
         if (result[1] > 0) {
-            const idUsuario = result[0]
-            res.json({ respuesta : idUsuario, msg : 'El usuario fue registrado con exito'})
+            res.json({ msg : 'El usuario fue registrado con exito'})
         }
     } catch (error) {
         res.status(500).json({ error: 'Error al intentar registrar al usuario' });
@@ -47,7 +46,7 @@ export const registrarUsuario = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     try {
-        const { email, clave } = req.body;
+        const { email, clave } = req.query;
 
         const existe = existeEmail
 
@@ -67,7 +66,7 @@ export const login = async (req: Request, res: Response) => {
                 res.json({ respuesta: false, msg: 'La clave ingresada en incorrecta' });
             }
         }else{
-            res.json({ msg: 'Email no registrado' });
+            res.json({ respuesta: false, msg: 'Email no registrado' });
         }
 
     } catch (error) {
@@ -100,6 +99,6 @@ export const obtenerUsuario = async (req: Request, res: Response) => {
             }
 
     } catch (error) {
-        res.status(500).json({ error: 'Error obtener el usuario' });
+        res.status(500).json({ respuesta: false, error: 'Error obtener el usuario' });
     }
 }

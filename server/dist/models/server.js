@@ -36,7 +36,7 @@ class Server {
                 msg: 'API Working'
             });
         });
-        this.app.use('/api/categorias', categoria_1.default);
+        this.app.use('/api/categorias', categoria_1.default); //aca importa las routes de la categoria
     }
     midleWares() {
         //parseamos el body

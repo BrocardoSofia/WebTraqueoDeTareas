@@ -20,7 +20,7 @@ export const existeEmail = async (req: Request, res: Response) => {
             res.json({ respuesta: false, msg: 'El correo no existe en la base de datos' });
         }
     } catch (error) {
-        res.status(500).json({ error: 'Hubo un error al verificar el correo electrónico' });
+        res.status(500).json({ error: 'Error al verificar el correo electrónico' });
     }
 }
 
@@ -100,5 +100,31 @@ export const obtenerUsuario = async (req: Request, res: Response) => {
 
     } catch (error) {
         res.status(500).json({ error: 'Error obtener el usuario' });
+    }
+}
+
+export const verificarClave = async (req: Request, res: Response) => {
+
+    try {
+        const { clave } = req.query
+        const { id } = req.params
+
+        const consulta =
+            `SELECT 1 FROM Usuarios
+            WHERE id = :id AND clave = :clave`;
+
+            const result = await sequelize.query(consulta, {
+                replacements: { id,clave },
+                type: QueryTypes.SELECT,
+            });
+
+            if (result.length != 0) {
+                res.json({ respuesta: true, msg: 'Clave correcta' });
+            } else {
+                res.json({ respuesta: false, msg: 'Clave incorrecta' });
+            }
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al intentar autenticar la clave' });
     }
 }

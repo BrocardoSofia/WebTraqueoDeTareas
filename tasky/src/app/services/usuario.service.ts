@@ -87,4 +87,21 @@ export class UsuarioService {
   //     }
   //   );
   // }
+
+  verificarClave(id: number,clave : string) : Observable<any>{
+    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/verificar-clave/${id}?=clave=${clave}`)
+  }
+
+  // verificarClave() {
+  //   this.usuarioService.verificarClave(id,clave).subscribe(
+  //     (response) => {
+  //       // Manejar la respuesta del servidor aquí
+  //       console.log(response.respuesta); //true -> clave coincide / false -> clave incorrecta
+  //       console.log(response.msg); //mensaje informativo
+  //     },
+  //     (error) => {
+  //       // Manejar errores
+  //     }
+  //   );
+  // }
 }

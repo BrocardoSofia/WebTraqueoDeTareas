@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.obtenerUsuario = exports.login = exports.registrarUsuario = exports.existeEmail = void 0;
+exports.verificarClave = exports.obtenerUsuario = exports.login = exports.registrarUsuario = exports.existeEmail = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
 const existeEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -31,7 +31,7 @@ const existeEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
     }
     catch (error) {
-        res.status(500).json({ error: 'Hubo un error al verificar el correo electrónico' });
+        res.status(500).json({ error: 'Error al verificar el correo electrónico' });
     }
 });
 exports.existeEmail = existeEmail;
@@ -105,3 +105,25 @@ const obtenerUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.obtenerUsuario = obtenerUsuario;
+const verificarClave = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { clave } = req.query;
+        const { id } = req.params;
+        const consulta = `SELECT 1 FROM Usuarios
+            WHERE id = :id AND clave = :clave`;
+        const result = yield connection_1.default.query(consulta, {
+            replacements: { id, clave },
+            type: sequelize_1.QueryTypes.SELECT,
+        });
+        if (result.length != 0) {
+            res.json({ respuesta: true, msg: 'Clave correcta' });
+        }
+        else {
+            res.json({ respuesta: false, msg: 'Clave incorrecta' });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al intentar autenticar la clave' });
+    }
+});
+exports.verificarClave = verificarClave;

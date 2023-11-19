@@ -99,6 +99,6 @@ export const obtenerUsuario = async (req: Request, res: Response) => {
             }
 
     } catch (error) {
-        res.status(500).json({ respuesta: false, error: 'Error obtener el usuario' });
+        res.status(500).json({ error: 'Error obtener el usuario' });
     }
 }

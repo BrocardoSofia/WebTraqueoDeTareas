@@ -6,5 +6,5 @@ const router = (0, express_1.Router)();
 router.get('/verificar-email', usuario_1.existeEmail); //recibe query
 router.post('/registrar-usuario', usuario_1.registrarUsuario); //recibe body
 router.get('/login', usuario_1.login); //recibe query
-router.get('/:id', usuario_1.obtenerUsuario); //recibe parametro
+router.get('/:id', usuario_1.obtenerUsuario); //recibe params
 exports.default = router;

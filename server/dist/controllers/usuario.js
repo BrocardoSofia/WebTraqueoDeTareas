@@ -101,7 +101,7 @@ const obtenerUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
     }
     catch (error) {
-        res.status(500).json({ respuesta: false, error: 'Error obtener el usuario' });
+        res.status(500).json({ error: 'Error obtener el usuario' });
     }
 });
 exports.obtenerUsuario = obtenerUsuario;

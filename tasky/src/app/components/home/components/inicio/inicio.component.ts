@@ -9,28 +9,28 @@ import { Weather } from 'src/app/interfaces/auth';
 
 export class InicioComponent implements OnInit {
   fecha: number = Date.now();
-  hora:any;
+  hora: any;
   localizacion: string = "";
   temp: string = "";
   clima: string = "";
   icon: string = "";
   descripcion: string = "";
 
-  ngOnInit(){
+  ngOnInit() {
     this.mostrarHora();
     this.mostrarClima();
   }
 
-  mostrarHora(){
+  mostrarHora() {
 
-    setInterval(()=>{
+    setInterval(() => {
 
       this.hora = new Date();
 
-    },1000);
+    }, 1000);
   }
 
-  mostrarClima(){
+  mostrarClima() {
     llamadaAPI();
   }
 }
@@ -43,9 +43,9 @@ function pedirAPI() {
 
     let lat: string = '-38.0033';
     let lon: string = '-57.5528';
-    let API_key: string = '2a7876f7f99fb96e7881f93abba20a8f';
+    let API_key: string = '';
 
-    xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid='+API_key+'&lang=es');
+    xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + API_key + '&lang=es');
     xhr.responseType = 'json';
 
     xhr.onload = function () {
@@ -67,22 +67,32 @@ async function llamadaAPI() {
     await pedirAPI();
     cargarClima();
   }
-  catch(error)
-  {
+  catch (error) {
     console.log(error);
+    let loc = false;
+    if (!loc)
+    {
+      let weather = document.getElementById("weather");
+      let imagen = document.createElement("img");
+      imagen.src = "./assets/weather/clima.png";
+      imagen.width = 250;
+      weather?.appendChild(imagen);
+    }
   }
 
 }
 
 function cargarClima() {
+  let localizacion = false;
   console.log(jsonData);
-  console.log('clima: '+jsonData.name);
+  console.log('clima: ' + jsonData.name);
   let weather = document.getElementById("weather");
-  if(jsonData.weather)
+  let imagen = document.createElement("img");
+
+  if (jsonData.weather)
   {
-    let imagen = document.createElement("img");
-    imagen.src = "./assets/weather/"+jsonData.weather[0].icon+".png";
+    imagen.src = "./assets/weather/" + jsonData.weather[0].icon + ".png";
     imagen.width = 200;
-    weather?.appendChild(imagen)
+    weather?.appendChild(imagen);
   }
 }

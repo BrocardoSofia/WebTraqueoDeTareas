@@ -7,7 +7,7 @@
 
 #info{
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   flex-direction: row;
   justify-content: space-between;
   background: #ACF1FF;
@@ -23,8 +23,8 @@
 
 #tasky_img{
   padding: 20px;
-  width: 15em;
-  height: 15em;
+  width: 20em;
+  height: 20em;
 }
 
 #weather{
@@ -37,6 +37,7 @@
 
 #horaFechaSection{
   margin: 2em;
+  margin-top: 7em;
 }
 
 #hora{
@@ -48,9 +49,20 @@
   font-size: 60px;
 }
 
-#fecha{
+#fecha, #helloName{
   margin: 1px;
   text-align: right;
   font-family:"Poppins", sans-serif;
   color: #151E59;
+  font-size: 20px;
+}
+
+#helloName{
+  margin-bottom: 8em;
+}
+
+#saludo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

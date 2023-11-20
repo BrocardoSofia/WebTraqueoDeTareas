@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.obtenerNombresTareas = exports.obtenerTareas = exports.guardarTarea = void 0;
+exports.tiempoDeTarea = exports.tiempoDeCategoria = exports.obtenerNombresTareas = exports.obtenerTareas = exports.guardarTarea = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
 const tarea_1 = __importDefault(require("../models/tarea"));
@@ -58,10 +58,49 @@ const obtenerNombresTareas = (req, res) => __awaiter(void 0, void 0, void 0, fun
             },
             attributes: [[connection_1.default.fn('DISTINCT', connection_1.default.col('nombre')), 'nombre']]
         });
-        res.json(nombres);
+        const nombresUnicos = nombres.map((tarea) => tarea.get('nombre')); // Obtener solo los nombres
+        res.json(nombresUnicos);
     }
     catch (error) {
         res.status(500).json({ error: 'Error al verificar el correo electrónico' });
     }
 });
 exports.obtenerNombresTareas = obtenerNombresTareas;
+const tiempoDeCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id_categoria } = req.query;
+        const resultado = yield tarea_1.default.findOne({
+            attributes: [
+                [connection_1.default.fn('SUM', connection_1.default.col('tiempo')), 'total_tiempo']
+            ],
+            where: {
+                id_categoria: id_categoria
+            }
+        });
+        const totalTiempo = (resultado === null || resultado === void 0 ? void 0 : resultado.get('total_tiempo')) || 0; // Valor total del tiempo
+        res.json(totalTiempo); // Devolver solo el valor numérico
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al calcular el tiempo de la categoría' });
+    }
+});
+exports.tiempoDeCategoria = tiempoDeCategoria;
+const tiempoDeTarea = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { nombre } = req.query;
+        const resultado = yield tarea_1.default.findOne({
+            attributes: [
+                [connection_1.default.fn('SUM', connection_1.default.col('tiempo')), 'total_tiempo']
+            ],
+            where: {
+                nombre: nombre
+            }
+        });
+        const totalTiempo = (resultado === null || resultado === void 0 ? void 0 : resultado.get('total_tiempo')) || 0; // Valor total del tiempo
+        res.json(totalTiempo); // Devolver solo el valor numérico
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al calcular el tiempo de la categoría' });
+    }
+});
+exports.tiempoDeTarea = tiempoDeTarea;

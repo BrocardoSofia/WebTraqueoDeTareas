@@ -27,14 +27,6 @@
   height: 20em;
 }
 
-#weather{
-  align-items: center;
-  background: #ACF1FF;
-  width: 100%;
-  height: 20em;
-  border-radius: 20px;
-}
-
 #horaFechaSection{
   margin: 2em;
   margin-top: 7em;
@@ -65,4 +57,27 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+#weather{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #ACF1FF;
+  width: 100%;
+  height: 22em;
+  border-radius: 20px;
+}
+
+#infoClima{
+  display: flex;
+  margin: 2em;
+  height: 300px;
+  flex-direction: column;
+  align-content: space-between;
+}
+
+#iconoClima{
+  margin: 4em;
 }

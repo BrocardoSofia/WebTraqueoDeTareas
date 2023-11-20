@@ -1,7 +1,7 @@
 <p-card header="Configurar localización">
-  <p class="m-0">
+  <form form [formGroup]="registerForm" (ngSubmit)="submitLocalizacion()">
     <input type="text" pInputText formControlName="text"/>
-  </p>
+  </form>
 </p-card>
 
 

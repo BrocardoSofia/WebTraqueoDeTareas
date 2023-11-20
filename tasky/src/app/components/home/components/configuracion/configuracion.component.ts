@@ -13,5 +13,14 @@ import { passwordMatchValidator } from 'src/app/shared/password-match.directive'
 })
 
 export class ConfiguracionComponent {
+  registerForm = this.fb.group({
+    localizacion: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
+    })
 
-  }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private messageService: MessageService) { }
+
+    submitLocalizacion() {}
+}

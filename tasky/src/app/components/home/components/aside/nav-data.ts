@@ -18,10 +18,5 @@ export const navbarData = [
     routeLink: 'configuracion',
     icon: 'pi pi-cog',
     label: 'Configuracion'
-  },
-  {
-    routeLink: 'usuario',
-    icon: 'pi pi-user',
-    label: 'Usuario'
   }
 ];

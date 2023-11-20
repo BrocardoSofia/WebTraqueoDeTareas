@@ -118,7 +118,7 @@ function cargarClima() {
 
   let infoSection = document.createElement("section");
   infoSection.style.display = "flex";
-  infoSection.style.flexDirection = "column";
+  infoSection.style.flexDirection = "row";
   infoSection.style.alignContent = "space-between";
 
   let infoClimaSection = document.createElement("section");
@@ -137,6 +137,27 @@ function cargarClima() {
 
   let pLoc = document.createElement("p");
   let tLoc = document.createTextNode(jsonData.name);
+
+  let tPrep = document.createTextNode("Sensación térmica: "+jsonData.main.feels_like+"ºC");
+  let pPrep = document.createElement("p");
+  let tHumedad = document.createTextNode("Humedad: "+jsonData.main.humidity+"%");
+  let pHumedad  = document.createElement("p");
+  let tViento = document.createTextNode("Viento: "+jsonData.wind.speed+"km/h");
+  let pViento  = document.createElement("p");
+
+  pPrep.appendChild(tPrep);
+  pPrep.style.fontFamily = "Poppins, sans-serif";
+  pPrep.style.color = "#151E59";
+  pHumedad.appendChild(tHumedad);
+  pHumedad.style.fontFamily = "Poppins, sans-serif";
+  pHumedad.style.color = "#151E59";
+  pViento.appendChild(tViento);
+  pViento.style.fontFamily = "Poppins, sans-serif";
+  pViento.style.color = "#151E59";
+
+  espSection.appendChild(pPrep);
+  espSection.appendChild(pHumedad);
+  espSection.appendChild(pViento);
 
   pTemp.style.marginBottom = "0px";
 
@@ -173,11 +194,14 @@ function cargarClima() {
   tempSection.appendChild(pTemp);
   tempSection.appendChild(pDesc);
 
-  espSection.style.margin = "2px";
+  espSection.style.padding = "10px";
+  espSection.style.marginLeft = "30px";
   espSection.style.borderLeft = "thick solid #151E59";
 
   infoSection.appendChild(tempSection);
   infoSection.style.marginBottom ="120px";
+
+  infoSection.appendChild(espSection);
 
   info?.appendChild(infoSection);
   info?.appendChild(infoLocalizacion);

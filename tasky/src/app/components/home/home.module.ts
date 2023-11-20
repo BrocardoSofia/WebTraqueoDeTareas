@@ -25,7 +25,6 @@ import { DropdownModule } from 'primeng/dropdown';
 
 import { CardModule } from 'primeng/card';
 
-
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 registerLocaleData(localeEs, 'es');

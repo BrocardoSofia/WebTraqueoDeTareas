@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { User } from 'src/app/interfaces/auth';
 import { AuthService } from 'src/app/services/auth.service';
 import { passwordMatchValidator } from 'src/app/shared/password-match.directive';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +25,7 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private usuarioService: UsuarioService,
     private messageService: MessageService,
     private router: Router) { }
 
@@ -46,11 +48,20 @@ export class RegisterComponent {
   submitDetails() {
     const postData = { ...this.registerForm.value };
     delete postData.confirmPassword;
-    this.authService.registerUser(postData as User).subscribe(
+
+    this.usuarioService.existeEmail(postData.email as string).subscribe(
       response => {
-        console.log(response);
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registro exitoso' });
-        this.router.navigate(['login'])
+        if (response.length != 0) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Email ya registrado' });
+        } else {
+          this.usuarioService.registrarUsuario(postData as User).subscribe(
+            response => {
+              console.log(response);
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registro exitoso' });
+              this.router.navigate(['login'])
+            }
+          )
+        }
       },
       error => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Algo salió mal' });

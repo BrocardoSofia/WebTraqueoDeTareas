@@ -12,80 +12,106 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateCategoria = exports.postCategoria = exports.deleteCategoria = exports.getCategoria = exports.getCategorias = void 0;
+exports.eliminarCategoria = exports.obtenerCategorias = exports.modificarCategoria = exports.agregarCategoria = exports.existeCategoria = void 0;
+const connection_1 = __importDefault(require("../db/connection"));
+const sequelize_1 = require("sequelize");
 const categoria_1 = __importDefault(require("../models/categoria"));
-const getCategorias = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const listCategorias = yield categoria_1.default.findAll();
-    res.json(listCategorias);
-});
-exports.getCategorias = getCategorias;
-const getCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const categoria = yield categoria_1.default.findByPk(id);
-    if (categoria) {
-        res.json(categoria);
-    }
-    else {
-        res.status(404).json({
-            msg: `No existe una categoria con el id ${id}`
-        });
-    }
-});
-exports.getCategoria = getCategoria;
-const deleteCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const categoria = yield categoria_1.default.findByPk(id);
-    if (!categoria) {
-        res.status(404).json({
-            msg: `No existe una categoria con el id ${id}`
-        });
-    }
-    else {
-        yield categoria.destroy();
-        res.json({
-            msg: `La categoria fue eliminada con exito`
-        });
-    }
-});
-exports.deleteCategoria = deleteCategoria;
-const postCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { body } = req;
+const existeCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield categoria_1.default.create(body);
-        res.json({
-            msg: `La categoria fue agregada con exito`
+        const { id_usuario, nombre } = req.query;
+        const consulta = `SELECT 1 FROM Categorias 
+            WHERE id_usuario = :id_usuario AND nombre = :nombre`;
+        const result = yield connection_1.default.query(consulta, {
+            replacements: { id_usuario, nombre },
+            type: sequelize_1.QueryTypes.SELECT,
         });
-    }
-    catch (error) {
-        console.log(error);
-        res.json({
-            msg: `Ups ha ocurrido un error, comuniquese con soporte`
-        });
-    }
-});
-exports.postCategoria = postCategoria;
-const updateCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { body } = req;
-    const { id } = req.params;
-    try {
-        const categoria = yield categoria_1.default.findByPk(id);
-        if (categoria) {
-            yield categoria.update(body);
-            res.json({
-                msg: `La categoria fue actualizada con exito`
-            });
+        if (result.length != 0) {
+            res.json({ respuesta: true, msg: 'La categoria ya existe en la base de datos' });
         }
         else {
-            res.status(404).json({
-                msg: `No existe la categoria con el id ${id}`
-            });
+            res.json({ respuesta: false, msg: 'La categoria no existe en la base de datos' });
         }
     }
     catch (error) {
-        console.log(error);
-        res.json({
-            msg: `Ups ha ocurrido un error, comuniquese con soporte`
-        });
+        res.status(500).json({ error: 'Error al verificar el correo electrónico' });
     }
 });
-exports.updateCategoria = updateCategoria;
+exports.existeCategoria = existeCategoria;
+const agregarCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //usar existe categoria  antes de llamar
+    try {
+        const { id_usuario, nombre } = req.body;
+        const consulta = `INSERT INTO Categorias (id_usuario,nombre) 
+                VALUES (:id_usuario,:nombre)`;
+        const result = yield connection_1.default.query(consulta, {
+            replacements: { id_usuario, nombre },
+            type: sequelize_1.QueryTypes.INSERT,
+        });
+        if (result[1] > 0) {
+            res.json({ msg: 'La categoria fue agregada con exito' });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al agregar la categoria' });
+    }
+});
+exports.agregarCategoria = agregarCategoria;
+const modificarCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //usar existe categoria  antes de llamar
+    try {
+        const { nombre } = req.body;
+        const { id_categoria } = req.params;
+        const consulta = `UPDATE Categorias
+            SET nombre = :nombre
+            WHERE id_categoria = :id_categoria`;
+        const result = yield connection_1.default.query(consulta, {
+            replacements: { nombre, id_categoria },
+            type: sequelize_1.QueryTypes.UPDATE,
+        });
+        if (result[1] > 0) {
+            res.json({ msg: 'La categoria fue modificada con exito' });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al agregar la categoria' });
+    }
+});
+exports.modificarCategoria = modificarCategoria;
+const obtenerCategorias = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id_usuario } = req.query;
+        const categorias = yield categoria_1.default.findAll({
+            where: {
+                id_usuario: id_usuario
+            }
+        });
+        res.json(categorias);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al obtener categorias' });
+    }
+});
+exports.obtenerCategorias = obtenerCategorias;
+const eliminarCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //usar verificar contrasenia de usuario antes de llamar 
+    try {
+        const { id_categoria } = req.query;
+        const consulta = `DELETE FROM Tareas
+            WHERE id_categoria = :id_categoria`;
+        const result = yield connection_1.default.query(consulta, {
+            replacements: { id_categoria },
+            type: sequelize_1.QueryTypes.DELETE,
+        });
+        const consulta2 = `DELETE FROM Categorias
+            WHERE id_categoria = :id_categoria`;
+        const result2 = yield connection_1.default.query(consulta2, {
+            replacements: { id_categoria },
+            type: sequelize_1.QueryTypes.DELETE,
+        });
+        res.json({ msg: 'Categoria eliminada correctamente' });
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al eliminar la categoria' });
+    }
+});
+exports.eliminarCategoria = eliminarCategoria;

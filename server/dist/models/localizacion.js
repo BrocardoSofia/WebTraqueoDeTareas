@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
-const Categoria = connection_1.default.define('Categorias', {
-    id_categoria: {
+const Localizacion = connection_1.default.define('Localizacion', {
+    id_localizacion: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -19,12 +19,16 @@ const Categoria = connection_1.default.define('Categorias', {
             key: 'id'
         }
     },
-    nombre: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false
+    latitud: {
+        type: sequelize_1.DataTypes.DECIMAL(9, 6),
+        allowNull: false,
     },
+    longitud: {
+        type: sequelize_1.DataTypes.DECIMAL(9, 6),
+        allowNull: false,
+    }
 }, {
     createdAt: false,
     updatedAt: false
 });
-exports.default = Categoria;
+exports.default = Localizacion;

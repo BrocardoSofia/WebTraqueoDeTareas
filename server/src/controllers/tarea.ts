@@ -1,0 +1,107 @@
+import { Request, Response } from 'express';
+import sequelize from '../db/connection';
+import { QueryTypes } from 'sequelize';
+import Tarea from '../models/tarea';
+
+export const guardarTarea = async (req: Request, res: Response) => {
+    try {
+        const { id_categoria, nombre, tiempo, fecha } = req.body;
+
+        const consulta =
+            `INSERT INTO Tareas (id_categoria,nombre,tiempo,fecha) 
+            VALUES (:id_categoria,:nombre,:tiempo,:fecha)`;
+
+        const result = await sequelize.query(consulta, {
+            replacements: { id_categoria, nombre, tiempo, fecha },
+            type: QueryTypes.INSERT,
+        });
+
+        if (result[1] > 0) {
+            res.json({ msg: 'La tarea fue guardada con exito' })
+        }
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al guardar la tarea' });
+    }
+}
+
+export const obtenerTareas = async (req: Request, res: Response) => {
+    try {
+        const { id_categoria } = req.query;
+
+        const tareas = await Tarea.findAll({
+            where: {
+                id_categoria: id_categoria
+            }
+        });
+
+        res.json(tareas)
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al verificar el correo electrónico' });
+    }
+}
+
+export const obtenerNombresTareas = async (req: Request, res: Response) => {
+    try {
+        const { id_categoria } = req.query;
+
+        const nombres = await Tarea.findAll({
+            where: {
+                id_categoria: id_categoria
+            },
+            attributes: [[sequelize.fn('DISTINCT', sequelize.col('nombre')), 'nombre']]
+        });
+
+        const nombresUnicos = nombres.map((tarea: any) => tarea.get('nombre')); // Obtener solo los nombres
+
+        res.json(nombresUnicos)
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al verificar el correo electrónico' });
+    }
+}
+
+export const tiempoDeCategoria = async (req: Request, res: Response) => {
+    try {
+        const { id_categoria } = req.query;
+
+        const resultado = await Tarea.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.col('tiempo')), 'total_tiempo']
+            ],
+            where: {
+                id_categoria: id_categoria
+            }
+        });
+
+        const totalTiempo = resultado?.get('total_tiempo') || 0; // Valor total del tiempo
+
+        res.json(totalTiempo); // Devolver solo el valor numérico
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al calcular el tiempo de la categoría' });
+    }
+}
+
+export const tiempoDeTarea = async (req: Request, res: Response) => {
+    try {
+        const { nombre } = req.query;
+
+        const resultado = await Tarea.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.col('tiempo')), 'total_tiempo']
+            ],
+            where: {
+                nombre: nombre
+            }
+        });
+
+        const totalTiempo = resultado?.get('total_tiempo') || 0; // Valor total del tiempo
+
+        res.json(totalTiempo); // Devolver solo el valor numérico
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al calcular el tiempo de la categoría' });
+    }
+}

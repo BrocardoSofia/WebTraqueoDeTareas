@@ -5,21 +5,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
-const Categoria = connection_1.default.define('Categorias', {
-    id_categoria: {
+const Tarea = connection_1.default.define('Tareas', {
+    id_tarea: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    id_usuario: {
+    id_categoria: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Usuarios',
-            key: 'id'
+            model: 'Categorias',
+            key: 'id_categoria'
         }
     },
     nombre: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    tiempo: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false
+    },
+    fecha: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     },
@@ -27,4 +35,4 @@ const Categoria = connection_1.default.define('Categorias', {
     createdAt: false,
     updatedAt: false
 });
-exports.default = Categoria;
+exports.default = Tarea;

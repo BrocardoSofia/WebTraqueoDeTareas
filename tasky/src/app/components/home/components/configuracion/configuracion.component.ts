@@ -6,6 +6,8 @@ import { CardModule } from 'primeng/card';
 import { LocalizacionJson } from 'src/app/interfaces/auth';
 import { AuthService } from 'src/app/services/auth.service';
 import { passwordMatchValidator } from 'src/app/shared/password-match.directive';
+import { LocalizacionService } from 'src/app/services/localizacion.service';
+import { Localizacion } from 'src/app/interfaces/Localizacion';
 
 @Component({
   selector: 'app-configuracion',
@@ -20,6 +22,10 @@ export class ConfiguracionComponent {
     pais: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
   })
 
+  //ID USUARIO DEL LOCAL STORAGE
+  idUsuarioString = localStorage.getItem('id_usuario');
+  idUsuarioNumber = parseInt(this.idUsuarioString!, 10);
+
   tempForm = this.ft.group({
     tiempoTarea: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
     tiempoDescanzo: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
@@ -31,18 +37,18 @@ export class ConfiguracionComponent {
     private ft: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private messageService: MessageService)
-  { }
+    private messageService: MessageService,
+    private localizacionService: LocalizacionService) { }
 
-  get ciudad(){
+  get ciudad() {
     return this.registerForm.controls['ciudad'];
   }
 
-  get provincia(){
+  get provincia() {
     return this.registerForm.controls['provincia'];
   }
 
-  get pais(){
+  get pais() {
     return this.registerForm.controls['pais'];
   }
 
@@ -68,22 +74,38 @@ export class ConfiguracionComponent {
   }
 
   submitLocalizacion() {
-    const { ciudad, provincia, pais} = this.registerForm.value;
+    const { ciudad, provincia, pais } = this.registerForm.value;
 
-    if(ciudad  && provincia && pais)
-    {
+    if (ciudad && provincia && pais) {
       try {
         pedirAPI(ciudad, provincia, pais);
         //guardo la lat y long para actualizar en la api
         let lat;
         let lon;
 
-        if(jsonLoc.length != 0)
-        {
+        if (jsonLoc.length != 0) {
           lat = jsonLoc[0].lat;
           lon = jsonLoc[0].lon;
 
           //conectar bd
+          this.localizacionService.tieneLocalizacion(this.idUsuarioNumber).subscribe(
+            res => {
+
+              let localizacion: Localizacion = new Localizacion()
+              localizacion.id_usuario = this.idUsuarioNumber
+              localizacion.latitud = parseFloat(lat!)
+              localizacion.longitud = parseFloat(lon!)
+
+              if (res.length == 0) {
+                this.localizacionService.guardarLocalizacion(localizacion).subscribe()
+              } else {
+                this.localizacionService.modificarLocalizacion(localizacion).subscribe()
+              }
+            },
+            error => {
+              console.log("Ha ocurrido un error inesperado")
+            }
+          )
         }
       }
       catch (error) {
@@ -106,7 +128,7 @@ function pedirAPI(ciudad: string, provincia: string, pais: string) {
     let lon: string = '-57.5528';
     let API_key: string = '';
 
-    xhr.open('GET', "https://geocode.maps.co/search?q="+ciudad+","+provincia+","+pais);
+    xhr.open('GET', "https://geocode.maps.co/search?q=" + ciudad + "," + provincia + "," + pais);
     xhr.responseType = 'json';
 
     xhr.onload = function () {

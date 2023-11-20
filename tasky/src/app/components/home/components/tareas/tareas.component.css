@@ -107,4 +107,5 @@ h1 {
 .tabla th,td{
   text-align: justify;
   width: 10em;
+  padding: .5rem;
 }

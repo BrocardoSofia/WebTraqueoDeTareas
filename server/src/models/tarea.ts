@@ -20,11 +20,11 @@ const Tarea = db.define('Tareas',{
         allowNull: false
     },
     tiempo : {
-        type : DataTypes.TIME, 
+        type : DataTypes.INTEGER, 
         allowNull: false
     },
     fecha : {
-        type : DataTypes.DATEONLY, 
+        type : DataTypes.STRING, 
         allowNull: false
     },
 },{

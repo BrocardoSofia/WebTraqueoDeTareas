@@ -1,30 +1,41 @@
 import { Injectable } from '@angular/core';
 import { enviroment } from '../enviroments/enviroment';
 import { HttpClient } from '@angular/common/http';
-import { Categoria } from '../components/home/components/categorias/Categoria';
 import { Observable } from 'rxjs';
+import { Categoria } from '../components/home/components/categorias/Categoria';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService {
-  private myAppUrl : string;
-  private myApiUrl : string;
+  private myAppUrl: string;
+  private myApiUrl: string;
 
   constructor(private http: HttpClient) {
     this.myAppUrl = enviroment.endpoint;
-    this.myApiUrl = 'api/categorias/';
+    this.myApiUrl = 'api/categorias';
   }
 
-  getCategorias() : Observable<Categoria[]>{
-    return this.http.get<Categoria[]>(`${this.myAppUrl}${this.myApiUrl}`)
+  existeCategoria(categoria: Categoria): Observable<any> {
+    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/existe-categoria?id_usuario=${categoria.id_usuario}&nombre=${categoria.nombre}`)
   }
 
-  deleteCategoria(id : number) : Observable<void>{
-    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}${id}`)
+  agregarCategoria(categoria: Categoria): Observable<any> {
+    //usar existe cateogria antes de llamar
+    return this.http.post<any>(`${this.myAppUrl}${this.myApiUrl}/agregar-categoria`, categoria)
   }
 
-  saveCategoria(categoria : Categoria) : Observable<void>{
-    return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}`, categoria)
+  modificarCategoria(categoria: Categoria): Observable<any> {
+    //usar existe cateogria antes de llamar
+    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-categoria/${categoria.id_categoria}`, categoria)
+  }
+
+  obtenerCategorias(id_usuario: number): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(`${this.myAppUrl}${this.myApiUrl}?id_usuario=${id_usuario}`)
+  }
+
+  eliminarCategoria(id_categoria: number) : Observable<any>{
+    //usar verificar contrasenia de usuario antes de llamar
+    return this.http.delete<any>(`${this.myAppUrl}${this.myApiUrl}?id_categoria=${id_categoria}`)
   }
 }

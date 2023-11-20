@@ -1,10 +1,10 @@
 <p-card header="Configurar localización">
   <form id="locForm" form [formGroup]="registerForm" (ngSubmit)="submitLocalizacion()">
-    <section class="field">
+    <section class="field" [style]="{ width: '100%'}">
     <input
       type="text"
       pInputText formControlName="ciudad"
-      [style]="{ width: '900px'}"
+      [style]="{ width: '100%'}"
       placeholder="Ciudad"
     />
     <small *ngIf="ciudad.invalid && (ciudad.dirty || ciudad.touched)" class="block p-error">
@@ -14,11 +14,11 @@
     </section>
     <br>
 
-    <section class="field">
+    <section class="field" [style]="{ width: '100%'}">
     <input
       type="text"
       pInputText formControlName="provincia"
-      [style]="{ width: '900px'}"
+      [style]="{ width: '100%'}"
       placeholder="Provincia"
     />
     <small *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="block p-error">
@@ -29,11 +29,11 @@
 
     <br>
 
-    <section class="field">
+    <section class="field" [style]="{ width: '100%'}">
     <input
       type="text"
       pInputText formControlName="pais"
-      [style]="{ width: '900px'}"
+      [style]="{ width: '100%'}"
       placeholder="Pais"
     />
     <small *ngIf="pais.invalid && (pais.dirty || pais.touched)" class="block p-error">

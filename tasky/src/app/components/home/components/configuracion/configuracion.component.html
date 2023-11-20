@@ -101,8 +101,70 @@
 <br>
 
 <p-card header="Configurar usuario">
-  <p class="m-0">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-      quas!
-  </p>
+  <form id="locForm" form [formGroup]="nombreForm" (ngSubmit)="submitNombre()">
+    <section class="field" [style]="{ width: '100%'}">
+      <label for="nombre">Modificar nombre</label>
+      <input
+        type="text"
+        pInputText formControlName="nombre"
+        [style]="{ width: '100%'}"
+        placeholder="Nuevo nombre"
+      />
+    </section>
+
+    <section class="field" [style]="{ width: '100%'}">
+      <label for="password">Contraseña</label>
+      <input
+        type="password"
+        pInputText formControlName="password"
+        [style]="{ width: '100%'}"
+        name="password"
+        placeholder="*********"
+      />
+
+    </section>
+
+    <p-button
+        label="Guardar"
+        [disabled]="nombreForm.invalid"
+        type="submit"
+        [style]="{ borderRadius: '10px'}"
+        >
+      </p-button>
+  </form>
+
+  <br>
+  <br>
+
+  <form id="locForm" form [formGroup]="passwordForm" (ngSubmit)="submitPassword()">
+    <section class="field" [style]="{ width: '100%'}">
+      <label for="password">Modificar contraseña</label>
+      <input
+        type="text"
+        pInputText formControlName="nuevoPassword"
+        [style]="{ width: '100%'}"
+        placeholder="Nueva contraseña"
+      />
+    </section>
+
+    <section class="field" [style]="{ width: '100%'}">
+      <label for="password">Contraseña</label>
+      <input
+        type="password"
+        pInputText formControlName="passwordF"
+        [style]="{ width: '100%'}"
+        name="password"
+        placeholder="*********"
+      />
+
+    </section>
+
+    <p-button
+        label="Guardar"
+        [disabled]="passwordForm.invalid"
+        type="submit"
+        [style]="{ borderRadius: '10px'}"
+        >
+      </p-button>
+  </form>
 </p-card>

@@ -26,13 +26,41 @@ export class ConfiguracionComponent {
     tiempoAgua: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
   })
 
+  nombreForm = this.fn.group({
+    nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
+    password: ['', [Validators.required]],
+  })
+
+  passwordForm = this.fp.group({
+    nuevoPassword: ['', [Validators.required]],
+    passwordF: ['', [Validators.required]],
+  })
+
   constructor(
     private fb: FormBuilder,
     private ft: FormBuilder,
+    private fn: FormBuilder,
+    private fp: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private messageService: MessageService)
   { }
+
+  get nuevoPassword(){
+    return this.passwordForm.controls['nuevoPassword'];
+  }
+
+  get passwordF(){
+    return this.passwordForm.controls['passwordF'];
+  }
+
+  get nombre(){
+    return this.nombreForm.controls['nombre'];
+  }
+
+  get password(){
+    return this.nombreForm.controls['password'];
+  }
 
   get ciudad(){
     return this.registerForm.controls['ciudad'];
@@ -58,13 +86,60 @@ export class ConfiguracionComponent {
     return this.tempForm.controls['tiempoAgua'];
   }
 
+  submitPassword(){
+    const { nuevoPassword, passwordF} = this.passwordForm.value;
+
+    let validarContraseña = false; //validar contraseña con bd
+
+    if(validarContraseña)
+    {
+      //cambiar contraseña bd
+
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico la contraseña correctamente' });
+      //REDIRECCIONA A INICIO
+      this.router.navigate(['/home']);
+
+    }
+    else
+    {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contraseña invalida' });
+    }
+
+  }
+
   submitTemporizador(){
     const { tiempoTarea, tiempoDescanzo, tiempoAgua} = this.tempForm.value;
 
     if(tiempoTarea && tiempoDescanzo && tiempoAgua)
     {
       //guardo en bd
+
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico correctamente' });
+
+      //REDIRECCIONA A INICIO
+      this.router.navigate(['/home']);
     }
+  }
+
+  submitNombre() {
+    const { nombre, password} = this.nombreForm.value;
+
+    let validarContraseña = false; //validar contraseña con bd
+
+    if(validarContraseña)
+    {
+      //cambiar nombre bd
+
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico el nombre correctamente' });
+      //REDIRECCIONA A INICIO
+      this.router.navigate(['/home']);
+
+    }
+    else
+    {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contraseña invalida' });
+    }
+
   }
 
   submitLocalizacion() {
@@ -84,10 +159,13 @@ export class ConfiguracionComponent {
           lon = jsonLoc[0].lon;
 
           //conectar bd
+
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico correctamente' });
         }
       }
       catch (error) {
         console.log(error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Localizacion invalida' });
       }
     }
 

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
@@ -23,6 +23,10 @@ import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 
+
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeEs, 'es');
 @NgModule({
   declarations: [
     HomeComponent,
@@ -49,6 +53,7 @@ import { DropdownModule } from 'primeng/dropdown';
     DialogModule,
     TableModule,
     DropdownModule
-  ]
+  ],
+  providers: [{ provide: LOCALE_ID, useValue: 'es'}]
 })
 export class HomeModule { }

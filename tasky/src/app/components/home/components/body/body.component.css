@@ -6,7 +6,7 @@
   position: relative;
   top: 60px;
   transition: all .5s ease;
-  background: #f4f7fa;
+  background: #fafdff;
   display: flex;
   flex-direction: column;
 }

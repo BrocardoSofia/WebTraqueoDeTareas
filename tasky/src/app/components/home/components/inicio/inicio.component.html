@@ -1,12 +1,22 @@
 <section id="info_app">
-  <article id="info">
-      <img id="tasky_img" src="./assets/tasky.png" alt="imagen de tasky">
+  <article id="info" style="background-image: url('./assets/fondo1.png')">
+      <section id="saludo">
+        <img id="tasky_img" src="./assets/tasky.png" alt="imagen de tasky">
+        <p id="helloName">Hola, nombre!</p>
+      </section>
+
+      <section id="horaFechaSection">
+        <p id="hora">{{hora | date : 'H:mm'}}</p>
+        <p id="fecha">{{fecha | date : 'fullDate'}}</p>
+      </section>
+
   </article>
 
   <br><br>
 
-  <article id="weather">
-
+  <article id="weather" style="background-image: url('./assets/fondo2.png')">
+    <section id="infoClima"></section>
+    <section id="iconoClima"></section>
   </article>
-</section>
 
+</section>

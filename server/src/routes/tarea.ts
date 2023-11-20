@@ -7,4 +7,4 @@ router.post('/',guardarTarea) //recibe un body
 router.get('/',obtenerTareas) // recibe una query
 router.get('/nombres',obtenerNombresTareas) // recibe una query
 
-export default router;
+export default router; 

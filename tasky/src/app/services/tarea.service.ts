@@ -13,7 +13,7 @@ export class TareaService {
 
   constructor(private http: HttpClient) {
     this.myAppUrl = enviroment.endpoint;
-    this.myApiUrl = 'api/categorias';
+    this.myApiUrl = 'api/tareas';
   }
 
   guardarTarea(tarea: Tarea): Observable<any> {
@@ -21,10 +21,10 @@ export class TareaService {
   }
 
   obtenerTareas(id_categoria: number): Observable<Tarea[]> {
-    return this.http.get<Tarea[]>(`${this.myAppUrl}${this.myApiUrl}?id_usuario=${id_categoria}`)
+    return this.http.get<Tarea[]>(`${this.myAppUrl}${this.myApiUrl}?id_categoria=${id_categoria}`)
   }
 
   obtenerNombresTareas(id_categoria: number): Observable<string[]> {
-    return this.http.get<string[]>(`${this.myAppUrl}${this.myApiUrl}/nombres?id_usuario=${id_categoria}`)
+    return this.http.get<string[]>(`${this.myAppUrl}${this.myApiUrl}/nombres?id_categoria=${id_categoria}`)
   }
 }

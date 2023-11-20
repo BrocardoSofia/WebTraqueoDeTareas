@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Tarea } from './Tarea';
-import { TareasService } from 'src/app/services/tareas.service';
+import { TareaService } from 'src/app/services/tarea.service';
 import { Message } from 'primeng/api';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tareas',
@@ -10,16 +9,16 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./tareas.component.css']
 })
 export class TareasComponent {
-  constructor(private tareasService: TareasService) { }
+  constructor(private tareaService: TareaService) { }
 
+  //CRUD
   arrTareas: Tarea[] = [];
   arrTareasInverso: Tarea[] = [];
   arrNombres: string[] = [];
   tareaObj: Tarea = new Tarea();
   tareaSeleccionada: string = ''
 
-  suscription: Subscription = new Subscription();
-
+  //TIMER
   startTimer: any;
   corriendo: boolean = false;
   pausado: boolean = false;
@@ -28,15 +27,17 @@ export class TareasComponent {
   min: any = '0' + 0;
   seg: any = '0' + 0;
 
+  //MENSAJE
   advertencia: Message[] = [];
   advertir: boolean = false;
   mensaje: string = 'ha ocurrido un error inesperado'
 
-  getTareas() {
-    this.tareasService.getTareas().subscribe(
+  obtenerTareas() {
+    let id_categoria = 34
+    this.tareaService.obtenerTareas(id_categoria).subscribe(
       (res) => {
         this.arrTareas = res;
-        this.arrTareasInverso  = this.arrTareas.reverse() //para mostra r en la tabla
+        this.arrTareasInverso = this.arrTareas.reverse()
         res.forEach(r => {
           this.arrNombres.push(r.nombre)
         })
@@ -54,18 +55,32 @@ export class TareasComponent {
     })
   }
 
-  validarTarea(){
+  validarNombre() {
     const regex = /^(\s+\S+\s*)*(?!\s).*$/;
     return (this.tareaSeleccionada.length == 0 || !regex.test(this.tareaSeleccionada)) ? true : false
   }
 
-  agregarTarea() {
+  obtenerFechaHoy(): string {
+    const hoy: Date = new Date();
 
-    // let fecha = new Date();
-    // this.tareaObj.fecha = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
+    const day: number = hoy.getDate();
+    const month: number = hoy.getMonth() + 1;
+    const year: number = hoy.getFullYear();
+
+    const formattedDay: string = day < 10 ? `0${day}` : `${day}`;
+    const formattedMonth: string = month < 10 ? `0${month}` : `${month}`;
+
+    return `${formattedDay}/${formattedMonth}/${year}`;
+  }
+
+  guardarTarea() {
+
+    this.tareaObj.id_categoria = 34
     this.tareaObj.nombre = this.tareaSeleccionada;
-    this.tareaObj.tiempo = `${this.hr} : ${this.min} : ${this.seg}`
-    this.tareasService.agregarTarea(this.tareaObj).subscribe(
+    this.tareaObj.tiempo = this.hr + this.min + this.seg
+    this.tareaObj.fecha = this.obtenerFechaHoy()
+
+    this.tareaService.guardarTarea(this.tareaObj).subscribe(
       (res) => {
         this.ngOnInit();
       },
@@ -79,7 +94,7 @@ export class TareasComponent {
     let flag = false;
 
     this.arrTareas.forEach(c => {
-      if (c.nombre.toUpperCase() == nombreTarea.toUpperCase() && c.id != this.tareaObj.id) {
+      if (c.nombre.toUpperCase() == nombreTarea.toUpperCase() && c.id_categoria != this.tareaObj.id_categoria) {
         flag = true;
       }
     })
@@ -94,6 +109,16 @@ export class TareasComponent {
     return (regex.test(nombreCat)) ? false : true;
   }
 
+  convertirNumeroAHora(numero: number): string {
+    const horas: number = Math.floor(numero / 10000);
+    const minutos: number = Math.floor((numero % 10000) / 100);
+    const segundos: number = numero % 100;
+
+    const horaFormateada: string = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+
+    return horaFormateada;
+  }
+
   cargarMensaje() {
     this.advertencia = [
       { severity: 'error', summary: 'Error', detail: this.mensaje }
@@ -105,7 +130,6 @@ export class TareasComponent {
       { severity: 'error', summary: 'Error', detail: m }
     ];
   }
-
 
   start() {
     if (!this.corriendo) {
@@ -143,15 +167,15 @@ export class TareasComponent {
   stop() {
     clearInterval(this.startTimer)
     this.corriendo = false;
-    this.agregarTarea();
+    this.guardarTarea();
   }
 
   ngOnInit(): void {
-
     this.arrTareas = [];
     this.arrNombres = [];
     this.tareaObj = new Tarea();
     this.tareaSeleccionada = "";
+
     this.advertir = false;
     this.corriendo = false;
 
@@ -159,9 +183,7 @@ export class TareasComponent {
     this.min = '0' + 0;
     this.seg = '0' + 0;
 
-    this.getTareas();
+    this.obtenerTareas();
     this.cargarMensaje();
-
-
   }
 }

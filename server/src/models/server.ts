@@ -4,6 +4,7 @@ import routesCategoria from '../routes/categoria';
 import routesUsuario from '../routes/usuario';
 import routesTarea from '../routes/tarea';
 import routesLocalizacion from '../routes/localizacion'
+import routesTemporizador from '../routes/temporizador'
 import db from '../db/connection';
 
 class Server{
@@ -37,6 +38,8 @@ class Server{
         this.app.use('/api/categorias',routesCategoria) 
         this.app.use('/api/tareas',routesTarea) 
         this.app.use('/api/localizacion',routesLocalizacion) 
+        this.app.use('/api/temporizadores',routesTemporizador) 
+
     }
 
     midleWares(){

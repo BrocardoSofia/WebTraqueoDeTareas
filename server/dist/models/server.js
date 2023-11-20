@@ -18,6 +18,7 @@ const categoria_1 = __importDefault(require("../routes/categoria"));
 const usuario_1 = __importDefault(require("../routes/usuario"));
 const tarea_1 = __importDefault(require("../routes/tarea"));
 const localizacion_1 = __importDefault(require("../routes/localizacion"));
+const temporizador_1 = __importDefault(require("../routes/temporizador"));
 const connection_1 = __importDefault(require("../db/connection"));
 class Server {
     constructor() {
@@ -43,6 +44,7 @@ class Server {
         this.app.use('/api/categorias', categoria_1.default);
         this.app.use('/api/tareas', tarea_1.default);
         this.app.use('/api/localizacion', localizacion_1.default);
+        this.app.use('/api/temporizadores', temporizador_1.default);
     }
     midleWares() {
         //parseamos el body

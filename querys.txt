@@ -177,7 +177,7 @@ WHERE id_usuario = p_id_usuario;
 
 ----------------------------------------------------------------------
 
-modificacionTemporizador(p_id_usuario, p_agua, p_tarea, p_descanso, p_ejercicio)
+modificacionTemporizador(p_id_usuario, p_agua, p_tarea, p_descanso, p_ejercicio)==============================
 
 UPDATE Temporizadores
 SET minutos_tarea = p_tarea, 
@@ -188,7 +188,7 @@ WHERE id_usuario = p_id_usuario;
 
 ----------------------------------------------------------------------
 
-obtenerTemporizador(p_id_Usuario) 
+obtenerTemporizador(p_id_Usuario) =====================================================
 
 SELECT t.minutos_tarea, t.minutos_descanso, t.minutos_agua, t.ejercicio
 FROM Temporizadores
@@ -196,7 +196,7 @@ WHERE id_usuario = p_id_usuario;
 
 ----------------------------------------------------------------------
 
-contarTiempoTotarDeCategoria(p_id_categoria) ->tiempo total acumulp_ado de tareas en esa categoria
+contarTiempoTotarDeCategoria(p_id_categoria) ->tiempo total acumulp_ado de tareas en esa categoria============
 
 SELECT SUM(DATEDIFF(MINUTE, '0:00:00', tiempo) AS tiempo_acumulado
 FROM Tareas
@@ -212,7 +212,7 @@ WHERE t.id_categoria = p_id_categoria;
 
 ----------------------------------------------------------------------
 
-contarTiempoDeTarea(p_id_categoria, p_nombre_tarea)
+contarTiempoDeTarea(p_id_categoria, p_nombre_tarea)======================================
 
 SELECT SUM(DATEDIFF(MINUTE, '0:00:00', tiempo) AS tiempo_acumulado
 FROM Tareas

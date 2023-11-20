@@ -43,4 +43,4 @@ Thumbs.db
 
 
 *.log
-/src/app/enviroments/enviroment.ts
+src/app/enviroments/enviroment.ts

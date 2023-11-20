@@ -77,11 +77,38 @@ export class TareasComponent {
     return `${formattedDay}/${formattedMonth}/${year}`;
   }
 
+  convertirASegundos(tiempo: string): number {
+    const partesTiempo = tiempo.split(':').map(Number);
+
+    if (partesTiempo.length !== 3) {
+      throw new Error('Formato de tiempo incorrecto. Debe ser HH:MM:SS');
+    }
+
+    const horas = partesTiempo[0];
+    const minutos = partesTiempo[1];
+    const segundos = partesTiempo[2];
+
+    const totalSegundos = (horas * 3600) + (minutos * 60) + segundos;
+    return totalSegundos;
+  }
+
+  convertirDesdeSegundos(totalSegundos: number): string {
+    const horas = Math.floor(totalSegundos / 3600);
+    const minutos = Math.floor((totalSegundos % 3600) / 60);
+    const segundos = totalSegundos % 60;
+
+    const formatoHoras = horas < 10 ? `0${horas}` : `${horas}`;
+    const formatoMinutos = minutos < 10 ? `0${minutos}` : `${minutos}`;
+    const formatoSegundos = segundos < 10 ? `0${segundos}` : `${segundos}`;
+
+    return `${formatoHoras}:${formatoMinutos}:${formatoSegundos}`;
+}
+
   guardarTarea() {
 
     this.tareaObj.id_categoria = this.idCategoriaNumber;
     this.tareaObj.nombre = this.tareaSeleccionada;
-    this.tareaObj.tiempo = this.hr + this.min + this.seg
+    this.tareaObj.tiempo = this.convertirASegundos(`${this.hr}:${this.min}:${this.seg}`)
     this.tareaObj.fecha = this.obtenerFechaHoy()
 
     this.tareaService.guardarTarea(this.tareaObj).subscribe(

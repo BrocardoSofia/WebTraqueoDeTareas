@@ -70,7 +70,7 @@
     <tbody>
       <tr *ngFor="let t of arrTareas">
         <td>{{t.nombre}}</td>
-        <td>{{convertirNumeroAHora(t.tiempo)}}</td>
+        <td>{{convertirDesdeSegundos(t.tiempo)}}</td>
         <td>{{t.fecha}}</td>
       </tr>
     </tbody>

@@ -16,6 +16,9 @@ export class InicioComponent implements OnInit {
   icon: string = "";
   descripcion: string = "";
 
+  //ID USUARIO DEL LOCAL STORAGE
+  nombre_usuario = JSON.parse(localStorage.getItem('nombre_usuario')!);
+
   ngOnInit() {
     this.mostrarHora();
     this.mostrarClima();
@@ -32,7 +35,7 @@ export class InicioComponent implements OnInit {
   }
 
   saludar() {
-    let nombre: string = "sofi";
+    let nombre: string = this.nombre_usuario;
     let pSaludo = document.getElementById("helloName");
     let tSaludo = document.createTextNode("Hola, " + nombre + "!");
     pSaludo?.appendChild(tSaludo);

@@ -12,9 +12,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.eliminarLocalizacion = exports.modificarLocalizacion = exports.guardarLocalizacion = void 0;
+exports.eliminarLocalizacion = exports.modificarLocalizacion = exports.guardarLocalizacion = exports.tieneLocalizacion = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
+const tieneLocalizacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id_usuario } = req.query;
+        const consulta = `SELECT 1 FROM Localizacion 
+            WHERE id_usuario = :id_usuario`;
+        const result = yield connection_1.default.query(consulta, {
+            replacements: { id_usuario },
+            type: sequelize_1.QueryTypes.SELECT,
+        });
+        res.json(result);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al verificar el correo electrónico' });
+    }
+});
+exports.tieneLocalizacion = tieneLocalizacion;
 const guardarLocalizacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id_usuario, latitud, longitud } = req.body;
@@ -23,9 +39,7 @@ const guardarLocalizacion = (req, res) => __awaiter(void 0, void 0, void 0, func
             replacements: { id_usuario, latitud, longitud },
             type: sequelize_1.QueryTypes.INSERT,
         });
-        if (result[1] > 0) {
-            res.json({ msg: 'La localizacion fue guardada con exito' });
-        }
+        res.json(result);
     }
     catch (error) {
         res.status(500).json({ error: 'Error al guardar la localizacion' });

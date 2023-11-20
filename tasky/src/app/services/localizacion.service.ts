@@ -17,6 +17,10 @@ export class LocalizacionService {
     this.myApiUrl = 'api/localizacion';
   }
 
+  tieneLocalizacion(id_usuario : number): Observable<any> {
+    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}?id_usuario=${id_usuario}`)
+  }
+
   guardarLocalizacion(localizacion: Localizacion): Observable<any> {
     return this.http.post<any>(`${this.myAppUrl}${this.myApiUrl}`, localizacion)
   }

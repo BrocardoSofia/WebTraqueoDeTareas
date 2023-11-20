@@ -45,10 +45,11 @@ export class LoginComponent {
           this.usuarioService.login(email as string, password as string).subscribe(
             res => {
 
-              if (response.length!= 0) {
+              if (res.length!= 0) {
 
                 //GUARDAR ID
-                localStorage.setItem('id_usuario',JSON.stringify(response[0].id))
+                localStorage.setItem('id_usuario',JSON.stringify(res[0].id))
+                localStorage.setItem('nombre_usuario',JSON.stringify(res[0].nombre))
 
                 sessionStorage.setItem('email', email as string);
                 this.router.navigate(['/home']);

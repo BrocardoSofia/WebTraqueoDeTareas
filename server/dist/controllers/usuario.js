@@ -48,7 +48,7 @@ exports.registrarUsuario = registrarUsuario;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, clave } = req.query;
-        const consulta = 'SELECT id FROM Usuarios WHERE email = :email AND clave = :clave';
+        const consulta = 'SELECT id,nombre FROM Usuarios WHERE email = :email AND clave = :clave';
         const result = yield connection_1.default.query(consulta, {
             replacements: { email, clave },
             type: sequelize_1.QueryTypes.SELECT,

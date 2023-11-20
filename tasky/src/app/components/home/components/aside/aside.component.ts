@@ -2,6 +2,7 @@ import { animate, keyframes, style, transition, trigger } from '@angular/animati
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { navbarData } from './nav-data';
+import { Router } from '@angular/router';
 
 
 interface SideNavToggle {
@@ -61,5 +62,13 @@ export class AsideComponent  implements OnInit {
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
   }
 
+  redirigir(){
+    localStorage.removeItem("id_usuario");
+    localStorage.removeItem("id_categoria");
+    localStorage.removeItem("nombre_categoria");
+    localStorage.removeItem("nombre_usuario");
+    this.router.navigate(['/']);
+  }
 
+  constructor(private router: Router){}
 }

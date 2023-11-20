@@ -45,7 +45,7 @@ export const login = async (req: Request, res: Response) => {
         const { email, clave } = req.query;
 
         const consulta =
-            'SELECT id FROM Usuarios WHERE email = :email AND clave = :clave';
+            'SELECT id,nombre FROM Usuarios WHERE email = :email AND clave = :clave';
 
         const result = await sequelize.query(consulta, {
             replacements: { email, clave },

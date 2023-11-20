@@ -55,7 +55,8 @@ registerLocaleData(localeEs, 'es');
     DialogModule,
     TableModule,
     DropdownModule,
-    ChartModule
+    ChartModule,
+    CardModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es'}]
 })

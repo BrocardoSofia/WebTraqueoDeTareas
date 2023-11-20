@@ -1,6 +1,26 @@
-import { Request, Response } from 'express';
+import { Request, Response, response } from 'express';
 import sequelize from '../db/connection';
 import { QueryTypes } from 'sequelize';
+
+export const tieneLocalizacion = async (req: Request, res: Response) => {
+    try {
+        const { id_usuario } = req.query;
+
+        const consulta =
+            `SELECT 1 FROM Localizacion 
+            WHERE id_usuario = :id_usuario`;
+
+        const result = await sequelize.query(consulta, {
+            replacements: { id_usuario },
+            type: QueryTypes.SELECT,
+        });
+
+        res.json(result)
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al verificar el correo electrónico' });
+    }
+}
 
 export const guardarLocalizacion = async (req: Request, res: Response) => {
     try {
@@ -14,9 +34,8 @@ export const guardarLocalizacion = async (req: Request, res: Response) => {
             type: QueryTypes.INSERT,
         });
 
-        if (result[1] > 0) {
-            res.json({ msg : 'La localizacion fue guardada con exito'})
-        }
+        res.json(result)
+        
     } catch (error) {
         res.status(500).json({ error: 'Error al guardar la localizacion' });
     }

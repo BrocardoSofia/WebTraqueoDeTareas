@@ -128,3 +128,78 @@ export const verificarClave = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Error al intentar autenticar la clave' });
     }
 }
+
+export const modificarClave = async (req: Request, res: Response) => {
+    //usar verificar clave antes de llamar
+    try {
+        const { nueva_clave } = req.body
+        const { id_usuario } = req.params
+
+        const consulta =
+            `UPDATE Usuarios
+            SET clave = :nueva_clave
+            WHERE id_usuario = :id_usuario`;
+
+        const result = await sequelize.query(consulta, {
+            replacements: { nueva_clave, id_usuario },
+            type: QueryTypes.UPDATE,
+        });
+
+        if (result[1] > 0) {
+            res.json({ msg: 'La clave fue modificada con exito' })
+        }
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al cambiar la clave' })
+    }
+}
+
+export const modificarEmail = async (req: Request, res: Response) => {
+    //usar verificar clave antes de llamar
+    try {
+        const { nuevo_email } = req.body
+        const { id_usuario } = req.params
+
+        const consulta =
+            `UPDATE Usuarios
+            SET email = :nuevo_email
+            WHERE id_usuario = :id_usuario`;
+
+        const result = await sequelize.query(consulta, {
+            replacements: { nuevo_email, id_usuario },
+            type: QueryTypes.UPDATE,
+        });
+
+        if (result[1] > 0) {
+            res.json({ msg: 'El email fue modificado con exito' })
+        }
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al cambiar el email' })
+    }
+}
+
+export const modificarNombre = async (req: Request, res: Response) => {
+    //usar verificar clave antes de llamar
+    try {
+        const { nuevo_nombre } = req.body
+        const { id_usuario } = req.params
+
+        const consulta =
+            `UPDATE Usuarios
+            SET nombre = :nuevo_nombre
+            WHERE id_usuario = :id_usuario`;
+
+        const result = await sequelize.query(consulta, {
+            replacements: { nuevo_nombre, id_usuario },
+            type: QueryTypes.UPDATE,
+        });
+
+        if (result[1] > 0) {
+            res.json({ msg: 'El noombre fue modificado con exito' })
+        }
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al cambiar el nombre' })
+    }
+}

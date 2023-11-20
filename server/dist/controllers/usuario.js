@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verificarClave = exports.obtenerUsuario = exports.login = exports.registrarUsuario = exports.existeEmail = void 0;
+exports.modificarNombre = exports.modificarEmail = exports.modificarClave = exports.verificarClave = exports.obtenerUsuario = exports.login = exports.registrarUsuario = exports.existeEmail = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const sequelize_1 = require("sequelize");
 const existeEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -127,3 +127,66 @@ const verificarClave = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.verificarClave = verificarClave;
+const modificarClave = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //usar verificar clave antes de llamar
+    try {
+        const { nueva_clave } = req.body;
+        const { id_usuario } = req.params;
+        const consulta = `UPDATE Usuarios
+            SET clave = :nueva_clave
+            WHERE id_usuario = :id_usuario`;
+        const result = yield connection_1.default.query(consulta, {
+            replacements: { nueva_clave, id_usuario },
+            type: sequelize_1.QueryTypes.UPDATE,
+        });
+        if (result[1] > 0) {
+            res.json({ msg: 'La clave fue modificada con exito' });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al cambiar la clave' });
+    }
+});
+exports.modificarClave = modificarClave;
+const modificarEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //usar verificar clave antes de llamar
+    try {
+        const { nuevo_email } = req.body;
+        const { id_usuario } = req.params;
+        const consulta = `UPDATE Usuarios
+            SET email = :nuevo_email
+            WHERE id_usuario = :id_usuario`;
+        const result = yield connection_1.default.query(consulta, {
+            replacements: { nuevo_email, id_usuario },
+            type: sequelize_1.QueryTypes.UPDATE,
+        });
+        if (result[1] > 0) {
+            res.json({ msg: 'El email fue modificado con exito' });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al cambiar el email' });
+    }
+});
+exports.modificarEmail = modificarEmail;
+const modificarNombre = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //usar verificar clave antes de llamar
+    try {
+        const { nuevo_nombre } = req.body;
+        const { id_usuario } = req.params;
+        const consulta = `UPDATE Usuarios
+            SET nombre = :nuevo_nombre
+            WHERE id_usuario = :id_usuario`;
+        const result = yield connection_1.default.query(consulta, {
+            replacements: { nuevo_nombre, id_usuario },
+            type: sequelize_1.QueryTypes.UPDATE,
+        });
+        if (result[1] > 0) {
+            res.json({ msg: 'El noombre fue modificado con exito' });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al cambiar el nombre' });
+    }
+});
+exports.modificarNombre = modificarNombre;

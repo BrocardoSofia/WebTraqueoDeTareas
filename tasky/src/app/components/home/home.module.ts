@@ -24,6 +24,7 @@ import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { ChartModule } from 'primeng/chart';
 
+import { CardModule } from 'primeng/card';
 
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';

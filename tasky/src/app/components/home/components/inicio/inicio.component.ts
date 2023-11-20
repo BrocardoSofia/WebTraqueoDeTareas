@@ -19,6 +19,7 @@ export class InicioComponent implements OnInit {
   ngOnInit() {
     this.mostrarHora();
     this.mostrarClima();
+    this.saludar();
   }
 
   mostrarHora() {
@@ -28,6 +29,13 @@ export class InicioComponent implements OnInit {
       this.hora = new Date();
 
     }, 1000);
+  }
+
+  saludar() {
+    let nombre: string = "sofi";
+    let pSaludo = document.getElementById("helloName");
+    let tSaludo = document.createTextNode("Hola, " + nombre + "!");
+    pSaludo?.appendChild(tSaludo);
   }
 
   mostrarClima() {
@@ -43,7 +51,7 @@ function pedirAPI() {
 
     let lat: string = '-38.0033';
     let lon: string = '-57.5528';
-    let API_key: string = '';
+    let API_key: string = 'd68ad79be1ac8c2e9d59bd959317eea0';
 
     xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + API_key + '&units=metric&lang=es');
     xhr.responseType = 'json';
@@ -64,15 +72,13 @@ function pedirAPI() {
 
 async function llamadaAPI() {
   try {
-    let loc = '';
-    if(loc === '')
-    {
+    let loc = 'a';
+    if (loc === '') {
+      cargarNoClima();
+    }
+    else {
       await pedirAPI();
       cargarClima();
-    }
-    else
-    {
-      cargarNoClima();
     }
   }
   catch (error) {
@@ -138,12 +144,12 @@ function cargarClima() {
   let pLoc = document.createElement("p");
   let tLoc = document.createTextNode(jsonData.name);
 
-  let tPrep = document.createTextNode("Sensación térmica: "+jsonData.main.feels_like+"ºC");
+  let tPrep = document.createTextNode("Sensación térmica: " + jsonData.main.feels_like + "ºC");
   let pPrep = document.createElement("p");
-  let tHumedad = document.createTextNode("Humedad: "+jsonData.main.humidity+"%");
-  let pHumedad  = document.createElement("p");
-  let tViento = document.createTextNode("Viento: "+jsonData.wind.speed+"km/h");
-  let pViento  = document.createElement("p");
+  let tHumedad = document.createTextNode("Humedad: " + jsonData.main.humidity + "%");
+  let pHumedad = document.createElement("p");
+  let tViento = document.createTextNode("Viento: " + jsonData.wind.speed + "km/h");
+  let pViento = document.createElement("p");
 
   pPrep.appendChild(tPrep);
   pPrep.style.fontFamily = "Poppins, sans-serif";
@@ -199,7 +205,7 @@ function cargarClima() {
   espSection.style.borderLeft = "thick solid #151E59";
 
   infoSection.appendChild(tempSection);
-  infoSection.style.marginBottom ="120px";
+  infoSection.style.marginBottom = "120px";
 
   infoSection.appendChild(espSection);
 

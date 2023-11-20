@@ -1,1 +1,74 @@
-<p>configuracion works!</p>
+<p-card header="Configurar localización">
+  <form id="locForm" form [formGroup]="registerForm" (ngSubmit)="submitLocalizacion()">
+    <section class="field" [style]="{ width: '100%'}">
+    <input
+      type="text"
+      pInputText formControlName="ciudad"
+      [style]="{ width: '100%'}"
+      placeholder="Ciudad"
+    />
+    <small *ngIf="ciudad.invalid && (ciudad.dirty || ciudad.touched)" class="block p-error">
+      <section *ngIf="ciudad.errors?.['required']">Debe ingresar una ciudad</section>
+      <section *ngIf="ciudad.errors?.['pattern']">Nombre de ciudad invalido</section>
+    </small>
+    </section>
+    <br>
+
+    <section class="field" [style]="{ width: '100%'}">
+    <input
+      type="text"
+      pInputText formControlName="provincia"
+      [style]="{ width: '100%'}"
+      placeholder="Provincia"
+    />
+    <small *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="block p-error">
+      <section *ngIf="provincia.errors?.['required']">Debe ingresar una provincia</section>
+      <section *ngIf="provincia.errors?.['pattern']">Nombre de provincia invalido</section>
+    </small>
+    </section>
+
+    <br>
+
+    <section class="field" [style]="{ width: '100%'}">
+    <input
+      type="text"
+      pInputText formControlName="pais"
+      [style]="{ width: '100%'}"
+      placeholder="Pais"
+    />
+    <small *ngIf="pais.invalid && (pais.dirty || pais.touched)" class="block p-error">
+      <section *ngIf="pais.errors?.['required']">Debe ingresar un pais</section>
+      <section *ngIf="pais.errors?.['pattern']">Nombre de pais invalido</section>
+    </small>
+    </section>
+
+    <br>
+
+    <p-button
+        label="Guardar"
+        [disabled]="registerForm.invalid"
+        type="submit"
+        [style]="{ borderRadius: '10px'}"
+        >
+      </p-button>
+  </form>
+</p-card>
+
+
+<br>
+
+<p-card header="Configurar temporizador">
+  <p class="m-0">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+      quas!
+  </p>
+</p-card>
+
+<br>
+
+<p-card header="Configurar usuario">
+  <p class="m-0">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+      quas!
+  </p>
+</p-card>

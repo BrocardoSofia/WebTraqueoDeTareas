@@ -59,3 +59,18 @@ export interface Sys {
   sunrise: number;
   sunset: number;
 }
+
+export interface LocalizacionJson {
+  place_id: number;
+  licence: string;
+  powered_by: string;
+  osm_type?: string | null;
+  osm_id?: number | null;
+  boundingbox?: (string)[] | null;
+  lat: string;
+  lon: string;
+  display_name: string;
+  class: string;
+  type: string;
+  importance: number;
+}

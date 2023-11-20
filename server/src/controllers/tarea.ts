@@ -74,10 +74,8 @@ export const tiempoDeCategoria = async (req: Request, res: Response) => {
                 id_categoria: id_categoria
             }
         });
-
-        const totalTiempo = resultado?.get('total_tiempo') || 0; // Valor total del tiempo
-
-        res.json(totalTiempo); // Devolver solo el valor numérico
+        
+        res.json(resultado); // Devolver solo el valor numérico
 
     } catch (error) {
         res.status(500).json({ error: 'Error al calcular el tiempo de la categoría' });
@@ -97,9 +95,7 @@ export const tiempoDeTarea = async (req: Request, res: Response) => {
             }
         });
 
-        const totalTiempo = resultado?.get('total_tiempo') || 0; // Valor total del tiempo
-
-        res.json(totalTiempo); // Devolver solo el valor numérico
+        res.json(resultado); 
 
     } catch (error) {
         res.status(500).json({ error: 'Error al calcular el tiempo de la categoría' });

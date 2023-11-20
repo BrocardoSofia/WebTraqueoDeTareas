@@ -77,8 +77,7 @@ const tiempoDeCategoria = (req, res) => __awaiter(void 0, void 0, void 0, functi
                 id_categoria: id_categoria
             }
         });
-        const totalTiempo = (resultado === null || resultado === void 0 ? void 0 : resultado.get('total_tiempo')) || 0; // Valor total del tiempo
-        res.json(totalTiempo); // Devolver solo el valor numérico
+        res.json(resultado); // Devolver solo el valor numérico
     }
     catch (error) {
         res.status(500).json({ error: 'Error al calcular el tiempo de la categoría' });
@@ -96,8 +95,7 @@ const tiempoDeTarea = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 nombre: nombre
             }
         });
-        const totalTiempo = (resultado === null || resultado === void 0 ? void 0 : resultado.get('total_tiempo')) || 0; // Valor total del tiempo
-        res.json(totalTiempo); // Devolver solo el valor numérico
+        res.json(resultado);
     }
     catch (error) {
         res.status(500).json({ error: 'Error al calcular el tiempo de la categoría' });

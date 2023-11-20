@@ -1,1 +1,10 @@
-<p>estadisticas works!</p>
+<article style="display: flex;">
+  <section style="width: 45%;" class="est-categorias">
+    <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+  </section>
+  <section style="width: 30%;" class="est-tareas">
+    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City"></p-dropdown>
+    <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
+  </section>
+</article>
+

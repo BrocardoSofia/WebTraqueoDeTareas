@@ -82,9 +82,9 @@ export const obtenerUsuario = async (req: Request, res: Response) => {
             `SELECT u.email, u.nombre, t.minutos_tarea, t.minutos_descanso, t.minutos_agua, t.ejercicio, l.longitud, l.latitud
             FROM Usuarios AS u
             INNER JOIN Temporizadores AS t
-            ON u.id = t.id_usuario
+            ON u.id = t.id
             INNER JOIN Localizacion as l 
-            ON u.id = l.id_usuario
+            ON u.id = l.id
             WHERE u.id = :id`;
 
             const result = await sequelize.query(consulta, {
@@ -132,16 +132,16 @@ export const verificarClave = async (req: Request, res: Response) => {
 export const modificarClave = async (req: Request, res: Response) => {
     //usar verificar clave antes de llamar
     try {
-        const { nueva_clave } = req.body
-        const { id_usuario } = req.params
+        const { clave } = req.body
+        const { id } = req.params
 
         const consulta =
             `UPDATE Usuarios
-            SET clave = :nueva_clave
-            WHERE id_usuario = :id_usuario`;
+            SET clave = :clave
+            WHERE id = :id`;
 
         const result = await sequelize.query(consulta, {
-            replacements: { nueva_clave, id_usuario },
+            replacements: { clave, id },
             type: QueryTypes.UPDATE,
         });
 
@@ -157,16 +157,16 @@ export const modificarClave = async (req: Request, res: Response) => {
 export const modificarEmail = async (req: Request, res: Response) => {
     //usar verificar clave antes de llamar
     try {
-        const { nuevo_email } = req.body
-        const { id_usuario } = req.params
+        const { email } = req.body
+        const { id } = req.params
 
         const consulta =
             `UPDATE Usuarios
-            SET email = :nuevo_email
-            WHERE id_usuario = :id_usuario`;
+            SET email = :email
+            WHERE id = :id`;
 
         const result = await sequelize.query(consulta, {
-            replacements: { nuevo_email, id_usuario },
+            replacements: { email, id },
             type: QueryTypes.UPDATE,
         });
 
@@ -182,16 +182,16 @@ export const modificarEmail = async (req: Request, res: Response) => {
 export const modificarNombre = async (req: Request, res: Response) => {
     //usar verificar clave antes de llamar
     try {
-        const { nuevo_nombre } = req.body
-        const { id_usuario } = req.params
+        const { nombre } = req.body
+        const { id } = req.params
 
         const consulta =
             `UPDATE Usuarios
-            SET nombre = :nuevo_nombre
-            WHERE id_usuario = :id_usuario`;
+            SET nombre = :nombre
+            WHERE id = :id`;
 
         const result = await sequelize.query(consulta, {
-            replacements: { nuevo_nombre, id_usuario },
+            replacements: { nombre, id },
             type: QueryTypes.UPDATE,
         });
 

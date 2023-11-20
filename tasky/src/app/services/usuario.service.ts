@@ -105,18 +105,18 @@ export class UsuarioService {
   //   );
   // }
 
-  modificarClave(nueva_clave : string , id_usuario : number): Observable<any> {
+  modificarClave(clave : string , id : number): Observable<any> {
     //usar verificar clave antes de llamar
-    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-clave/${id_usuario}`, nueva_clave)
+    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-clave/${id}`, clave)
   }
 
-  modificarEmail(nuevo_email : string , id_usuario : number): Observable<any> {
+  modificarEmail(email : string , id : number): Observable<any> {
     //usar verificar clave antes de llamar
-    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-email/${id_usuario}`, nuevo_email)
+    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-email/${id}`, email)
   }
 
-  modificarNombre(nuevo_nombre : string , id_usuario : number): Observable<any> {
+  modificarNombre(nombre : string , id : number): Observable<any> {
     //usar verificar clave antes de llamar
-    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-nombre/${id_usuario}`, nuevo_nombre)
+    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-nombre/${id}`, nombre)
   }
 }

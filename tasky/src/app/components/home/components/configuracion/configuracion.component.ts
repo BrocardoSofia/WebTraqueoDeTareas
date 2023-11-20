@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from 'express';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
+import { LocalizacionJson } from 'src/app/interfaces/auth';
 import { AuthService } from 'src/app/services/auth.service';
 import { passwordMatchValidator } from 'src/app/shared/password-match.directive';
 
@@ -22,6 +23,7 @@ export class ConfiguracionComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private router: Router,
     private messageService: MessageService)
   { }
 
@@ -39,5 +41,56 @@ export class ConfiguracionComponent {
 
   submitLocalizacion() {
     const { ciudad, provincia, pais} = this.registerForm.value;
+
+    if(ciudad  && provincia && pais)
+    {
+      try {
+        pedirAPI(ciudad, provincia, pais);
+        //guardo la lat y long para actualizar en la api
+        let lat;
+        let lon;
+
+        if(jsonLoc.length != 0)
+        {
+          lat = jsonLoc[0].lat;
+          lon = jsonLoc[0].lon;
+        }
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+
+    //REDIRECCIONA A INICIO
+    this.router.navigate(['/home']);
   }
 }
+
+let jsonLoc: LocalizacionJson[];
+
+function pedirAPI(ciudad: string, provincia: string, pais: string) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+
+    let lat: string = '-38.0033';
+    let lon: string = '-57.5528';
+    let API_key: string = '';
+
+    xhr.open('GET', "https://geocode.maps.co/search?q="+ciudad+","+provincia+","+pais);
+    xhr.responseType = 'json';
+
+    xhr.onload = function () {
+      if (xhr.status == 200) {
+        jsonLoc = xhr.response;
+        resolve(jsonLoc);
+        console.log(jsonLoc);
+
+      } else {
+        reject('error');
+      }
+    };
+
+    xhr.send();
+  })
+}
+

@@ -11,6 +11,11 @@ import { Message } from 'primeng/api';
 export class TareasComponent {
   constructor(private tareaService: TareaService) { }
 
+  //ID USUARIO DEL LOCAL STORAGE
+  nombreCategoria = JSON.parse(localStorage.getItem('nombre_categoria')!);
+  idCategoriaString = localStorage.getItem('id_categoria');
+  idCategoriaNumber = parseInt(this.idCategoriaString!, 10);
+
   //CRUD
   arrTareas: Tarea[] = [];
   arrTareasInverso: Tarea[] = [];
@@ -75,7 +80,7 @@ export class TareasComponent {
 
   guardarTarea() {
 
-    this.tareaObj.id_categoria = 34
+    this.tareaObj.id_categoria = this.idCategoriaNumber;
     this.tareaObj.nombre = this.tareaSeleccionada;
     this.tareaObj.tiempo = this.hr + this.min + this.seg
     this.tareaObj.fecha = this.obtenerFechaHoy()

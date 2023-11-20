@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { enviroment } from '../enviroments/enviroment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../interfaces/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -33,11 +34,11 @@ export class UsuarioService {
   //   );
   // }
 
-  registrarUsuario(email : string, nombre :string, clave : string) : Observable<any>{
+  registrarUsuario(user : User) : Observable<any>{
     const body = {
-      "email" : email,
-      "nombre" : nombre,
-      "clave" : clave
+      "email" : user.email,
+      "nombre" : user.fullName,
+      "clave" : user.password
     }
     return this.http.post<any>(`${this.myAppUrl}${this.myApiUrl}/registrar-usuario`,body);
   }

@@ -23,7 +23,8 @@
   <!-- LISTA DE CATEGORIAS -->
   <div class="lista-de-categorias">
     <div class="input-group" *ngFor="let categoria of listaCategorias">
-      <li type="text" class="form-control" routerLink="/home/categorias/tareas">{{categoria.nombre}}</li>
+      <!-- routerLink="/home/categorias/tareas" -->
+      <li type="text" class="form-control" (click)="redirigir(categoria)">{{categoria.nombre}}</li>
       <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
         (click)="callEditarCategoria(categoria)"> <i class=" pi pi-pencil" style="font-size: 1.5rem"></i> </button>
       <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"

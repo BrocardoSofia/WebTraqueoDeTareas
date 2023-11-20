@@ -18,17 +18,12 @@ const sequelize_1 = require("sequelize");
 const existeEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email } = req.query;
-        const consulta = 'SELECT 1 FROM Usuarios WHERE email = :email';
+        const consulta = 'SELECT id FROM Usuarios WHERE email = :email';
         const result = yield connection_1.default.query(consulta, {
             replacements: { email },
             type: sequelize_1.QueryTypes.SELECT,
         });
-        if (result.length != 0) {
-            res.json({ respuesta: true, msg: 'El correo existe en la base de datos' });
-        }
-        else {
-            res.json({ respuesta: false, msg: 'El correo no existe en la base de datos' });
-        }
+        res.json(result);
     }
     catch (error) {
         res.status(500).json({ error: 'Error al verificar el correo electrónico' });
@@ -43,9 +38,7 @@ const registrarUsuario = (req, res) => __awaiter(void 0, void 0, void 0, functio
             replacements: { email, nombre, clave },
             type: sequelize_1.QueryTypes.INSERT,
         });
-        if (result[1] > 0) {
-            res.json({ msg: 'El usuario fue registrado con exito' });
-        }
+        res.json(result);
     }
     catch (error) {
         res.status(500).json({ error: 'Error al intentar registrar al usuario' });
@@ -55,24 +48,12 @@ exports.registrarUsuario = registrarUsuario;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, clave } = req.query;
-        const existe = exports.existeEmail;
-        if (existe.length != 0) {
-            const consulta = 'SELECT id FROM Usuarios WHERE email = :email AND clave = :clave';
-            const result = yield connection_1.default.query(consulta, {
-                replacements: { email, clave },
-                type: sequelize_1.QueryTypes.SELECT,
-            });
-            if (result.length != 0) {
-                const id = result[0];
-                res.json({ respuesta: id, msg: 'Inicio de sesion exitoso' });
-            }
-            else {
-                res.json({ respuesta: false, msg: 'La clave ingresada en incorrecta' });
-            }
-        }
-        else {
-            res.json({ respuesta: false, msg: 'Email no registrado' });
-        }
+        const consulta = 'SELECT id FROM Usuarios WHERE email = :email AND clave = :clave';
+        const result = yield connection_1.default.query(consulta, {
+            replacements: { email, clave },
+            type: sequelize_1.QueryTypes.SELECT,
+        });
+        res.json(result);
     }
     catch (error) {
         res.status(500).json({ error: 'Error al intentar ingresar' });

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Categoria } from './Categoria';
+import { Router } from '@angular/router';
 import {
   FormGroup,
   FormControl,
@@ -14,6 +15,10 @@ import { CategoriaService } from 'src/app/services/categoria.service';
   styleUrls: ['./categorias.component.css'],
 })
 export class CategoriasComponent {
+
+  //ID USUARIO DEL LOCAL STORAGE
+  idUsuarioString = localStorage.getItem('id_usuario');
+  idUsuarioNumber = parseInt(this.idUsuarioString!, 10);
 
   //CRUD CATEGORIAS
   listaCategorias: Categoria[] = []
@@ -31,7 +36,8 @@ export class CategoriasComponent {
   showModalBorrar: boolean = false;
 
   obtenerCategorias() {
-    this.categoriaService.obtenerCategorias(1).subscribe( //ID INCRUSTADO
+
+    this.categoriaService.obtenerCategorias(this.idUsuarioNumber).subscribe(
       (res) => {
         if (res.length == 0) {
           this.updateMensajeAdvertencia('No hay categorias cargadas')
@@ -59,7 +65,7 @@ export class CategoriasComponent {
       this.advertir = false
 
       //asignacion de id y limpieza de nombre
-      this.objCategoria.id_usuario = 1;//ID HARCODEADO
+      this.objCategoria.id_usuario = this.idUsuarioNumber;
       this.objCategoria.nombre = this.limpiarEspacios(this.nuevo).toLowerCase()
 
       this.categoriaService.existeCategoria(this.objCategoria).subscribe(
@@ -195,7 +201,13 @@ export class CategoriasComponent {
     return this.nuevaCategoriaForm.get('nombre');
   }
 
-  constructor(private categoriaService: CategoriaService) { }
+  redirigir(categoria : Categoria){
+    localStorage.setItem('id_categoria',JSON.stringify(categoria.id_categoria))
+    localStorage.setItem('nombre_categoria',JSON.stringify(categoria.nombre))
+    this.router.navigate(['/home/categorias/tareas']);
+  }
+
+  constructor(private categoriaService: CategoriaService,private router: Router,) { }
 
   ngOnInit(): void {
     //vacio variables

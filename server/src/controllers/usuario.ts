@@ -7,18 +7,15 @@ export const existeEmail = async (req: Request, res: Response) => {
         const { email } = req.query;
 
         const consulta =
-            'SELECT 1 FROM Usuarios WHERE email = :email';
+            'SELECT id FROM Usuarios WHERE email = :email';
 
         const result = await sequelize.query(consulta, {
             replacements: { email },
             type: QueryTypes.SELECT,
         });
 
-        if (result.length != 0) {
-            res.json({ respuesta: true, msg: 'El correo existe en la base de datos' });
-        } else {
-            res.json({ respuesta: false, msg: 'El correo no existe en la base de datos' });
-        }
+        res.json(result);
+        
     } catch (error) {
         res.status(500).json({ error: 'Error al verificar el correo electrónico' });
     }
@@ -36,9 +33,8 @@ export const registrarUsuario = async (req: Request, res: Response) => {
             type: QueryTypes.INSERT,
         });
 
-        if (result[1] > 0) {
-            res.json({ msg : 'El usuario fue registrado con exito'})
-        }
+        res.json( result)
+        
     } catch (error) {
         res.status(500).json({ error: 'Error al intentar registrar al usuario' });
     }
@@ -48,26 +44,15 @@ export const login = async (req: Request, res: Response) => {
     try {
         const { email, clave } = req.query;
 
-        const existe = existeEmail
-
-        if(existe.length != 0){
-            const consulta =
+        const consulta =
             'SELECT id FROM Usuarios WHERE email = :email AND clave = :clave';
 
-            const result = await sequelize.query(consulta, {
-                replacements: { email, clave },
-                type: QueryTypes.SELECT,
-            });
+        const result = await sequelize.query(consulta, {
+            replacements: { email, clave },
+            type: QueryTypes.SELECT,
+        });
 
-            if (result.length != 0) {
-                const id = result[0]
-                res.json({ respuesta: id, msg: 'Inicio de sesion exitoso' });
-            } else {
-                res.json({ respuesta: false, msg: 'La clave ingresada en incorrecta' });
-            }
-        }else{
-            res.json({ respuesta: false, msg: 'Email no registrado' });
-        }
+        res.json(result)
 
     } catch (error) {
         res.status(500).json({ error: 'Error al intentar ingresar' });
@@ -87,16 +72,16 @@ export const obtenerUsuario = async (req: Request, res: Response) => {
             ON u.id = l.id
             WHERE u.id = :id`;
 
-            const result = await sequelize.query(consulta, {
-                replacements: { id },
-                type: QueryTypes.SELECT,
-            });
+        const result = await sequelize.query(consulta, {
+            replacements: { id },
+            type: QueryTypes.SELECT,
+        });
 
-            if (result.length != 0) {
-                res.json({ respuesta: result, msg: 'Obtencion del usuario exitoso' });
-            } else {
-                res.json({ respuesta: false, msg: 'El id del usuario no existe' });
-            }
+        if (result.length != 0) {
+            res.json({ respuesta: result, msg: 'Obtencion del usuario exitoso' });
+        } else {
+            res.json({ respuesta: false, msg: 'El id del usuario no existe' });
+        }
 
     } catch (error) {
         res.status(500).json({ error: 'Error obtener el usuario' });
@@ -113,16 +98,16 @@ export const verificarClave = async (req: Request, res: Response) => {
             `SELECT 1 FROM Usuarios
             WHERE id = :id AND clave = :clave`;
 
-            const result = await sequelize.query(consulta, {
-                replacements: { id,clave },
-                type: QueryTypes.SELECT,
-            });
+        const result = await sequelize.query(consulta, {
+            replacements: { id, clave },
+            type: QueryTypes.SELECT,
+        });
 
-            if (result.length != 0) {
-                res.json({ respuesta: true, msg: 'Clave correcta' });
-            } else {
-                res.json({ respuesta: false, msg: 'Clave incorrecta' });
-            }
+        if (result.length != 0) {
+            res.json({ respuesta: true, msg: 'Clave correcta' });
+        } else {
+            res.json({ respuesta: false, msg: 'Clave incorrecta' });
+        }
 
     } catch (error) {
         res.status(500).json({ error: 'Error al intentar autenticar la clave' });

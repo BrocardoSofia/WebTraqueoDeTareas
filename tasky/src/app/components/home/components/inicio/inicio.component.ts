@@ -72,13 +72,13 @@ function pedirAPI() {
 
 async function llamadaAPI() {
   try {
-    let loc = '';
+    let loc = 'a';
     if (loc === '') {
-      await pedirAPI();
-      cargarClima();
+      cargarNoClima();
     }
     else {
-      cargarNoClima();
+      await pedirAPI();
+      cargarClima();
     }
   }
   catch (error) {

@@ -1,28 +1,26 @@
 <section class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
   <br>
   <section class="logo-container">
-      <button class="logo" (click)="toggleCollapse()">
-        <i class="pi pi-bars"></i>
-      </button>
-      <section class="logo-text" @fadeInOut *ngIf="collapsed">Menu</section>
+    <button class="logo" (click)="toggleCollapse()">
+      <i class="pi pi-bars"></i>
+    </button>
+    <section class="logo-text" @fadeInOut *ngIf="collapsed">Menu</section>
 
   </section>
 
   <ul class="sidenav-nav">
-      <li class="sidenav-nav-item" *ngFor="let data of navData">
-          <a class="sidenav-nav-link" [routerLink]="[data.routeLink]"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{exact: true}"
-          >
-              <i class="sidenav-link-icon" [class]="data.icon"></i>
-              <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
-                  {{data.label}}
-              </span>
-          </a>
-      </li>
+    <li class="sidenav-nav-item" *ngFor="let data of navData">
+      <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-link-icon" [class]="data.icon"></i>
+        <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+          {{data.label}}
+        </span>
+      </a>
+    </li>
 
-      <li id="logout">
-        <p-button icon="pi pi-sign-out" routerLink="/"></p-button>
-      </li>
+    <li id="logout">
+      <p-button icon="pi pi-sign-out" routerLink="/" [style]="{ borderRadius: '10px'}"></p-button>
+    </li>
   </ul>
 </section>

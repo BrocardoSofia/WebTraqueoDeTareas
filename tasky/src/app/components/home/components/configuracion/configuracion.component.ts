@@ -14,13 +14,30 @@ import { passwordMatchValidator } from 'src/app/shared/password-match.directive'
 
 export class ConfiguracionComponent {
   registerForm = this.fb.group({
-    localizacion: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
+    ciudad: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
+    provincia: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
+    pais: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
     })
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private messageService: MessageService) { }
+    private messageService: MessageService)
+  { }
 
-    submitLocalizacion() {}
+  get ciudad(){
+    return this.registerForm.controls['ciudad'];
+  }
+
+  get provincia(){
+    return this.registerForm.controls['provincia'];
+  }
+
+  get pais(){
+    return this.registerForm.controls['pais'];
+  }
+
+  submitLocalizacion() {
+    const { ciudad, provincia, pais} = this.registerForm.value;
+  }
 }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Categoria } from './Categoria';
-import { CategoriasService } from 'src/app/services/categorias.service';
 import {
   FormGroup,
   FormControl,

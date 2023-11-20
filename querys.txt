@@ -177,7 +177,7 @@ WHERE id_usuario = p_id_usuario;
 
 ----------------------------------------------------------------------
 
-modificacionTemporizador(p_id_usuario, p_agua, p_tarea, p_descanso, p_ejercicio)==============================
+modificacionTemporizador(p_id_usuario, p_agua, p_tarea, p_descanso, p_ejercicio)
 
 UPDATE Temporizadores
 SET minutos_tarea = p_tarea, 
@@ -188,7 +188,7 @@ WHERE id_usuario = p_id_usuario;
 
 ----------------------------------------------------------------------
 
-obtenerTemporizador(p_id_Usuario) =====================================================
+obtenerTemporizador(p_id_Usuario) 
 
 SELECT t.minutos_tarea, t.minutos_descanso, t.minutos_agua, t.ejercicio
 FROM Temporizadores

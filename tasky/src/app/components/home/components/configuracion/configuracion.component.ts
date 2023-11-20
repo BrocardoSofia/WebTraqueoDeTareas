@@ -18,10 +18,17 @@ export class ConfiguracionComponent {
     ciudad: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
     provincia: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
     pais: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
-    })
+  })
+
+  tempForm = this.ft.group({
+    tiempoTarea: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+    tiempoDescanzo: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+    tiempoAgua: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+  })
 
   constructor(
     private fb: FormBuilder,
+    private ft: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private messageService: MessageService)
@@ -37,6 +44,27 @@ export class ConfiguracionComponent {
 
   get pais(){
     return this.registerForm.controls['pais'];
+  }
+
+  get tiempoTarea(){
+    return this.tempForm.controls['tiempoTarea'];
+  }
+
+  get tiempoDescanzo(){
+    return this.tempForm.controls['tiempoDescanzo'];
+  }
+
+  get tiempoAgua(){
+    return this.tempForm.controls['tiempoAgua'];
+  }
+
+  submitTemporizador(){
+    const { tiempoTarea, tiempoDescanzo, tiempoAgua} = this.tempForm.value;
+
+    if(tiempoTarea && tiempoDescanzo && tiempoAgua)
+    {
+      //guardo en bd
+    }
   }
 
   submitLocalizacion() {

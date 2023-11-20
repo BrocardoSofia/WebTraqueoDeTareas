@@ -24,11 +24,11 @@ const Tarea = connection_1.default.define('Tareas', {
         allowNull: false
     },
     tiempo: {
-        type: sequelize_1.DataTypes.TIME,
+        type: sequelize_1.DataTypes.INTEGER,
         allowNull: false
     },
     fecha: {
-        type: sequelize_1.DataTypes.DATEONLY,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false
     },
 }, {

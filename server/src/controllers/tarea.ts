@@ -3,6 +3,28 @@ import sequelize from '../db/connection';
 import { QueryTypes } from 'sequelize';
 import Tarea from '../models/tarea';
 
+export const guardarTarea = async (req: Request, res: Response) => {
+    try {
+        const { id_categoria, nombre, tiempo, fecha } = req.body;
+
+        const consulta =
+            `INSERT INTO Tareas (id_categoria,nombre,tiempo,fecha) 
+            VALUES (:id_categoria,:nombre,:tiempo,:fecha)`;
+
+        const result = await sequelize.query(consulta, {
+            replacements: { id_categoria, nombre, tiempo, fecha },
+            type: QueryTypes.INSERT,
+        });
+
+        if (result[1] > 0) {
+            res.json({ msg: 'La tarea fue guardada con exito' })
+        }
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al guardar la tarea' });
+    }
+}
+
 export const obtenerTareas = async (req: Request, res: Response) => {
     try {
         const { id_categoria } = req.query;
@@ -14,7 +36,25 @@ export const obtenerTareas = async (req: Request, res: Response) => {
         });
 
         res.json(tareas)
-        
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al verificar el correo electrónico' });
+    }
+}
+
+export const obtenerNombresTareas = async(req: Request, res: Response) => {
+    try {
+        const { id_categoria } = req.query;
+
+        const nombres = await Tarea.findAll({
+            where: {
+                id_categoria: id_categoria
+            },
+            attributes: [[sequelize.fn('DISTINCT', sequelize.col('nombre')), 'nombre']]
+        });
+
+        res.json(nombres)
+
     } catch (error) {
         res.status(500).json({ error: 'Error al verificar el correo electrónico' });
     }

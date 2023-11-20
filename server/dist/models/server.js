@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const categoria_1 = __importDefault(require("../routes/categoria"));
 const usuario_1 = __importDefault(require("../routes/usuario"));
+const tarea_1 = __importDefault(require("../routes/tarea"));
 const connection_1 = __importDefault(require("../db/connection"));
 class Server {
     constructor() {
@@ -37,8 +38,9 @@ class Server {
                 msg: 'API Working'
             });
         });
-        this.app.use('/api/categorias', categoria_1.default);
         this.app.use('/api/usuarios', usuario_1.default);
+        this.app.use('/api/categorias', categoria_1.default);
+        this.app.use('/api/tareas', tarea_1.default);
     }
     midleWares() {
         //parseamos el body

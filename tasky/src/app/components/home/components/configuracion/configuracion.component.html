@@ -58,10 +58,44 @@
 <br>
 
 <p-card header="Configurar temporizador">
-  <p class="m-0">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-      quas!
-  </p>
+  <form id="locForm" form [formGroup]="tempForm" (ngSubmit)="submitTemporizador()">
+    <section class="field" [style]="{ width: '100%'}">
+        <input
+          type="text"
+          pInputText formControlName="tiempoTarea"
+          [style]="{ width: '100%'}"
+          placeholder="Minutos de tarea"
+        />
+      </section>
+      <br>
+      <section class="field" [style]="{ width: '100%'}">
+        <input
+          type="text"
+          pInputText formControlName="tiempoDescanzo"
+          [style]="{ width: '100%'}"
+          placeholder="Minutos de descanzo"
+        />
+      </section>
+
+      <br>
+
+      <section class="field" [style]="{ width: '100%'}">
+        <input
+          type="text"
+          pInputText formControlName="tiempoAgua"
+          [style]="{ width: '100%'}"
+          placeholder="Minutos recordatorio para tomar agua"
+        />
+      </section>
+
+      <p-button
+        label="Guardar"
+        [disabled]="tempForm.invalid"
+        type="submit"
+        [style]="{ borderRadius: '10px'}"
+        >
+      </p-button>
+  </form>
 </p-card>
 
 <br>

@@ -54,6 +54,8 @@ export class ConfiguracionComponent {
         {
           lat = jsonLoc[0].lat;
           lon = jsonLoc[0].lon;
+
+          //conectar bd
         }
       }
       catch (error) {

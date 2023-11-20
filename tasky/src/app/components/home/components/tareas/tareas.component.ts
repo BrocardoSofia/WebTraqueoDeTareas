@@ -38,8 +38,7 @@ export class TareasComponent {
   mensaje: string = 'ha ocurrido un error inesperado'
 
   obtenerTareas() {
-    let id_categoria = 34
-    this.tareaService.obtenerTareas(id_categoria).subscribe(
+    this.tareaService.obtenerTareas(this.idCategoriaNumber).subscribe(
       (res) => {
         this.arrTareas = res;
         this.arrTareasInverso = this.arrTareas.reverse()

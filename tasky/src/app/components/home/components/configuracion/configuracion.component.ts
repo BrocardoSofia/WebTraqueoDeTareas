@@ -176,8 +176,8 @@ export class ConfiguracionComponent {
               } else {
                 this.localizacionService.modificarLocalizacion(localizacion).subscribe()
               }
-            error => {
             },
+            error => {
               console.log("Ha ocurrido un error inesperado")
             }
           )

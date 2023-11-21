@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Weather } from 'src/app/interfaces/auth';
+import { LocalizacionService } from 'src/app/services/localizacion.service';
 
 @Component({
   selector: 'app-inicio',
@@ -18,6 +19,8 @@ export class InicioComponent implements OnInit {
 
   //ID USUARIO DEL LOCAL STORAGE
   nombre_usuario = JSON.parse(localStorage.getItem('nombre_usuario')!);
+
+  constructor(private localizacionService : LocalizacionService){}
 
   ngOnInit() {
     this.mostrarHora();
@@ -52,10 +55,11 @@ function pedirAPI() {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
-    let lat: string = '-38.0033';
-    let lon: string = '-57.5528';
-    // let lat: string = '';
-    // let lon: string = '';
+    let lat: string =  JSON.parse(localStorage.getItem('latitud')!);
+    console.log(lat);
+    let lon: string = JSON.parse(localStorage.getItem('longitud')!);
+    console.log(lon);
+
     let API_key: string = 'd68ad79be1ac8c2e9d59bd959317eea0';
 
     xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + API_key + '&units=metric&lang=es');
@@ -77,8 +81,10 @@ function pedirAPI() {
 
 async function llamadaAPI() {
   try {
-    let loc = 'a';
-    if (loc === '') {
+
+    let loc =  JSON.parse(localStorage.getItem('localizacion')!);
+
+    if (!loc) {
       cargarNoClima();
     }
     else {

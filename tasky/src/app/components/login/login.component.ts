@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { LocalizacionService } from 'src/app/services/localizacion.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent {
     private authService: AuthService,
     private usuarioService: UsuarioService,
     private router: Router,
-    private msgService: MessageService
+    private msgService: MessageService,
+    private localizacionService :LocalizacionService
   ) { }
 
   get email() {
@@ -50,6 +52,21 @@ export class LoginComponent {
                 //GUARDAR ID
                 localStorage.setItem('id_usuario',JSON.stringify(res[0].id))
                 localStorage.setItem('nombre_usuario',JSON.stringify(res[0].nombre))
+
+                this.localizacionService.tieneLocalizacion(res[0].id).subscribe(
+                  res => {
+
+                    if(res.length > 0){
+                      localStorage.setItem('localizacion',JSON.stringify(true))
+                      localStorage.setItem('longitud',JSON.stringify(res[0].longitud))
+                      localStorage.setItem('latitud',JSON.stringify(res[0].latitud))
+                    }else{
+                      localStorage.setItem('localizacion',JSON.stringify(false))
+                    }
+                  }
+                )
+
+                console.log()
 
                 sessionStorage.setItem('email', email as string);
                 this.router.navigate(['/home']);

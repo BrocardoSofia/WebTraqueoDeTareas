@@ -166,11 +166,35 @@ export class ConfiguracionComponent {
         let lon;
 
         console.log(jsonLoc)
-        if (jsonLoc.length != 0) {
+        if (!(jsonLoc.length != 0)) {
           lat = jsonLoc[0].lat;
           lon = jsonLoc[0].lon;
 
           //conectar bd
+          let tieneLocalizacion =  JSON.parse(localStorage.getItem('localizacion')!);
+
+          let localizacion = new Localizacion()
+          localizacion.id_usuario = this.idUsuarioNumber;
+          localizacion.latitud = parseFloat(lat);
+          localizacion.longitud = parseFloat(lon);
+
+          if(tieneLocalizacion){
+            this.localizacionService.modificarLocalizacion(localizacion).subscribe(
+              res => {
+                this.messageService.add({ severity: 'succes', summary: 'succes', detail: 'Localizacion modificada' });
+                localStorage.setItem('longitud',JSON.stringify(lon! as number))
+                localStorage.setItem('latitud',JSON.stringify(lat! as number))
+              }
+            )
+          }else{
+            this.localizacionService.guardarLocalizacion(localizacion).subscribe(
+              res => {
+                this.messageService.add({ severity: 'succes', summary: 'succes', detail: 'Localizacion guardada' });
+                localStorage.setItem('longitud',JSON.stringify(res[0].longitud))
+                localStorage.setItem('latitud',JSON.stringify(res[0].latitud))
+              }
+            )
+          }
         }
       }
       catch (error) {
@@ -190,13 +214,11 @@ function pedirAPI(ciudad: string, provincia: string, pais: string) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
-    // let lat: string = '-38.0033';
-    // let lon: string = '-57.5528';
-    let lat: string = '';
-    let lon: string = '';
+    let lat: string = '-38.0033';
+    let lon: string = '-57.5528';
     let API_key: string = '';
 
-    xhr.open('GET', "https://geocode.maps.co/search?q=" + ciudad + "," + provincia + "," + pais);
+    xhr.open('GET', "https://geocode.maps.co/search?q="+ciudad+","+provincia+","+pais);
     xhr.responseType = 'json';
 
     xhr.onload = function () {

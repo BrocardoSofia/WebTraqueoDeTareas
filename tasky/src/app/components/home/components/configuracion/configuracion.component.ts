@@ -56,7 +56,7 @@ export class ConfiguracionComponent {
     private messageService: MessageService,
     private localizacionService: LocalizacionService,
     private usuarioService: UsuarioService,
-    private temporizadorService : TemporizadorService) { }
+    private temporizadorService: TemporizadorService) { }
 
   get nuevoPassword() {
     return this.passwordForm.controls['nuevoPassword'];
@@ -137,13 +137,13 @@ export class ConfiguracionComponent {
       this.temporizadorService.obtenerTemporizador(this.idUsuarioNumber).subscribe(
         res => {
 
-          if(res.length > 0){
-              this.temporizadorService.modificarTemporizador(temporizador).subscribe(
-                res => {
-                  this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico correctamente' });
-                }
-              )
-          }else{
+          if (res.length > 0) {
+            this.temporizadorService.modificarTemporizador(temporizador).subscribe(
+              res => {
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico correctamente' });
+              }
+            )
+          } else {
             this.temporizadorService.guardarTemporizador(temporizador).subscribe(
               res => {
                 this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se guardo correctamente' });
@@ -170,7 +170,7 @@ export class ConfiguracionComponent {
           this.usuarioService.modificarNombre(nombre!, this.idUsuarioNumber).subscribe(
             res => {
               this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico el nombre correctamente' });
-              localStorage.setItem('nombre_usuario',JSON.stringify(nombre))
+              localStorage.setItem('nombre_usuario', JSON.stringify(nombre))
               //REDIRECCIONA A INICIO
               this.router.navigate(['/home']);
             }
@@ -195,39 +195,38 @@ export class ConfiguracionComponent {
         let lat;
         let lon;
 
-        console.log(jsonLoc)
         if ((jsonLoc.length != 0)) {
           lat = jsonLoc[0].lat;
           lon = jsonLoc[0].lon;
 
           //conectar bd
-          let tieneLocalizacion =  JSON.parse(localStorage.getItem('localizacion')!);
+          let tieneLocalizacion = JSON.parse(localStorage.getItem('localizacion')!);
 
           let localizacion = new Localizacion()
           localizacion.id_usuario = this.idUsuarioNumber;
           localizacion.latitud = parseFloat(lat);
           localizacion.longitud = parseFloat(lon);
 
-          console.log(tieneLocalizacion)
-
-          if(tieneLocalizacion){
+          if (tieneLocalizacion) {
             this.localizacionService.modificarLocalizacion(localizacion).subscribe(
               res => {
                 this.messageService.add({ severity: 'succes', summary: 'succes', detail: 'Localizacion modificada' });
-                localStorage.setItem('longitud',JSON.stringify(lon! as number))
-                localStorage.setItem('latitud',JSON.stringify(lat! as number))
+                localStorage.setItem('longitud', JSON.stringify(lon! as number))
+                localStorage.setItem('latitud', JSON.stringify(lat! as number))
               }
             )
-          }else{
+          } else {
             this.localizacionService.guardarLocalizacion(localizacion).subscribe(
               res => {
                 this.messageService.add({ severity: 'succes', summary: 'succes', detail: 'Localizacion guardada' });
-                localStorage.setItem('longitud',JSON.stringify(lon! as number))
-                localStorage.setItem('latitud',JSON.stringify(lat! as number))
+                localStorage.setItem('longitud', JSON.stringify(lon! as number))
+                localStorage.setItem('latitud', JSON.stringify(lat! as number))
               }
             )
           }
-          localStorage.setItem('localizacion',JSON.stringify(true))
+          localStorage.setItem('localizacion', JSON.stringify(true))
+          //REDIRECCIONA A INICIO
+          this.router.navigate(['/home']);
         }
       }
       catch (error) {
@@ -235,9 +234,6 @@ export class ConfiguracionComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Localizacion invalida' });
       }
     }
-
-    //REDIRECCIONA A INICIO
-    this.router.navigate(['/home']);
   }
 }
 
@@ -247,7 +243,7 @@ function pedirAPI(ciudad: string, provincia: string, pais: string) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', "https://geocode.maps.co/search?q="+ciudad+","+provincia+","+pais);
+    xhr.open('GET', "https://geocode.maps.co/search?q=" + ciudad + "," + provincia + "," + pais);
     xhr.responseType = 'json';
 
     xhr.onload = function () {

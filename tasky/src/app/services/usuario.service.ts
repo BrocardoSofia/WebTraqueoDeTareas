@@ -39,21 +39,28 @@ export class UsuarioService {
   }
 
   verificarClave(id: number,clave : string) : Observable<any>{
-    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/verificar-clave/${id}?=clave=${clave}`)
+    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/verificar-clave/${id}?clave=${clave}`)
   }
 
-  modificarClave(clave : string , id : number): Observable<any> {
-    //usar verificar clave antes de llamar
-    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-clave/${id}`, clave)
+
+  modificarClave(clave : string , id : number): Observable<void> {
+    const body = {
+      clave : clave
+    }
+    return this.http.put<void>(`${this.myAppUrl}${this.myApiUrl}/modificar-clave/${id}`, body)
   }
 
   modificarEmail(email : string , id : number): Observable<any> {
-    //usar verificar clave antes de llamar
-    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-email/${id}`, email)
+    const body = {
+      email : email
+    }
+    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-email/${id}`, body)
   }
 
   modificarNombre(nombre : string , id : number): Observable<any> {
-    //usar verificar clave antes de llamar
-    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-nombre/${id}`, nombre)
+    const body = {
+      nombre : nombre
+    }
+    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-nombre/${id}`, body)
   }
 }

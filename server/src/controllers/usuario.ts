@@ -103,11 +103,7 @@ export const verificarClave = async (req: Request, res: Response) => {
             type: QueryTypes.SELECT,
         });
 
-        if (result.length != 0) {
-            res.json({ respuesta: true, msg: 'Clave correcta' });
-        } else {
-            res.json({ respuesta: false, msg: 'Clave incorrecta' });
-        }
+        res.json(result)
 
     } catch (error) {
         res.status(500).json({ error: 'Error al intentar autenticar la clave' });
@@ -130,9 +126,7 @@ export const modificarClave = async (req: Request, res: Response) => {
             type: QueryTypes.UPDATE,
         });
 
-        if (result[1] > 0) {
-            res.json({ msg: 'La clave fue modificada con exito' })
-        }
+        res.json(result)
 
     } catch (error) {
         res.status(500).json({ error: 'Error al cambiar la clave' })

@@ -9,6 +9,8 @@ import { passwordMatchValidator } from 'src/app/shared/password-match.directive'
 import { LocalizacionService } from 'src/app/services/localizacion.service';
 import { Localizacion } from 'src/app/interfaces/Localizacion';
 
+import { UsuarioService } from 'src/app/services/usuario.service';
+
 @Component({
   selector: 'app-configuracion',
   templateUrl: './configuracion.component.html',
@@ -50,25 +52,26 @@ export class ConfiguracionComponent {
     private authService: AuthService,
     private router: Router,
     private messageService: MessageService,
-    private localizacionService: LocalizacionService) { }
+    private localizacionService: LocalizacionService,
+    private usuarioService: UsuarioService) { }
 
-  get nuevoPassword(){
+  get nuevoPassword() {
     return this.passwordForm.controls['nuevoPassword'];
   }
 
-  get passwordF(){
+  get passwordF() {
     return this.passwordForm.controls['passwordF'];
   }
 
-  get nombre(){
+  get nombre() {
     return this.nombreForm.controls['nombre'];
   }
 
-  get password(){
+  get password() {
     return this.nombreForm.controls['password'];
   }
 
-  get ciudad(){
+  get ciudad() {
     return this.registerForm.controls['ciudad'];
   }
 
@@ -80,44 +83,45 @@ export class ConfiguracionComponent {
     return this.registerForm.controls['pais'];
   }
 
-  get tiempoTarea(){
+  get tiempoTarea() {
     return this.tempForm.controls['tiempoTarea'];
   }
 
-  get tiempoDescanzo(){
+  get tiempoDescanzo() {
     return this.tempForm.controls['tiempoDescanzo'];
   }
 
-  get tiempoAgua(){
+  get tiempoAgua() {
     return this.tempForm.controls['tiempoAgua'];
   }
 
-  submitPassword(){
-    const { nuevoPassword, passwordF} = this.passwordForm.value;
+  submitPassword() {
+    const { nuevoPassword, passwordF } = this.passwordForm.value;
 
-    let validarContraseña = false; //validar contraseña con bd
-
-    if(validarContraseña)
-    {
-      //cambiar contraseña bd
-
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico la contraseña correctamente' });
-      //REDIRECCIONA A INICIO
-      this.router.navigate(['/home']);
-
-    }
-    else
-    {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contraseña invalida' });
-    }
-
+    this.usuarioService.verificarClave(this.idUsuarioNumber, passwordF!).subscribe(
+      res => {
+        if (res.length > 0) {
+          this.usuarioService.modificarClave(nuevoPassword!, this.idUsuarioNumber).subscribe(
+            res => {
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico la contraseña correctamente' });
+              //REDIRECCIONA A INICIO
+              this.router.navigate(['/home']);
+            }
+          )
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contraseña incorrecta' });
+        }
+      },
+      e => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'ha ocurrido un error' });
+      }
+    )
   }
 
-  submitTemporizador(){
-    const { tiempoTarea, tiempoDescanzo, tiempoAgua} = this.tempForm.value;
+  submitTemporizador() {
+    const { tiempoTarea, tiempoDescanzo, tiempoAgua } = this.tempForm.value;
 
-    if(tiempoTarea && tiempoDescanzo && tiempoAgua)
-    {
+    if (tiempoTarea && tiempoDescanzo && tiempoAgua) {
       //guardo en bd
 
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico correctamente' });
@@ -128,24 +132,27 @@ export class ConfiguracionComponent {
   }
 
   submitNombre() {
-    const { nombre, password} = this.nombreForm.value;
+    const { nombre, password } = this.nombreForm.value;
 
-    let validarContraseña = false; //validar contraseña con bd
-
-    if(validarContraseña)
-    {
-      //cambiar nombre bd
-
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico el nombre correctamente' });
-      //REDIRECCIONA A INICIO
-      this.router.navigate(['/home']);
-
-    }
-    else
-    {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contraseña invalida' });
-    }
-
+    this.usuarioService.verificarClave(this.idUsuarioNumber, password!).subscribe(
+      res => {
+        if (res.length > 0) {
+          this.usuarioService.modificarNombre(nombre!, this.idUsuarioNumber).subscribe(
+            res => {
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico el nombre correctamente' });
+              localStorage.setItem('nombre_usuario',JSON.stringify(nombre))
+              //REDIRECCIONA A INICIO
+              this.router.navigate(['/home']);
+            }
+          )
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contraseña incorrecta' });
+        }
+      },
+      e => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'ha ocurrido un error' });
+      }
+    )
   }
 
   submitLocalizacion() {
@@ -158,29 +165,12 @@ export class ConfiguracionComponent {
         let lat;
         let lon;
 
+        console.log(jsonLoc)
         if (jsonLoc.length != 0) {
           lat = jsonLoc[0].lat;
           lon = jsonLoc[0].lon;
 
           //conectar bd
-          this.localizacionService.tieneLocalizacion(this.idUsuarioNumber).subscribe(
-            res => {
-
-              let localizacion: Localizacion = new Localizacion()
-              localizacion.id_usuario = this.idUsuarioNumber
-              localizacion.latitud = parseFloat(lat!)
-              localizacion.longitud = parseFloat(lon!)
-
-              if (res.length == 0) {
-                this.localizacionService.guardarLocalizacion(localizacion).subscribe()
-              } else {
-                this.localizacionService.modificarLocalizacion(localizacion).subscribe()
-              }
-            },
-            error => {
-              console.log("Ha ocurrido un error inesperado")
-            }
-          )
         }
       }
       catch (error) {
@@ -200,8 +190,8 @@ function pedirAPI(ciudad: string, provincia: string, pais: string) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
-    let lat: string = '-38.0033';
-    let lon: string = '-57.5528';
+    let lat: string = '';
+    let lon: string = '';
     let API_key: string = '';
 
     xhr.open('GET', "https://geocode.maps.co/search?q=" + ciudad + "," + provincia + "," + pais);

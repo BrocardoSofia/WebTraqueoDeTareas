@@ -18,7 +18,7 @@ const sequelize_1 = require("sequelize");
 const tieneLocalizacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id_usuario } = req.query;
-        const consulta = `SELECT 1 FROM Localizacion 
+        const consulta = `SELECT latitud,longitud FROM Localizacion 
             WHERE id_usuario = :id_usuario`;
         const result = yield connection_1.default.query(consulta, {
             replacements: { id_usuario },

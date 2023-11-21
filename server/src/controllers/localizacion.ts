@@ -7,7 +7,7 @@ export const tieneLocalizacion = async (req: Request, res: Response) => {
         const { id_usuario } = req.query;
 
         const consulta =
-            `SELECT 1 FROM Localizacion 
+            `SELECT latitud,longitud FROM Localizacion 
             WHERE id_usuario = :id_usuario`;
 
         const result = await sequelize.query(consulta, {

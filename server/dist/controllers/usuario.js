@@ -96,12 +96,7 @@ const verificarClave = (req, res) => __awaiter(void 0, void 0, void 0, function*
             replacements: { id, clave },
             type: sequelize_1.QueryTypes.SELECT,
         });
-        if (result.length != 0) {
-            res.json({ respuesta: true, msg: 'Clave correcta' });
-        }
-        else {
-            res.json({ respuesta: false, msg: 'Clave incorrecta' });
-        }
+        res.json(result);
     }
     catch (error) {
         res.status(500).json({ error: 'Error al intentar autenticar la clave' });
@@ -120,9 +115,7 @@ const modificarClave = (req, res) => __awaiter(void 0, void 0, void 0, function*
             replacements: { clave, id },
             type: sequelize_1.QueryTypes.UPDATE,
         });
-        if (result[1] > 0) {
-            res.json({ msg: 'La clave fue modificada con exito' });
-        }
+        res.json(result);
     }
     catch (error) {
         res.status(500).json({ error: 'Error al cambiar la clave' });

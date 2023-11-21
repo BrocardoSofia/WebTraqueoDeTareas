@@ -67,17 +67,18 @@ const obtenerNombresTareas = (req, res) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.obtenerNombresTareas = obtenerNombresTareas;
 const tiempoDeCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
         const { id_categoria } = req.query;
         const resultado = yield tarea_1.default.findOne({
             attributes: [
-                [connection_1.default.fn('SUM', connection_1.default.col('tiempo')), 'total_tiempo']
+                [connection_1.default.fn('SUM', connection_1.default.col('tiempo')), 'tiempo']
             ],
             where: {
                 id_categoria: id_categoria
             }
         });
-        res.json(resultado); // Devolver solo el valor numérico
+        res.json(((_a = resultado === null || resultado === void 0 ? void 0 : resultado.dataValues) === null || _a === void 0 ? void 0 : _a.tiempo) || 0);
     }
     catch (error) {
         res.status(500).json({ error: 'Error al calcular el tiempo de la categoría' });

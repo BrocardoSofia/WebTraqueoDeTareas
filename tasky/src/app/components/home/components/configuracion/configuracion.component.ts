@@ -190,6 +190,8 @@ function pedirAPI(ciudad: string, provincia: string, pais: string) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
+    // let lat: string = '-38.0033';
+    // let lon: string = '-57.5528';
     let lat: string = '';
     let lon: string = '';
     let API_key: string = '';

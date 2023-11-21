@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { TareaService } from 'src/app/services/tarea.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-estadisticas',
@@ -8,21 +9,13 @@ import { TareaService } from 'src/app/services/tarea.service';
   styleUrls: ['./estadisticas.component.css']
 })
 export class EstadisticasComponent {
-  //categorias
-  categorias: any;
-  options: any;
+
+  // data: any;
+  // options: any;
 
   arrNombresCategorias: string[] = []
   arrIdsCategorias: number[] = []
-  arrTiemposCategorias: number[] = []
-
-  //tareas
-  tareas : any
-  options2: any;
-
-  arrNombresTareas : string [] = []
-  arrTiemposTareas: number[] = []
-  selectedCity: string | undefined;
+  arrTiemposCategorias: string[] = []
 
   //ID USUARIO DEL LOCAL STORAGE
   idUsuarioString = localStorage.getItem('id_usuario');
@@ -38,7 +31,7 @@ export class EstadisticasComponent {
             this.arrNombresCategorias.push(r.nombre)
             this.arrIdsCategorias.push(r.id_categoria)
           })
-          this.obtenerTiempoCategorias()
+          this.obtenerTiempoCategorias();
         }
       }
     );
@@ -46,74 +39,43 @@ export class EstadisticasComponent {
 
   obtenerTiempoCategorias() {
     this.arrIdsCategorias.forEach(a => {
-      this.tareaService.tiempoDeCategoria(a).subscribe(
+      (this.tareaService.tiempoDeCategoria(a)).subscribe(
         (res) => {
-          this.arrTiemposCategorias.push(res)
+          this.arrTiemposCategorias.push(res as string)
         }
       )
     })
   }
 
-  obtenerNombresTareas() {
-    this.tareaService.obtenerNombresTareas(this.idUsuarioNumber).subscribe(
-      (res) => {
-        if (res.length != 0) {
-          res.forEach(r => {
-            this.arrNombresTareas.push(r)
-          })
-        }
-      }
-    );
-  }
-
   ngOnInit() {
-
-    //CATEGORIAS
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
+    // const documentStyle = getComputedStyle(document.documentElement);
+    // const textColor = documentStyle.getPropertyValue('--text-color');
 
     this.obtenerNombresCategorias();
+    console.log(this.arrNombresCategorias)
+    console.log(this.arrIdsCategorias)
+    console.log(this.arrTiemposCategorias)
 
-    this.categorias = {
-      labels: this.arrNombresCategorias,
-      datasets: [
-        {
-          data: [1],
-          backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-          hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
-        }
-      ]
-    };
-    this.options = {
-      plugins: {
-        legend: {
-          labels: {
-            usePointStyle: true,
-            color: textColor
-          }
-        }
-      }
-    };
+    // this.data = {
+    //   labels: this.arrNombresCategorias,
+    //   datasets: [
+    //     {
+    //       data: this.arrTiemposCategorias,
+    //       backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
+    //       hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+    //     }
+    //   ]
+    // }
 
-    this.tareas = {
-      labels: this.arrNombresTareas,
-      datasets: [
-        {
-          data: [1],
-          backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-          hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
-        }
-      ]
-    };
-    this.options2 = {
-      plugins: {
-        legend: {
-          labels: {
-            usePointStyle: true,
-            color: textColor
-          }
-        }
-      }
-    };
+    // this.options = {
+    //   plugins: {
+    //     legend: {
+    //       labels: {
+    //         usePointStyle: true,
+    //         color: textColor
+    //       }
+    //     }
+    //   }
+    // }
   }
 }

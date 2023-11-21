@@ -68,14 +68,14 @@ export const tiempoDeCategoria = async (req: Request, res: Response) => {
 
         const resultado = await Tarea.findOne({
             attributes: [
-                [sequelize.fn('SUM', sequelize.col('tiempo')), 'total_tiempo']
+                [sequelize.fn('SUM', sequelize.col('tiempo')), 'tiempo']
             ],
             where: {
                 id_categoria: id_categoria
             }
         });
-        
-        res.json(resultado); // Devolver solo el valor numérico
+
+        res.json(resultado?.dataValues?.tiempo || 0 );
 
     } catch (error) {
         res.status(500).json({ error: 'Error al calcular el tiempo de la categoría' });
@@ -95,7 +95,7 @@ export const tiempoDeTarea = async (req: Request, res: Response) => {
             }
         });
 
-        res.json(resultado); 
+        res.json(resultado);
 
     } catch (error) {
         res.status(500).json({ error: 'Error al calcular el tiempo de la categoría' });

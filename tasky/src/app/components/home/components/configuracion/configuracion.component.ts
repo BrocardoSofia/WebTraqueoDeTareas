@@ -10,6 +10,8 @@ import { LocalizacionService } from 'src/app/services/localizacion.service';
 import { Localizacion } from 'src/app/interfaces/Localizacion';
 
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { TemporizadorService } from 'src/app/services/temporizador.service';
+import { Temporizador } from 'src/app/interfaces/Temporizador';
 
 @Component({
   selector: 'app-configuracion',
@@ -53,7 +55,8 @@ export class ConfiguracionComponent {
     private router: Router,
     private messageService: MessageService,
     private localizacionService: LocalizacionService,
-    private usuarioService: UsuarioService) { }
+    private usuarioService: UsuarioService,
+    private temporizadorService : TemporizadorService) { }
 
   get nuevoPassword() {
     return this.passwordForm.controls['nuevoPassword'];
@@ -124,6 +127,33 @@ export class ConfiguracionComponent {
     if (tiempoTarea && tiempoDescanzo && tiempoAgua) {
       //guardo en bd
 
+      let temporizador = new Temporizador;
+      temporizador.id_usuario = this.idUsuarioNumber;
+      temporizador.ejercicio = 0;
+      temporizador.minutos_agua = parseInt(tiempoAgua)
+      temporizador.minutos_descanso = parseInt(tiempoDescanzo)
+      temporizador.minutos_tarea = parseInt(tiempoTarea)
+
+      this.temporizadorService.obtenerTemporizador(this.idUsuarioNumber).subscribe(
+        res => {
+
+          if(res.length > 0){
+              this.temporizadorService.modificarTemporizador(temporizador).subscribe(
+                res => {
+                  this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico correctamente' });
+                }
+              )
+          }else{
+            this.temporizadorService.guardarTemporizador(temporizador).subscribe(
+              res => {
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se guardo correctamente' });
+              }
+            )
+          }
+        }
+      )
+
+
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico correctamente' });
 
       //REDIRECCIONA A INICIO
@@ -155,18 +185,18 @@ export class ConfiguracionComponent {
     )
   }
 
-  submitLocalizacion() {
+  async submitLocalizacion() {
     const { ciudad, provincia, pais } = this.registerForm.value;
 
     if (ciudad && provincia && pais) {
       try {
-        pedirAPI(ciudad, provincia, pais);
+        await pedirAPI(ciudad, provincia, pais);
         //guardo la lat y long para actualizar en la api
         let lat;
         let lon;
 
         console.log(jsonLoc)
-        if (!(jsonLoc.length != 0)) {
+        if ((jsonLoc.length != 0)) {
           lat = jsonLoc[0].lat;
           lon = jsonLoc[0].lon;
 
@@ -177,6 +207,8 @@ export class ConfiguracionComponent {
           localizacion.id_usuario = this.idUsuarioNumber;
           localizacion.latitud = parseFloat(lat);
           localizacion.longitud = parseFloat(lon);
+
+          console.log(tieneLocalizacion)
 
           if(tieneLocalizacion){
             this.localizacionService.modificarLocalizacion(localizacion).subscribe(
@@ -190,11 +222,12 @@ export class ConfiguracionComponent {
             this.localizacionService.guardarLocalizacion(localizacion).subscribe(
               res => {
                 this.messageService.add({ severity: 'succes', summary: 'succes', detail: 'Localizacion guardada' });
-                localStorage.setItem('longitud',JSON.stringify(res[0].longitud))
-                localStorage.setItem('latitud',JSON.stringify(res[0].latitud))
+                localStorage.setItem('longitud',JSON.stringify(lon! as number))
+                localStorage.setItem('latitud',JSON.stringify(lat! as number))
               }
             )
           }
+          localStorage.setItem('localizacion',JSON.stringify(true))
         }
       }
       catch (error) {
@@ -214,10 +247,6 @@ function pedirAPI(ciudad: string, provincia: string, pais: string) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
-    let lat: string = '-38.0033';
-    let lon: string = '-57.5528';
-    let API_key: string = '';
-
     xhr.open('GET', "https://geocode.maps.co/search?q="+ciudad+","+provincia+","+pais);
     xhr.responseType = 'json';
 
@@ -226,6 +255,12 @@ function pedirAPI(ciudad: string, provincia: string, pais: string) {
         jsonLoc = xhr.response;
         resolve(jsonLoc);
         console.log(jsonLoc);
+
+        //aca
+
+
+
+        //hasta aca
 
       } else {
         reject('error');

@@ -67,6 +67,9 @@ export class AsideComponent  implements OnInit {
     localStorage.removeItem("id_categoria");
     localStorage.removeItem("nombre_categoria");
     localStorage.removeItem("nombre_usuario");
+    localStorage.removeItem("localizacion");
+    localStorage.removeItem("longitud");
+    localStorage.removeItem("latitud");
     this.router.navigate(['/']);
   }
 

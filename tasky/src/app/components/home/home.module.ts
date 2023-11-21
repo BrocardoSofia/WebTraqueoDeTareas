@@ -22,9 +22,9 @@ import { MessagesModule } from 'primeng/messages';
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
-import { ChartModule } from 'primeng/chart';
 
 import { CardModule } from 'primeng/card';
+import { ChartModule } from 'primeng/chart';
 
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
@@ -55,8 +55,8 @@ registerLocaleData(localeEs, 'es');
     DialogModule,
     TableModule,
     DropdownModule,
-    ChartModule,
-    CardModule
+    CardModule,
+    ChartModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es'}]
 })

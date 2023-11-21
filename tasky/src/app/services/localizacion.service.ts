@@ -26,7 +26,7 @@ export class LocalizacionService {
   }
 
   modificarLocalizacion(localizacion: Localizacion): Observable<any> {
-    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/modificar-categoria/${localizacion.id_usuario}`, localizacion)
+    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/${localizacion.id_usuario}`, localizacion)
   }
 
   eliminarLocalizacion(id_usuario: number) : Observable<any>{

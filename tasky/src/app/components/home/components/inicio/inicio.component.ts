@@ -44,8 +44,8 @@ export class InicioComponent implements OnInit {
     pSaludo?.appendChild(tSaludo);
   }
 
-  mostrarClima() {
-    llamadaAPI();
+  async mostrarClima() {
+    await llamadaAPI();
   }
 }
 
@@ -56,9 +56,7 @@ function pedirAPI() {
     const xhr = new XMLHttpRequest();
 
     let lat: string =  JSON.parse(localStorage.getItem('latitud')!);
-    console.log(lat);
     let lon: string = JSON.parse(localStorage.getItem('longitud')!);
-    console.log(lon);
 
     let API_key: string = 'd68ad79be1ac8c2e9d59bd959317eea0';
 

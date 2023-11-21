@@ -10,12 +10,17 @@ import { forkJoin } from 'rxjs';
 })
 export class EstadisticasComponent {
 
-  // data: any;
-  // options: any;
+  data: any;
+  options: any;
+
+  // documentStyle = getComputedStyle(document.documentElement);
+  // textColor = documentStyle.getPropertyValue('--text-color');
 
   arrNombresCategorias: string[] = []
   arrIdsCategorias: number[] = []
-  arrTiemposCategorias: string[] = []
+  arrTiemposCategorias: number[] = []
+
+  suma: number = 0
 
   //ID USUARIO DEL LOCAL STORAGE
   idUsuarioString = localStorage.getItem('id_usuario');
@@ -41,41 +46,46 @@ export class EstadisticasComponent {
     this.arrIdsCategorias.forEach(a => {
       (this.tareaService.tiempoDeCategoria(a)).subscribe(
         (res) => {
-          this.arrTiemposCategorias.push(res as string)
+          this.arrTiemposCategorias.push(parseInt(res))
+          for (let i = 0 ;i < this.arrTiemposCategorias.length; i++){
+            this.suma += this.arrTiemposCategorias[i]
+          }
+
+          this.data = {
+            labels: this.arrNombresCategorias,
+            datasets: [
+              {
+                data: this.arrTiemposCategorias,
+                // backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
+                // hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+              }
+            ]
+          }
+
         }
       )
     })
   }
 
   ngOnInit() {
-    // const documentStyle = getComputedStyle(document.documentElement);
-    // const textColor = documentStyle.getPropertyValue('--text-color');
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
 
     this.obtenerNombresCategorias();
     console.log(this.arrNombresCategorias)
     console.log(this.arrIdsCategorias)
     console.log(this.arrTiemposCategorias)
 
-    // this.data = {
-    //   labels: this.arrNombresCategorias,
-    //   datasets: [
-    //     {
-    //       data: this.arrTiemposCategorias,
-    //       backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-    //       hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
-    //     }
-    //   ]
-    // }
-
-    // this.options = {
-    //   plugins: {
-    //     legend: {
-    //       labels: {
-    //         usePointStyle: true,
-    //         color: textColor
-    //       }
-    //     }
-    //   }
-    // }
+    this.options = {
+      plugins: {
+        legend: {
+          labels: {
+            usePointStyle: true,
+            color: textColor
+          }
+        }
+      }
+    }
   }
 }
+

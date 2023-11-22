@@ -209,25 +209,24 @@ export class ConfiguracionComponent {
           localizacion.longitud = parseFloat(lon);
 
           console.log(tieneLocalizacion)
+          localStorage.setItem('longitud',JSON.stringify(localizacion.longitud))
+          localStorage.setItem('latitud',JSON.stringify(localizacion.latitud))
+          localStorage.setItem('localizacion',JSON.stringify(true))
 
           if(tieneLocalizacion){
             this.localizacionService.modificarLocalizacion(localizacion).subscribe(
               res => {
-                this.messageService.add({ severity: 'succes', summary: 'succes', detail: 'Localizacion modificada' });
-                localStorage.setItem('longitud',JSON.stringify(lon! as number))
-                localStorage.setItem('latitud',JSON.stringify(lat! as number))
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Localizacion modificada' });
               }
             )
           }else{
             this.localizacionService.guardarLocalizacion(localizacion).subscribe(
               res => {
-                this.messageService.add({ severity: 'succes', summary: 'succes', detail: 'Localizacion guardada' });
-                localStorage.setItem('longitud',JSON.stringify(lon! as number))
-                localStorage.setItem('latitud',JSON.stringify(lat! as number))
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Localizacion guardada' });
               }
             )
           }
-          localStorage.setItem('localizacion',JSON.stringify(true))
+
         }
       }
       catch (error) {

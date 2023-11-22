@@ -228,10 +228,14 @@ export class ConfiguracionComponent {
           }
 
         }
+        else
+        {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Localizacion invalida' });
+        }
       }
       catch (error) {
         console.log(error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Localizacion invalida' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Problemas con la API' });
       }
     }
 

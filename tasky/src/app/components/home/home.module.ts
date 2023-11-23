@@ -25,6 +25,8 @@ import { DropdownModule } from 'primeng/dropdown';
 
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
@@ -56,7 +58,9 @@ registerLocaleData(localeEs, 'es');
     TableModule,
     DropdownModule,
     CardModule,
-    ChartModule
+    ChartModule,
+    SelectButtonModule,
+    ToggleButtonModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es'}]
 })

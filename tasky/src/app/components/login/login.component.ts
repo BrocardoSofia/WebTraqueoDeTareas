@@ -63,13 +63,14 @@ export class LoginComponent {
                     }else{
                       localStorage.setItem('localizacion',JSON.stringify(false))
                     }
+
+                    localStorage.setItem('token','token') //guardo token para guards
+                    sessionStorage.setItem('email', email as string);
+                    this.router.navigate(['/home']);
+
                   }
                 )
 
-                localStorage.setItem('token','token') //guardo token para guards
-
-                sessionStorage.setItem('email', email as string);
-                this.router.navigate(['/home']);
               } else {
                 this.msgService.add({ severity: 'error', summary: 'Error', detail: 'email y/o password incorrectos' });
               }

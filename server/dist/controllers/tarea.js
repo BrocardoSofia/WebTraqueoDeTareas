@@ -89,7 +89,7 @@ const tiempoDeTarea = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const { nombre } = req.query;
         const resultado = yield tarea_1.default.findOne({
             attributes: [
-                [connection_1.default.fn('SUM', connection_1.default.col('tiempo')), 'total_tiempo']
+                [connection_1.default.fn('SUM', connection_1.default.col('tiempo')), 'tiempo']
             ],
             where: {
                 nombre: nombre

@@ -44,10 +44,10 @@ export class EstadisticasComponent {
     this.categoriaService.obtenerCategorias(this.idUsuarioNumber).subscribe(
       (res) => {
 
-        let cat : Categoria = new Categoria();
-
         if (res && res.length != 0) {
           res.forEach(r => {
+
+            let cat: Categoria = new Categoria();
 
             cat.id_categoria = r.id_categoria;
             cat.nombre = r.nombre;
@@ -55,6 +55,7 @@ export class EstadisticasComponent {
             this.arrCategorias.push(cat)
             this.arrNombresCategorias.push(cat.nombre)
           })
+
           this.obtenerTiempoCategorias();
         } else {
           this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Realice tareas para poder mostrar estadisticas' });
@@ -75,10 +76,11 @@ export class EstadisticasComponent {
     // Se utilizan los observables y se espera a que todos se completen usando forkJoin
     forkJoin(observables).subscribe(
       // Cuando todas las solicitudes se completan con éxito
-      (responses: any[]) => {
+      (responses) => {
         // Se itera sobre cada respuesta para convertirla a un número y agregarla a un array
         responses.forEach(res => {
-          this.arrTiemposCategorias.push(parseInt(res));
+          this.arrTiemposCategorias.push(parseInt(res))
+
         });
 
         // Se calcula la suma de los tiempos obtenidos
@@ -88,53 +90,96 @@ export class EstadisticasComponent {
 
         // Se verifica si la suma es igual a 0
         if (this.suma == 0) {
+
           // Si la suma es 0, se muestra un mensaje informativo indicando que no hay tareas cargadas
           this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Realice tareas para poder mostrar estadísticas' });
         } else {
+
           // Si la suma no es 0, se configura el objeto 'data' para mostrar los datos en el gráfico
           this.categorias = {
             labels: this.arrNombresCategorias,
             datasets: [
               {
                 data: this.arrTiemposCategorias,
-                backgroundColor: this.backgorundcolor, // (Error tipográfico: debe ser backgroundColor)
-                borderColor: this.bordercolor, // (Error tipográfico: debe ser borderColor)
+                backgroundColor: this.backgorundcolor,
+                borderColor: this.bordercolor,
                 borderWidth: 1
               },
             ],
           }
         }
       },
+
       // Manejo de errores en caso de que falle alguna de las solicitudes
       (error) => {
-        console.error('Error al obtener tiempos de categorías:', error);
+        console.error('Error al obtener tiempos de categorías', error);
       }
     );
   }
 
-  obtenerNombresTareas(newValue : any){
+  obtenerNombresTareas(seleccion: any) {
 
-    console.log('Función obtenerNombresTareas llamada');
-    console.log('Categoria seleccionada:', newValue);
+    // Reseteo de arreglos
+    this.arrNombresTareas = [];
+    this.arrTiemposTareas = [];
 
-    // this.tareaService.obtenerNombresTareas(this.categoriaSeleccionada.id_categoria).subscribe(
-    //   res => {
-    //     console.log(res)
-    //   }
-    // )
+    this.tareaService.obtenerNombresTareas(seleccion.id_categoria).subscribe(
+      res => {
 
-    // this.tareas = {
-    //   labels: this.arrNombresTareas,
-    //   datasets: [
-    //     {
-    //       data: [1],
-    //       backgroundColor: this.backgorundcolor, // (Error tipográfico: debe ser backgroundColor)
-    //       borderColor: this.bordercolor, // (Error tipográfico: debe ser borderColor)
-    //       borderWidth: 1
-    //     },
-    //   ],
-    // }
+        if(res.length > 0){
+          this.arrNombresTareas = res.map(r => r.nombre);
 
+          const observables = this.arrNombresTareas.map(nombre =>
+            this.tareaService.tiempoDeTarea(nombre)
+          );
+
+          forkJoin(observables).subscribe(
+            responses => {
+              responses.forEach(response => {
+                this.arrTiemposTareas.push(response.tiempo);
+              });
+
+              this.tareas = {
+                labels: this.arrNombresTareas,
+                datasets: [
+                  {
+                    data: this.arrTiemposTareas,
+                    backgroundColor: this.backgorundcolor,
+                    borderColor: this.bordercolor,
+                    borderWidth: 1
+                  },
+                ],
+              };
+
+            },
+            error => {
+              console.error('Error al obtener tiempos de tareas:', error);
+            }
+          );
+
+        }else{
+          this.limpiarSeleccion()
+          this.messageService.add({ severity: 'info', summary: 'Info', detail: `${seleccion.nombre} no tiene tareas cargadas` });
+        }
+      },
+      error => {
+        console.error('Error al obtener nombres de tareas:', error);
+      }
+    );
+  }
+
+  limpiarSeleccion() {
+    this.tareas = {
+      labels: [],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: this.backgorundcolor,
+          borderColor: this.bordercolor,
+          borderWidth: 1
+        },
+      ],
+    }
   }
 
   ngOnInit() {
@@ -144,6 +189,9 @@ export class EstadisticasComponent {
     this.arrNombresCategorias = []
     this.arrIdsCategorias = []
     this.arrTiemposCategorias = []
+
+    this.arrNombresTareas = []
+    this.arrTiemposTareas = []
 
     this.obtenerNombresCategorias();
 

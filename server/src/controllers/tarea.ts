@@ -86,7 +86,7 @@ export const tiempoDeTarea = async (req: Request, res: Response) => {
 
         const resultado = await Tarea.findOne({
             attributes: [
-                [sequelize.fn('SUM', sequelize.col('tiempo')), 'total_tiempo']
+                [sequelize.fn('SUM', sequelize.col('tiempo')), 'tiempo']
             ],
             where: {
                 nombre: nombre

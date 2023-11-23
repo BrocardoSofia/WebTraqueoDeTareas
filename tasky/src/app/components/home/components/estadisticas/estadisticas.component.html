@@ -10,7 +10,7 @@
 
   <section style="width: 50%;">
     <p-card class="tarjeta" header="Estadisticas de tareas por categoria">
-      <p-dropdown (ngModelChange)="obtenerNombresTareas($event)" [options]="arrCategorias" [(ngModel)]="categoriaSeleccionada" optionLabel="nombre" [showClear]="true" autoWidth="false" [style]="{'width': '100%'}"
+      <p-dropdown (ngModelChange)="obtenerNombresTareas($event)" [options]="arrCategorias" [(ngModel)]="categoriaSeleccionada" optionLabel="nombre" [showClear]="true" (onClear)="limpiarSeleccion()" autoWidth="false" [style]="{'width': '100%'}"
         placeholder="Seleccione una categoria"></p-dropdown>
       <br><br>
       <section style="width: 50%; margin: auto;">

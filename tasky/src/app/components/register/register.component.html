@@ -49,6 +49,7 @@
         <small *ngIf="password.invalid && (password.dirty || password.touched)"
         class="block p-error">
           <section *ngIf="password.errors?.['required']">Debe ingresar una contraseña</section>
+          <section *ngIf="password.errors?.['pattern']">Debe contener: al menos 8 digitos, una letra mayuscula, una letra minuscula, un numero y un caracter especial</section>
         </small>
       </section>
 

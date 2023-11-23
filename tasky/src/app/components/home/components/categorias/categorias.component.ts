@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Message } from 'primeng/api';
 import { CategoriaService } from 'src/app/services/categoria.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-categorias',
@@ -40,15 +41,13 @@ export class CategoriasComponent {
     this.categoriaService.obtenerCategorias(this.idUsuarioNumber).subscribe(
       (res) => {
         if (res.length == 0) {
-          this.updateMensajeAdvertencia('No hay categorias cargadas')
-          this.advertir = true;
+          this.msgService.add({ severity: 'info', summary: 'Info', detail: 'No hay categorias cargadas' });
         } else {
           this.listaCategorias = res;
         }
       },
       (e) => {
-        this.updateMensajeAdvertencia('Error al cargar las categorias')
-        this.advertir = true;
+        this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Error al cargar las categorias' });
       }
     );
   }
@@ -57,12 +56,10 @@ export class CategoriasComponent {
 
     //si es un nombre invalido
     if (this.vacio(this.nuevo)) {
-      this.updateMensajeAdvertencia('Nombre de categoria no valido')
-      this.advertir = true;
+      this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Nombre de categoria no valido' });
 
       //si el nombre el valido
     } else {
-      this.advertir = false
 
       //asignacion de id y limpieza de nombre
       this.objCategoria.id_usuario = this.idUsuarioNumber;
@@ -84,20 +81,17 @@ export class CategoriasComponent {
 
               //error en la carga
               (e) => {
-                this.updateMensajeAdvertencia('Error al agregar categoria')
-                this.advertir = true;
+                this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Error al agregar categoria' });
               }
             );
 
             //existe una tarea con ese nombre
           } else {
-            this.updateMensajeAdvertencia('Esa categoria ya existe')
-            this.advertir = true;
+            this.msgService.add({ severity: 'warn', summary: 'Warning', detail: 'Esa categoria ya existe' });
           }
         },
         (e) => {
-          this.updateMensajeAdvertencia('Error al agregar categoria')
-          this.advertir = true;
+          this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Error al agregar categoria' });
         }
       )
     }
@@ -132,19 +126,16 @@ export class CategoriasComponent {
                 this.showModalEditar = false;
               },
               (e) => {
-                this.updateMensajeAdvertencia('Error al modificar la categoria')
-                this.advertir = true;
+                this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Error al modificar la categoria' });
               }
             );
             //si existe una categoria con ese nombre
           } else {
-            this.updateMensajeAdvertencia('Esa categoria ya existe')
-            this.advertir = true;
+            this.msgService.add({ severity: 'warn', summary: 'Warning', detail: 'Esa categoria ya existe' });
           }
         },
         (e) => {
-          this.updateMensajeAdvertencia('Error al modificar categoria')
-          this.advertir = true;
+          this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Error al modificar categoria' });
         }
       )
     }
@@ -163,8 +154,7 @@ export class CategoriasComponent {
         this.ngOnInit();
       },
       (e) => {
-        this.updateMensajeAdvertencia('Ha ocurrido un error al intentar borrar la categoria')
-        this.advertir = true;
+        this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Ha ocurrido un error al intentar borrar la categoria' });
       }
     );
   }
@@ -207,7 +197,10 @@ export class CategoriasComponent {
     this.router.navigate(['/home/categorias/tareas']);
   }
 
-  constructor(private categoriaService: CategoriaService,private router: Router,) { }
+  constructor(
+    private categoriaService: CategoriaService,
+    private router: Router,
+    private msgService : MessageService) { }
 
   ngOnInit(): void {
     //vacio variables

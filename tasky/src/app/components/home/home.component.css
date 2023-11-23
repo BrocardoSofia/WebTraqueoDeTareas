@@ -3,3 +3,8 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
+
+#aside{
+  position: fixed;
+  margin-top: 60px;
+}

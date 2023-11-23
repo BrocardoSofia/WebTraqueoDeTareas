@@ -4,7 +4,10 @@
   </section>
 
   <section id="body">
-    <app-aside (onToggleSideNav)="onToggleSideNav($event)"></app-aside>
+    <section id="aside">
+      <app-aside (onToggleSideNav)="onToggleSideNav($event)"></app-aside>
+    </section>
+
 
     <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
 

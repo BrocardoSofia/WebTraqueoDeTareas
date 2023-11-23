@@ -13,11 +13,12 @@ import { Categoria } from '../categorias/Categoria';
 export class EstadisticasComponent {
 
   //CATEGORIAS
-  data: any;
+  categorias: any;
+  tareas: any;
   options: any;
 
-  arrNombresCategorias: string[] = []
   arrCategorias: Categoria[] = []
+  arrNombresCategorias: string[] = []
   arrIdsCategorias: number[] = []
   arrTiemposCategorias: number[] = []
   suma: number = 0
@@ -25,7 +26,7 @@ export class EstadisticasComponent {
   bordercolor: any[] = ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)', 'rgb(255, 205, 86)', 'rgb(255, 99, 132)', 'rgb(255, 159, 200)', 'rgb(50, 205, 50)', 'rgb(128, 0, 128)', 'rgb(0, 128, 128)',]
 
   //TAREAS
-  categoriaSeleccionada: string = ''
+  categoriaSeleccionada: string = '';
   arrNombresTareas: string[] = []
   arrIdsTareas: number[] = []
   arrTiemposTareas: number[] = []
@@ -91,7 +92,7 @@ export class EstadisticasComponent {
           this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Realice tareas para poder mostrar estadísticas' });
         } else {
           // Si la suma no es 0, se configura el objeto 'data' para mostrar los datos en el gráfico
-          this.data = {
+          this.categorias = {
             labels: this.arrNombresCategorias,
             datasets: [
               {
@@ -111,8 +112,28 @@ export class EstadisticasComponent {
     );
   }
 
-  obtenerNombresTareas(){
+  obtenerNombresTareas(newValue : any){
 
+    console.log('Función obtenerNombresTareas llamada');
+    console.log('Categoria seleccionada:', newValue);
+
+    // this.tareaService.obtenerNombresTareas(this.categoriaSeleccionada.id_categoria).subscribe(
+    //   res => {
+    //     console.log(res)
+    //   }
+    // )
+
+    // this.tareas = {
+    //   labels: this.arrNombresTareas,
+    //   datasets: [
+    //     {
+    //       data: [1],
+    //       backgroundColor: this.backgorundcolor, // (Error tipográfico: debe ser backgroundColor)
+    //       borderColor: this.bordercolor, // (Error tipográfico: debe ser borderColor)
+    //       borderWidth: 1
+    //     },
+    //   ],
+    // }
 
   }
 
@@ -125,8 +146,6 @@ export class EstadisticasComponent {
     this.arrTiemposCategorias = []
 
     this.obtenerNombresCategorias();
-
-    this.obtenerNombresTareas();
 
     this.options = {
       plugins: {

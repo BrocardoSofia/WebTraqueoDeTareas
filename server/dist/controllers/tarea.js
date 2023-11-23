@@ -58,8 +58,7 @@ const obtenerNombresTareas = (req, res) => __awaiter(void 0, void 0, void 0, fun
             },
             attributes: [[connection_1.default.fn('DISTINCT', connection_1.default.col('nombre')), 'nombre']]
         });
-        const nombresUnicos = nombres.map((tarea) => tarea.get('nombre')); // Obtener solo los nombres
-        res.json(nombresUnicos);
+        res.json(nombres);
     }
     catch (error) {
         res.status(500).json({ error: 'Error al verificar el correo electrónico' });

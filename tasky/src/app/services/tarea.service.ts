@@ -24,8 +24,8 @@ export class TareaService {
     return this.http.get<Tarea[]>(`${this.myAppUrl}${this.myApiUrl}?id_categoria=${id_categoria}`)
   }
 
-  obtenerNombresTareas(id_categoria: number): Observable<string[]> {
-    return this.http.get<string[]>(`${this.myAppUrl}${this.myApiUrl}/nombres?id_categoria=${id_categoria}`)
+  obtenerNombresTareas(id_categoria: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.myAppUrl}${this.myApiUrl}/nombres?id_categoria=${id_categoria}`)
   }
 
   tiempoDeCategoria(id_categoria: number): Observable<any> {

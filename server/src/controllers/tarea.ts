@@ -53,9 +53,7 @@ export const obtenerNombresTareas = async (req: Request, res: Response) => {
             attributes: [[sequelize.fn('DISTINCT', sequelize.col('nombre')), 'nombre']]
         });
 
-        const nombresUnicos = nombres.map((tarea: any) => tarea.get('nombre')); // Obtener solo los nombres
-
-        res.json(nombresUnicos)
+        res.json(nombres)
 
     } catch (error) {
         res.status(500).json({ error: 'Error al verificar el correo electrónico' });

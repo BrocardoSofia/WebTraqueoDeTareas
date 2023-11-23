@@ -102,3 +102,26 @@ header{
 #pomodoroButton{
   margin-right: 1.7em;
 }
+
+#tomarAgua{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ACF1FF;
+}
+
+#botonAgua{
+  border-radius: 1em;
+}
+
+#tituloAgua{
+  font-family: "Poppins", sans-serif;
+  font-size: 30px;
+  color: #151E59;
+}
+
+#infoAgua{
+  width: 120px;
+  height: 120px;
+}

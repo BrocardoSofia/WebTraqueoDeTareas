@@ -1,28 +1,36 @@
 <header id="pageHeader">
   <section id="logo">
-      <img id="imgLogo" src="./assets/logo.png" alt="logo">
-      <h1 id="nameTasky">Tasky</h1>
+    <img id="imgLogo" src="./assets/logo.png" alt="logo">
+    <h1 id="nameTasky">Tasky</h1>
   </section>
 
   <section id="botonesTemporizadores">
     <section id="pomodoro">
       <p id="tiempoPomodoro"> 00:00</p>
-      <p-toggleButton id="pomodoroButton"
-        [(ngModel)]="checkedPomodoro"
-        onLabel="On"
-        offLabel="Off"
+      <p-toggleButton id="pomodoroButton" [(ngModel)]="checkedPomodoro" onLabel="On" offLabel="Off"
         styleClass="p-button-rounded p-button-sm">
       </p-toggleButton>
     </section>
 
     <section id="agua">
       <img id="logoAgua" src="./assets/agua.png" alt="aguaIcono">
-      <p-toggleButton id="aguaButton"
-        [(ngModel)]="checkedAgua"
-        onLabel="On"
-        offLabel="Off"
+      <p-toggleButton id="aguaButton" (click)="tempAgua()" [(ngModel)]="checkedAgua" onLabel="On" offLabel="Off"
         styleClass="p-button-rounded p-button-sm">
       </p-toggleButton>
     </section>
   </section>
 </header>
+
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
+  [resizable]="false" [closable]="false">
+  <section id="tomarAgua">
+    <br>
+    <h1 id="tituloAgua">¡¡Recordatorio para tomar agua!!</h1>
+    <br>
+    <img id="infoAgua" src="./assets/agua.png" alt="aguaIcono">
+    <br>
+    <p-button id="botonAgua" (click)="closeAguaInf()" label="Entendido" [style]="{ borderRadius: '10px'}"></p-button>
+    <br>
+  </section>
+
+</p-dialog>

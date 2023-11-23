@@ -1,3 +1,24 @@
-<section style="width: 50%;" >
-  <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+<section style="display: flex;">
+
+  <section style="width: 50%; margin-right: 1rem;">
+    <p-card header="Estadisticas de categorias">
+      <section style="width: 80%;">
+        <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+      </section>
+    </p-card>
+  </section>
+
+  <section style="width: 50%;">
+    <p-card header="Estadisticas de tareas por categoria">
+
+      <p-dropdown [options]="arrCategorias" [(ngModel)]="categoriaSeleccionada" optionLabel="nombre" [showClear]="true" autoWidth="false" [style]="{'width': '100%'}"
+        placeholder="Seleccione una categoria"></p-dropdown>
+      <br><br>
+      <section style="width: 50%;">
+        <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+      </section>
+
+    </p-card>
+  </section>
+
 </section>

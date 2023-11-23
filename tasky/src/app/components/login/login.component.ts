@@ -66,7 +66,7 @@ export class LoginComponent {
                   }
                 )
 
-                console.log()
+                localStorage.setItem('token','token') //guardo token para guards
 
                 sessionStorage.setItem('email', email as string);
                 this.router.navigate(['/home']);

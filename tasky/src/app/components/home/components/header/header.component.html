@@ -5,11 +5,20 @@
   </section>
 
   <section id="botonesTemporizadores">
-    <section id="pomodoro"></section>
+    <section id="pomodoro">
+      <p id="tiempoPomodoro"> 00:00</p>
+      <p-toggleButton id="pomodoroButton"
+        [(ngModel)]="checkedPomodoro"
+        onLabel="On"
+        offLabel="Off"
+        styleClass="p-button-rounded p-button-sm">
+      </p-toggleButton>
+    </section>
+
     <section id="agua">
       <img id="logoAgua" src="./assets/agua.png" alt="aguaIcono">
-      <p-toggleButton
-        [(ngModel)]="checked"
+      <p-toggleButton id="aguaButton"
+        [(ngModel)]="checkedAgua"
         onLabel="On"
         offLabel="Off"
         styleClass="p-button-rounded p-button-sm">

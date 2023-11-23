@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
 
 })
 export class HeaderComponent {
-  checked: boolean = false;
+  checkedPomodoro: boolean = false;
+  checkedAgua: boolean = false;
 }

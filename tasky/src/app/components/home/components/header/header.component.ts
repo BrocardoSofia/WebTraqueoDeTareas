@@ -12,7 +12,7 @@ export class HeaderComponent {
   checkedPomodoro: boolean = false;
   visiblePomodoro: boolean = false;
 
-  min : any = this.obtenerMinutos()
+  min: any = this.obtenerMinutos()
   seg: any = '0' + 0;
 
   async tempAgua() {
@@ -33,7 +33,7 @@ export class HeaderComponent {
           this.visiblePomodoro = done;
         }
       });
-    }else{
+    } else {
       this.min = this.obtenerMinutos();
       this.seg = '0' + 0;
     }
@@ -44,8 +44,8 @@ export class HeaderComponent {
     this.visibleAgua = false;
   }
 
-  closePomodoro(){
-    this.min = this.obtenerMinutos() ;
+  closePomodoro() {
+    this.min = this.obtenerMinutos();
     this.seg = '0' + 0
     this.tempPomodoro();
     this.visiblePomodoro = false;
@@ -53,12 +53,12 @@ export class HeaderComponent {
 
   start() {
 
-    let countDown : any ;
+    let countDown: any;
 
     if (this.checkedPomodoro) {
       countDown = setInterval(() => {
 
-        if(this.checkedPomodoro && (this.seg > 0 || this.min > 0)){
+        if (this.checkedPomodoro && (this.seg > 0 || this.min > 0)) {
           this.seg--;
           this.seg = this.seg >= 0 ? (this.seg < 10 ? '0' + this.seg : this.seg) : 59;
 
@@ -66,23 +66,23 @@ export class HeaderComponent {
             this.min--;
             this.min = this.min < 10 ? '0' + this.min : this.min;
           }
-        }else{
+        } else {
           clearInterval(countDown)
         }
       }, 1000)
     }
   }
 
-  obtenerMinutos(){
-    if(localStorage.getItem('minutos_descanso')){
+  obtenerMinutos() {
+    if (localStorage.getItem('minutos_descanso')) {
       let min = JSON.parse(localStorage.getItem('minutos_descanso')!)
 
-      if(min < 10){
+      if (min < 10) {
         return '0' + min;
-      }else{
+      } else {
         return min
       }
-    }else{
+    } else {
       return '0' + 0
     }
   }
@@ -91,7 +91,7 @@ export class HeaderComponent {
 function x() {
   let segundos = 0;
 
-  if(localStorage.getItem('minutos_agua')){
+  if (localStorage.getItem('minutos_agua')) {
     segundos = JSON.parse(localStorage.getItem('minutos_agua')!) * 60
   }
 
@@ -107,7 +107,7 @@ function x() {
 function y() {
   let segundos = 0;
 
-  if(localStorage.getItem('minutos_descanso')){
+  if (localStorage.getItem('minutos_descanso')) {
     segundos = JSON.parse(localStorage.getItem('minutos_agua')!) * 60
   }
 

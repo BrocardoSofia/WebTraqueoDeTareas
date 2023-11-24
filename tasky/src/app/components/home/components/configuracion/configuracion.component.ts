@@ -134,33 +134,24 @@ export class ConfiguracionComponent {
       temporizador.minutos_descanso = parseInt(tiempoDescanzo)
       temporizador.minutos_tarea = parseInt(tiempoTarea)
 
-      localStorage.setItem('minutos_agua',JSON.stringify(temporizador.minutos_agua))
-      localStorage.setItem('minutos_descanso',JSON.stringify(temporizador.minutos_descanso))
+      localStorage.setItem('minutos_agua', JSON.stringify(temporizador.minutos_agua))
+      localStorage.setItem('minutos_descanso', JSON.stringify(temporizador.minutos_descanso))
 
       this.temporizadorService.obtenerTemporizador(this.idUsuarioNumber).subscribe(
         res => {
 
           if (res.length > 0) {
-            this.temporizadorService.modificarTemporizador(temporizador).subscribe(
-              res => {
-                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico correctamente' });
-              }
-            )
+            this.temporizadorService.modificarTemporizador(temporizador).subscribe()
           } else {
-            this.temporizadorService.guardarTemporizador(temporizador).subscribe(
-              res => {
-                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se guardo correctamente' });
-              }
-            )
+            this.temporizadorService.guardarTemporizador(temporizador).subscribe()
           }
+
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico correctamente' });
+
+          //REDIRECCIONA A INICIO
+          this.router.navigate(['/home']);
         }
       )
-
-
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico correctamente' });
-
-      //REDIRECCIONA A INICIO
-      this.router.navigate(['/home']);
     }
   }
 
@@ -216,13 +207,13 @@ export class ConfiguracionComponent {
           if (tieneLocalizacion) {
             this.localizacionService.modificarLocalizacion(localizacion).subscribe(
               res => {
-                this.messageService.add({ severity: 'succes', summary: 'succes', detail: 'Localizacion modificada' });
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Localizacion modificada' });
               }
             )
           } else {
             this.localizacionService.guardarLocalizacion(localizacion).subscribe(
               res => {
-                this.messageService.add({ severity: 'succes', summary: 'succes', detail: 'Localizacion guardada' });
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Localizacion guardada' });
               }
             )
           }

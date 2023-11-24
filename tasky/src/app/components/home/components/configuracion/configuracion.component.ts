@@ -134,6 +134,9 @@ export class ConfiguracionComponent {
       temporizador.minutos_descanso = parseInt(tiempoDescanzo)
       temporizador.minutos_tarea = parseInt(tiempoTarea)
 
+      localStorage.setItem('minutos_agua',JSON.stringify(temporizador.minutos_agua))
+      localStorage.setItem('minutos_descanso',JSON.stringify(temporizador.minutos_descanso))
+
       this.temporizadorService.obtenerTemporizador(this.idUsuarioNumber).subscribe(
         res => {
 

@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { LocalizacionService } from 'src/app/services/localizacion.service';
+import { TemporizadorService } from 'src/app/services/temporizador.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent {
     private usuarioService: UsuarioService,
     private router: Router,
     private msgService: MessageService,
-    private localizacionService :LocalizacionService
+    private localizacionService: LocalizacionService,
+    private temporizadorService: TemporizadorService,
   ) { }
 
   get email() {
@@ -47,27 +49,38 @@ export class LoginComponent {
           this.usuarioService.login(email as string, password as string).subscribe(
             res => {
 
-              if (res.length!= 0) {
+              if (res.length != 0) {
 
                 //GUARDAR ID
-                localStorage.setItem('id_usuario',JSON.stringify(res[0].id))
-                localStorage.setItem('nombre_usuario',JSON.stringify(res[0].nombre))
+                localStorage.setItem('id_usuario', JSON.stringify(res[0].id))
+                localStorage.setItem('nombre_usuario', JSON.stringify(res[0].nombre))
 
+
+                //recoge los datos de localizacion
                 this.localizacionService.tieneLocalizacion(res[0].id).subscribe(
                   res => {
 
-                    if(res.length > 0){
-                      localStorage.setItem('localizacion',JSON.stringify(true))
-                      localStorage.setItem('longitud',JSON.stringify(res[0].longitud))
-                      localStorage.setItem('latitud',JSON.stringify(res[0].latitud))
-                    }else{
-                      localStorage.setItem('localizacion',JSON.stringify(false))
+                    if (res.length > 0) {
+                      localStorage.setItem('localizacion', JSON.stringify(true))
+                      localStorage.setItem('longitud', JSON.stringify(res[0].longitud))
+                      localStorage.setItem('latitud', JSON.stringify(res[0].latitud))
+                    } else {
+                      localStorage.setItem('localizacion', JSON.stringify(false))
                     }
 
-                    localStorage.setItem('token','token') //guardo token para guards
-                    sessionStorage.setItem('email', email as string);
-                    this.router.navigate(['/home']);
+                    //recoge los datos de temporizadores
+                    this.temporizadorService.obtenerTemporizador(JSON.parse(localStorage.getItem('id_usuario')!)).subscribe(
+                      res => {
+                        if (res.length > 0) {
+                          localStorage.setItem('minutos_agua', JSON.stringify(res[0].minutos_agua))
+                          localStorage.setItem('minutos_descanso', JSON.stringify(res[0].minutos_descanso))
+                        }
 
+                        localStorage.setItem('token', 'token') //guardo token para guards
+                        sessionStorage.setItem('email', email as string);
+                        this.router.navigate(['/home']);
+                      }
+                    )
                   }
                 )
 

@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,36 +7,71 @@ import { Component } from '@angular/core';
 
 })
 export class HeaderComponent {
-  checkedPomodoro: boolean = false;
   checkedAgua: boolean = false;
-  visible: boolean = false;
+  visibleAgua: boolean = false;
+  checkedPomodoro: boolean = false;
+  visiblePomodoro: boolean = false;
 
   async tempAgua() {
     if (this.checkedAgua) {
       x().then((done) => {
-        if(done === true && this.checkedAgua)
-        {
-          this.visible = done;
+        if (done === true && this.checkedAgua) {
+          this.visibleAgua = done;
         }
-       });
+      });
     }
   }
 
-  closeAguaInf()
-  {
+  async tempPomodoro() {
+    if (this.checkedPomodoro) {
+      y().then((done) => {
+        if (done === true && this.checkedPomodoro) {
+          this.visiblePomodoro = done;
+        }
+      });
+    }
+  }
+
+  closeAguaInf() {
     this.tempAgua();
-    this.visible = false;
+    this.visibleAgua = false;
+  }
+
+  closePomodoro(){
+    this.tempPomodoro();
+    this.visiblePomodoro = false;
   }
 }
 
 function x() {
-  let segundos = 1; //obtener segundos de la base de datos----------------------------------------------
-  segundos*=1000;
+  let segundos = 0;
+
+  if(localStorage.getItem('minutos_agua')){
+    segundos = JSON.parse(localStorage.getItem('minutos_agua')!) * 60
+  }
+
+  segundos *= 1000;
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(true as boolean);
-    },segundos);
+    }, segundos);
+  });
+}
+
+function y() {
+  let segundos = 0;
+
+  if(localStorage.getItem('minutos_descanso')){
+    segundos = JSON.parse(localStorage.getItem('minutos_agua')!) * 60
+  }
+
+  segundos *= 1000;
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true as boolean);
+    }, segundos);
   });
 }
 

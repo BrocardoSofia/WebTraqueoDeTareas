@@ -7,7 +7,7 @@
   <section id="botonesTemporizadores">
     <section id="pomodoro">
       <p id="tiempoPomodoro"> 00:00</p>
-      <p-toggleButton id="pomodoroButton" [(ngModel)]="checkedPomodoro" onLabel="On" offLabel="Off"
+      <p-toggleButton id="pomodoroButton" (click)="tempPomodoro()" [(ngModel)]="checkedPomodoro" onLabel="On" offLabel="Off"
         styleClass="p-button-rounded p-button-sm">
       </p-toggleButton>
     </section>
@@ -21,7 +21,7 @@
   </section>
 </header>
 
-<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
+<p-dialog [(visible)]="visibleAgua" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
   [resizable]="false" [closable]="false">
   <section id="tomarAgua">
     <br>
@@ -32,5 +32,15 @@
     <p-button id="botonAgua" (click)="closeAguaInf()" label="Entendido" [style]="{ borderRadius: '10px'}"></p-button>
     <br>
   </section>
+</p-dialog>
 
+<p-dialog [(visible)]="visiblePomodoro" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
+  [resizable]="false" [closable]="false">
+  <section id="tomarAgua">
+    <br>
+    <h1 id="tituloAgua">¡¡Recordatorio para tomarse un descanso!!</h1>
+    <br>
+    <p-button id="botonAgua" (click)="closePomodoro()" label="Entendido" [style]="{ borderRadius: '10px'}"></p-button>
+    <br>
+  </section>
 </p-dialog>

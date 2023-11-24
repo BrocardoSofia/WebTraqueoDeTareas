@@ -6,7 +6,7 @@
 
   <section id="botonesTemporizadores">
     <section id="pomodoro">
-      <p id="tiempoPomodoro"> 00:00</p>
+      <p id="tiempoPomodoro">{{min}}:{{seg}}</p>
       <p-toggleButton id="pomodoroButton" (click)="tempPomodoro()" [(ngModel)]="checkedPomodoro" onLabel="On" offLabel="Off"
         styleClass="p-button-rounded p-button-sm">
       </p-toggleButton>

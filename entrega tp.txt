@@ -1,0 +1,9 @@
+https://github.com/BrocardoSofia/WebTraqueoDeTareas.git
+
+Sofia Brocardo y Vanina Pintos
+
+Comandos en las terminales:
+- en la carpeta server
+	nodemon dist/index.js
+- en la carpeta tasky 
+	ng s

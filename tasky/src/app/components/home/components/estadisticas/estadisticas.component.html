@@ -1,4 +1,4 @@
-<section style="display: flex;">
+<section *ngIf="suma > 0" style="display: flex;" >
 
   <section style="width: 50%; margin-right: 1rem;">
     <p-card class="tarjeta" header="Estadisticas de categorias">
@@ -18,5 +18,14 @@
       </section>
     </p-card>
   </section>
+
+</section>
+
+<section *ngIf="suma < 1" style="color: #ABB2B9; font-family: 'Poppins', sans-serif; text-align: center; margin-top: 7rem;" >
+
+  <section style="width: 100%; margin-right: 1rem;">
+    <p>Realice tareas para poder visualizar estadisticas de las categorias y tareas realizadas</p>
+  </section>
+  <img src="./assets/sinEstadisticas.png" alt="imagen" width="200">
 
 </section>

@@ -10,6 +10,7 @@ import { Categoria } from '../categorias/Categoria';
   templateUrl: './estadisticas.component.html',
   styleUrls: ['./estadisticas.component.css']
 })
+
 export class EstadisticasComponent {
 
   //CATEGORIAS
@@ -57,8 +58,6 @@ export class EstadisticasComponent {
           })
 
           this.obtenerTiempoCategorias();
-        } else {
-          this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Realice tareas para poder mostrar estadisticas' });
         }
       },
       (error) => {
@@ -89,11 +88,7 @@ export class EstadisticasComponent {
         }
 
         // Se verifica si la suma es igual a 0
-        if (this.suma == 0) {
-
-          // Si la suma es 0, se muestra un mensaje informativo indicando que no hay tareas cargadas
-          this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Realice tareas para poder mostrar estadísticas' });
-        } else {
+        if (this.suma != 0) {
 
           // Si la suma no es 0, se configura el objeto 'data' para mostrar los datos en el gráfico
           this.categorias = {
@@ -157,9 +152,6 @@ export class EstadisticasComponent {
             }
           );
 
-        }else{
-          this.limpiarSeleccion()
-          this.messageService.add({ severity: 'info', summary: 'Info', detail: `${seleccion.nombre} no tiene tareas cargadas` });
         }
       },
       error => {

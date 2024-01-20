@@ -1,0 +1,9 @@
+agregar en esta carpeta un archivo config.js
+con el siguiente contenido:
+
+module.exports = {
+    host: 'ejemplo-mysql.services.clever-cloud.com',
+    sequelize1:'s1',
+    sequelize2:'s2',
+    sequelize3:'s3'
+};

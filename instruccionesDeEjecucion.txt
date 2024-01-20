@@ -1,0 +1,10 @@
+Sofia Brocardo y Vanina Pintos
+
+Comandos en las terminales:
+- en la carpeta server
+	nodemon dist/index.js
+- en la carpeta tasky 
+	ng s
+
+Incorporar los archivos correspondientes en las siguientes carpetas:
+- server/src/db

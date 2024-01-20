@@ -23,24 +23,29 @@
 
 <p-dialog [(visible)]="visibleAgua" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
   [resizable]="false" [closable]="false">
-  <section id="tomarAgua">
+  <section class="tomarAgua">
     <br>
-    <h1 id="tituloAgua">¡¡Recordatorio para tomar agua!!</h1>
+    <h1 class="tituloAgua">¡¡Recordatorio para tomar agua!!</h1>
     <br>
-    <img id="infoAgua" src="./assets/agua.png" alt="aguaIcono">
+    <img class="infoAgua" src="./assets/agua.png" alt="aguaIcono">
     <br>
-    <p-button id="botonAgua" (click)="closeAguaInf()" label="Entendido" [style]="{ borderRadius: '10px'}"></p-button>
+    <p-button class="botonAgua" (click)="closeAguaInf()" label="Entendido" [style]="{ borderRadius: '10px'}"></p-button>
     <br>
   </section>
 </p-dialog>
 
 <p-dialog [(visible)]="visiblePomodoro" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
   [resizable]="false" [closable]="false">
-  <section id="tomarAgua" style="text-align: center;">
+  <section class="tomarAgua" style="text-align: center;">
     <br>
-    <h1 id="tituloAgua">¡¡Recordatorio para tomarse un descanso!!</h1>
+    <h1 class="tituloAgua">¡¡Recordatorio para tomarse un descanso!!</h1>
     <br>
-    <p-button id="botonAgua" (click)="closePomodoro()" label="Entendido" [style]="{ borderRadius: '10px'}"></p-button>
+    <img class="infoDescanso" src="./assets/descanso.png" alt="descansoIcono">
+    <br>
+    <p id="tiempoDescanzo">{{min_descanso}}:{{seg_descanso}}</p>
+    <br>
+    <p-button class="botonAgua" (click)="closePomodoro()" label="Terminar descanso" [style]="{ borderRadius: '10px'}"></p-button>
     <br>
   </section>
 </p-dialog>
+

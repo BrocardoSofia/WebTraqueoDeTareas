@@ -2,16 +2,15 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { CardModule } from 'primeng/card';
 import { LocalizacionJson } from 'src/app/interfaces/auth';
 import { AuthService } from 'src/app/services/auth.service';
-import { passwordMatchValidator } from 'src/app/shared/password-match.directive';
 import { LocalizacionService } from 'src/app/services/localizacion.service';
 import { Localizacion } from 'src/app/interfaces/Localizacion';
 
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { TemporizadorService } from 'src/app/services/temporizador.service';
 import { Temporizador } from 'src/app/interfaces/Temporizador';
+import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-configuracion',
@@ -56,7 +55,8 @@ export class ConfiguracionComponent {
     private messageService: MessageService,
     private localizacionService: LocalizacionService,
     private usuarioService: UsuarioService,
-    private temporizadorService: TemporizadorService) { }
+    private temporizadorService: TemporizadorService,
+    private navBarService: NavbarService) { }
 
   get nuevoPassword() {
     return this.passwordForm.controls['nuevoPassword'];
@@ -134,9 +134,6 @@ export class ConfiguracionComponent {
       temporizador.minutos_descanso = parseInt(tiempoDescanzo)
       temporizador.minutos_tarea = parseInt(tiempoTarea)
 
-      localStorage.setItem('minutos_agua', JSON.stringify(temporizador.minutos_agua))
-      localStorage.setItem('minutos_descanso', JSON.stringify(temporizador.minutos_descanso))
-
       this.temporizadorService.obtenerTemporizador(this.idUsuarioNumber).subscribe(
         res => {
 
@@ -146,8 +143,13 @@ export class ConfiguracionComponent {
             this.temporizadorService.guardarTemporizador(temporizador).subscribe()
           }
 
+          localStorage.setItem('minutos_tarea', JSON.stringify(temporizador.minutos_tarea));
+          localStorage.setItem('minutos_agua', JSON.stringify(temporizador.minutos_agua));
+          localStorage.setItem('minutos_descanso', JSON.stringify(temporizador.minutos_descanso));
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se modifico correctamente' });
 
+          // Emitir un evento para indicar que el temporizador ha sido actualizado
+          this.navBarService.actualizarTemporizador();
           //REDIRECCIONA A INICIO
           this.router.navigate(['/home']);
         }

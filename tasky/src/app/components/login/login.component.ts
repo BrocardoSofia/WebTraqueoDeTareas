@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { AuthService } from 'src/app/services/auth.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { LocalizacionService } from 'src/app/services/localizacion.service';
 import { TemporizadorService } from 'src/app/services/temporizador.service';
@@ -20,7 +19,6 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
     private usuarioService: UsuarioService,
     private router: Router,
     private msgService: MessageService,
@@ -74,6 +72,7 @@ export class LoginComponent {
                         if (res.length > 0) {
                           localStorage.setItem('minutos_agua', JSON.stringify(res[0].minutos_agua))
                           localStorage.setItem('minutos_descanso', JSON.stringify(res[0].minutos_descanso))
+                          localStorage.setItem('minutos_tarea', JSON.stringify(res[0].minutos_tarea))
                         }
 
                         localStorage.setItem('token', 'token') //guardo token para guards

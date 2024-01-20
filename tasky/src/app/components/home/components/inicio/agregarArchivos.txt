@@ -1,0 +1,3 @@
+Crear archivo config.ts en la misma carpeta con el siguiente cuerpo
+// config.ts
+export const API_KEY = 'apikeyAqui';

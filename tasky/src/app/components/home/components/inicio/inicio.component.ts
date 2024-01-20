@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Weather } from 'src/app/interfaces/auth';
 import { LocalizacionService } from 'src/app/services/localizacion.service';
-
+import { API_KEY } from './config';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -58,7 +58,7 @@ function pedirAPI() {
     let lat: string =  JSON.parse(localStorage.getItem('latitud')!);
     let lon: string = JSON.parse(localStorage.getItem('longitud')!);
 
-    let API_key: string = 'd68ad79be1ac8c2e9d59bd959317eea0';
+    let API_key: string = API_KEY;
 
     xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + API_key + '&units=metric&lang=es');
     xhr.responseType = 'json';

@@ -58,9 +58,7 @@ function pedirAPI() {
     let lat: string =  JSON.parse(localStorage.getItem('latitud')!);
     let lon: string = JSON.parse(localStorage.getItem('longitud')!);
 
-    let API_key: string = API_KEY;
-
-    xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + API_key + '&units=metric&lang=es');
+    xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + API_KEY + '&units=metric&lang=es');
     xhr.responseType = 'json';
 
     xhr.onload = function () {

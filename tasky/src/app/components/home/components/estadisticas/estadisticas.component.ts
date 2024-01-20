@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { TareaService } from 'src/app/services/tarea.service';
 import { MessageService } from 'primeng/api';
 import { forkJoin } from 'rxjs';
 import { Categoria } from '../categorias/Categoria';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-estadisticas',
@@ -11,7 +12,7 @@ import { Categoria } from '../categorias/Categoria';
   styleUrls: ['./estadisticas.component.css']
 })
 
-export class EstadisticasComponent {
+export class EstadisticasComponent implements OnInit{
 
   //CATEGORIAS
   categorias: any;
@@ -39,7 +40,35 @@ export class EstadisticasComponent {
   constructor(
     private categoriaService: CategoriaService,
     private tareaService: TareaService,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private viewportScroller: ViewportScroller) { }
+
+  ngOnInit() {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+
+    this.arrNombresCategorias = []
+    this.arrIdsCategorias = []
+    this.arrTiemposCategorias = []
+
+    this.arrNombresTareas = []
+    this.arrTiemposTareas = []
+
+    this.obtenerNombresCategorias();
+
+    this.viewportScroller.scrollToPosition([0, 0]);
+
+    this.options = {
+      plugins: {
+        legend: {
+          labels: {
+            usePointStyle: true,
+            color: textColor
+          }
+        }
+      }
+    }
+  }
 
   obtenerNombresCategorias() {
     this.categoriaService.obtenerCategorias(this.idUsuarioNumber).subscribe(
@@ -174,29 +203,6 @@ export class EstadisticasComponent {
     }
   }
 
-  ngOnInit() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
 
-    this.arrNombresCategorias = []
-    this.arrIdsCategorias = []
-    this.arrTiemposCategorias = []
-
-    this.arrNombresTareas = []
-    this.arrTiemposTareas = []
-
-    this.obtenerNombresCategorias();
-
-    this.options = {
-      plugins: {
-        legend: {
-          labels: {
-            usePointStyle: true,
-            color: textColor
-          }
-        }
-      }
-    }
-  }
 }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -11,6 +11,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { TemporizadorService } from 'src/app/services/temporizador.service';
 import { Temporizador } from 'src/app/interfaces/Temporizador';
 import { NavbarService } from 'src/app/services/navbar.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-configuracion',
@@ -18,7 +19,7 @@ import { NavbarService } from 'src/app/services/navbar.service';
   styleUrls: ['./configuracion.component.css']
 })
 
-export class ConfiguracionComponent {
+export class ConfiguracionComponent implements OnInit{
   registerForm = this.fb.group({
     ciudad: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
     provincia: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
@@ -56,7 +57,12 @@ export class ConfiguracionComponent {
     private localizacionService: LocalizacionService,
     private usuarioService: UsuarioService,
     private temporizadorService: TemporizadorService,
-    private navBarService: NavbarService) { }
+    private navBarService: NavbarService,
+    private viewportScroller: ViewportScroller) { }
+
+  ngOnInit() {
+    this.viewportScroller.scrollToPosition([0, 0]);
+  }
 
   get nuevoPassword() {
     return this.passwordForm.controls['nuevoPassword'];

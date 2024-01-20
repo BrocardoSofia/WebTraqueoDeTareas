@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Weather } from 'src/app/interfaces/auth';
 import { LocalizacionService } from 'src/app/services/localizacion.service';
 import { API_KEY } from './config';
+import { ViewportScroller } from '@angular/common';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -20,12 +21,14 @@ export class InicioComponent implements OnInit {
   //ID USUARIO DEL LOCAL STORAGE
   nombre_usuario = JSON.parse(localStorage.getItem('nombre_usuario')!);
 
-  constructor(private localizacionService : LocalizacionService){}
+  constructor(private localizacionService : LocalizacionService,
+              private viewportScroller: ViewportScroller){}
 
   ngOnInit() {
     this.mostrarHora();
     this.mostrarClima();
     this.saludar();
+    this.viewportScroller.scrollToPosition([0, 0]);
   }
 
   mostrarHora() {

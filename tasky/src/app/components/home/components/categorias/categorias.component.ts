@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Categoria } from './Categoria';
 import { Router } from '@angular/router';
 import {
@@ -9,13 +9,14 @@ import {
 import { Message } from 'primeng/api';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { MessageService } from 'primeng/api';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-categorias',
   templateUrl: './categorias.component.html',
   styleUrls: ['./categorias.component.css'],
 })
-export class CategoriasComponent {
+export class CategoriasComponent implements OnInit{
 
   //ID USUARIO DEL LOCAL STORAGE
   idUsuarioString = localStorage.getItem('id_usuario');
@@ -35,6 +36,25 @@ export class CategoriasComponent {
   //MODALES
   showModalEditar: boolean = false;
   showModalBorrar: boolean = false;
+
+  constructor(
+    private categoriaService: CategoriaService,
+    private router: Router,
+    private msgService : MessageService,
+    private viewportScroller: ViewportScroller) { }
+
+  ngOnInit(): void {
+    //vacio variables
+    this.listaCategorias = []
+    this.objCategoria = new Categoria()
+    this.nuevo = ''
+    this.editado = ''
+
+    //cargo las categorias
+    this.obtenerCategorias();
+
+    this.viewportScroller.scrollToPosition([0, 0]);
+  }
 
   obtenerCategorias() {
 
@@ -197,19 +217,5 @@ export class CategoriasComponent {
     this.router.navigate(['/home/categorias/tareas']);
   }
 
-  constructor(
-    private categoriaService: CategoriaService,
-    private router: Router,
-    private msgService : MessageService) { }
 
-  ngOnInit(): void {
-    //vacio variables
-    this.listaCategorias = []
-    this.objCategoria = new Categoria()
-    this.nuevo = ''
-    this.editado = ''
-
-    //cargo las categorias
-    this.obtenerCategorias();
-  }
 }

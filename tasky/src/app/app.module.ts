@@ -14,12 +14,15 @@ import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
 import { ToastrModule } from 'ngx-toastr';
+import { HelpComponent } from './components/home/components/footerShared/help/help.component';
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +35,7 @@ import { ToastrModule } from 'ngx-toastr';
     ToastModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    AccordionModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Tarea } from './Tarea';
 import { TareaService } from 'src/app/services/tarea.service';
 import { Message } from 'primeng/api';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-tareas',
   templateUrl: './tareas.component.html',
   styleUrls: ['./tareas.component.css']
 })
-export class TareasComponent {
-  constructor(private tareaService: TareaService) { }
+export class TareasComponent implements OnInit{
+  constructor(private tareaService: TareaService,
+              private viewportScroller: ViewportScroller) { }
 
   //ID USUARIO DEL LOCAL STORAGE
   nombreCategoria = JSON.parse(localStorage.getItem('nombre_categoria')!);
@@ -36,6 +38,25 @@ export class TareasComponent {
   advertencia: Message[] = [];
   advertir: boolean = false;
   mensaje: string = 'ha ocurrido un error inesperado'
+
+  ngOnInit(): void {
+    this.arrTareas = [];
+    this.arrNombres = [];
+    this.tareaObj = new Tarea();
+    this.tareaSeleccionada = "";
+
+    this.advertir = false;
+    this.corriendo = false;
+
+    this.hr = '0' + 0;
+    this.min = '0' + 0;
+    this.seg = '0' + 0;
+
+    this.obtenerTareas();
+    this.cargarMensaje();
+
+    this.viewportScroller.scrollToPosition([0, 0]);
+  }
 
   obtenerTareas() {
     this.tareaService.obtenerTareas(this.idCategoriaNumber).subscribe(
@@ -201,20 +222,5 @@ export class TareasComponent {
     this.guardarTarea();
   }
 
-  ngOnInit(): void {
-    this.arrTareas = [];
-    this.arrNombres = [];
-    this.tareaObj = new Tarea();
-    this.tareaSeleccionada = "";
 
-    this.advertir = false;
-    this.corriendo = false;
-
-    this.hr = '0' + 0;
-    this.min = '0' + 0;
-    this.seg = '0' + 0;
-
-    this.obtenerTareas();
-    this.cargarMensaje();
-  }
 }

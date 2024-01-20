@@ -27,9 +27,14 @@ import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import {AccordionModule} from 'primeng/accordion'
 
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import { AboutTaskyComponent } from './components/footerShared/about-tasky/about-tasky.component';
+import { TeamComponent } from './components/footerShared/team/team.component';
+import { ContactUsComponent } from './components/footerShared/contact-us/contact-us.component';
+import { TermsAndConditionsComponent } from './components/footerShared/terms-and-conditions/terms-and-conditions.component';
 registerLocaleData(localeEs, 'es');
 @NgModule({
   declarations: [
@@ -43,7 +48,11 @@ registerLocaleData(localeEs, 'es');
     UsuarioComponent,
     EstadisticasComponent,
     BodyComponent,
-    ConfiguracionComponent
+    ConfiguracionComponent,
+    AboutTaskyComponent,
+    TeamComponent,
+    ContactUsComponent,
+    TermsAndConditionsComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +69,8 @@ registerLocaleData(localeEs, 'es');
     CardModule,
     ChartModule,
     SelectButtonModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    AccordionModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es'}]
 })

@@ -1,0 +1,10 @@
+Dentro de la carpeta db crear un file con el siguiente nombre: config.js
+El cual debe tener el siguiente formato 
+
+// config.js
+module.exports = {
+    host: 'ejemplo-mysql.services.clever-cloud.com',
+    sequelize1: 'seq1',
+    sequelize2:'seq2',
+    sequelize3:'seq3'
+};

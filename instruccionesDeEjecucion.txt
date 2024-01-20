@@ -6,5 +6,6 @@ Comandos en las terminales:
 - en la carpeta tasky 
 	ng s
 
-Incorporar los archivos correspondientes en las siguientes carpetas:
+Incorporar los archivos correspondientes en las siguientes carpetas (ver agregarArchivos.txt en cada una):
 - server/src/db
+- tasky/src/app/components/home/components/inicio

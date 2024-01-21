@@ -1,5 +1,5 @@
 import { Request, Response, response } from 'express';
-import sequelize from '../db/connection';
+const sequelize = require('../db/connection');
 import { QueryTypes } from 'sequelize';
 
 export const tieneLocalizacion = async (req: Request, res: Response) => {

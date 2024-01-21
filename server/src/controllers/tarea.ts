@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import sequelize from '../db/connection';
+const sequelize = require('../db/connection');
 import { QueryTypes } from 'sequelize';
 import Tarea from '../models/tarea';
 

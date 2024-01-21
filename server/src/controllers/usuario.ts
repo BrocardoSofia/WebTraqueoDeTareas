@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import sequelize from '../db/connection';
+const sequelize = require('../db/connection');
 import { QueryTypes } from 'sequelize';
 
 export const existeEmail = async (req: Request, res: Response) => {

@@ -1,0 +1,12 @@
+img{
+  align-self: center;
+  width: 100%;
+}
+
+.imgUtn{
+  width: 20%;
+  align-self: center;
+  justify-self: center;
+  margin-top: 5vh;
+  opacity: 0.8;
+}

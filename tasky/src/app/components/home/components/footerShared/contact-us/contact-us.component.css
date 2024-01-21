@@ -1,0 +1,15 @@
+.logo{
+  width: 3.5vw;
+  margin-right: 1vw;
+  opacity: 0.5;
+  margin-bottom: 2vh;
+}
+
+.logo:hover{
+  opacity: 1;
+}
+
+img{
+  align-self: center;
+  width: 100%;
+}

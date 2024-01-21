@@ -1,1 +1,26 @@
-<p>terms-and-conditions works!</p>
+<p-card>
+  <ng-template pTemplate="title">
+    <span>Términos y Condiciones</span>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div style="display: grid; grid-template-columns: 1fr 3fr;">
+      <div>
+        <img src="/assets/terminosYCondiciones.png" alt="tasky">
+      </div>
+      <div style="justify-self: center; align-self: center; margin-left: 2vw;">
+        <p>Al utilizar nuestra aplicación de seguimiento de tareas, aceptas los siguientes términos y condiciones:</p>
+        <ul>
+          <li>Debes ingresar tu correo electrónico y contraseña para acceder a la aplicación.</li>
+          <li>La aplicación puede almacenar información de ubicación para ayudarte a realizar un seguimiento de tus
+            tareas.</li>
+          <li>Las tareas se pueden categorizar para ayudarte a organizarlas mejor.</li>
+          <li>La aplicación no se hace responsable de la pérdida de datos o información.</li>
+          <li>La aplicación no se hace responsable de cualquier daño o lesión que pueda resultar del uso de la
+            aplicación.</li>
+        </ul>
+        <p>Si tienes alguna pregunta o inquietud sobre estos términos y condiciones, no dudes en ponerte en contacto con
+          nosotros.</p>
+      </div>
+    </div>
+  </ng-template>
+</p-card>

@@ -57,8 +57,12 @@
   <br>
   <br>
 
+  <p *ngIf="arrTareas.length < 1" style="color: #ABB2B9; font-family: 'Poppins', sans-serif; text-align: center;">
+    No hay tareas cargadas, realice o ingrese una nueva tarea
+  </p>
+
   <!-- TABLA DE HISTORIAL -->
-  <table class="tabla">
+  <table class="tabla" *ngIf="arrTareas.length > 0">
     <thead>
       <tr>
         <th>Tarea</th>

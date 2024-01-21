@@ -20,10 +20,13 @@
       [closable]="true"></p-messages>
   </div>
 
+  <p *ngIf="listaCategorias.length < 1" style="color: #ABB2B9; font-family: 'Poppins', sans-serif; text-align: center;">
+    No hay categorias cargadas, ingrese una nueva categoria
+  </p>
+
   <!-- LISTA DE CATEGORIAS -->
   <div class="lista-de-categorias">
     <div class="input-group" *ngFor="let categoria of listaCategorias">
-      <!-- routerLink="/home/categorias/tareas" -->
       <li type="text" class="form-control" (click)="redirigir(categoria)">{{categoria.nombre}}</li>
       <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
         (click)="callEditarCategoria(categoria)"> <i class=" pi pi-pencil" style="font-size: 1.5rem"></i> </button>

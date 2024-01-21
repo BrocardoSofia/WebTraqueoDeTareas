@@ -60,9 +60,7 @@ export class CategoriasComponent implements OnInit{
 
     this.categoriaService.obtenerCategorias(this.idUsuarioNumber).subscribe(
       (res) => {
-        if (res.length == 0) {
-          this.msgService.add({ severity: 'info', summary: 'Info', detail: 'No hay categorias cargadas' });
-        } else {
+        if (res.length != 0) {
           this.listaCategorias = res;
         }
       },

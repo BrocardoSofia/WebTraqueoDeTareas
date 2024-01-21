@@ -1,9 +1,22 @@
 img{
   width: 30vw;
-  margin-bottom: 3vh;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 20px;
 }
 
 .imgAnchas{
   width: 50vw;
+  border: 1px solid #ccc;
+  padding: 10px;
   margin-bottom: 3vh;
+  border-radius: 10px;
 }

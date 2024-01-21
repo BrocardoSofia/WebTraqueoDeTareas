@@ -20,9 +20,12 @@
       [closable]="true"></p-messages>
   </div>
 
-  <p *ngIf="listaCategorias.length < 1" style="color: #ABB2B9; font-family: 'Poppins', sans-serif; text-align: center;">
+  <section *ngIf="listaCategorias.length < 1">
+    <h3  style="color: #ffff; font-family: 'Poppins', sans-serif; text-align: center;">
     No hay categorias cargadas, ingrese una nueva categoria
-  </p>
+    </h3>
+    <img class="imagen_categoria" src="/assets/sin_categorias.png" alt="imgen ilustrativa" style="width: 30vw;">
+  </section>
 
   <!-- LISTA DE CATEGORIAS -->
   <div class="lista-de-categorias">

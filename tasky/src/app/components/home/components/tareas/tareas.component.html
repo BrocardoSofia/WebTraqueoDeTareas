@@ -57,9 +57,12 @@
   <br>
   <br>
 
-  <p *ngIf="arrTareas.length < 1" style="color: #ABB2B9; font-family: 'Poppins', sans-serif; text-align: center;">
+  <section *ngIf="arrTareas.length < 1">
+    <h4  style="color: #ffff; font-family: 'Poppins', sans-serif; text-align: center;">
     No hay tareas cargadas, realice o ingrese una nueva tarea
-  </p>
+    </h4>
+    <img class="imagen_tarea" src="/assets/sin_categorias.png" alt="imgen ilustrativa" style="width: 30vw;">
+  </section>
 
   <!-- TABLA DE HISTORIAL -->
   <table class="tabla" *ngIf="arrTareas.length > 0">

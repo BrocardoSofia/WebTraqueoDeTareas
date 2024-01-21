@@ -55,6 +55,15 @@ h1 {
   margin-right: 8.5rem;
 }
 
+.imagen_categoria{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  border-radius: 10%;
+  margin-bottom: 5vh;
+}
+
 /* ESTILOS DE LA ALERTA DE ERROR */
 .contenedor-error {
   border: none;

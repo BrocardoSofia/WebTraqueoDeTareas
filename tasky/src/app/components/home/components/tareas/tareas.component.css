@@ -17,6 +17,15 @@ h1 {
   text-align: center;
 }
 
+.imagen_tarea{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  border-radius: 10%;
+  margin-bottom: 5vh;
+}
+
 /* ESTILOS DE ALERTA */
 .contenedor-error {
   border: none;
